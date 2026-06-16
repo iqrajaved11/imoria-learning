@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Imoria Learning</title>
+  <meta name="description" content="Your Imoria Learning study dashboard — track progress, access notes, MCQs and MDCAT prep." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===================== TOKENS ===================== */
+    :root {
+      --navy-900: #0A1628;
+      --navy-800: #0D1B2A;
+      --navy-700: #112240;
+      --navy-600: #1A3358;
+      --navy-500: #1E3D6B;
+
+      --gold-light: #F0D080;
+      --gold-main:  #C9A84C;
+      --gold-dark:  #A07830;
+      --gold-gradient: linear-gradient(135deg, #F0D080 0%, #C9A84C 50%, #A07830 100%);
+      --gold-glow: 0 0 24px rgba(201,168,76,0.3);
+
+      --success: #22C55E;
+      --error:   #EF4444;
+      --warning: #F59E0B;
+      --info:    #3B82F6;
+
+      --chem-color:  #F97316;
+      --phys-color:  #3B82F6;
+      --bio-color:   #22C55E;
+      --eng-color:   #A855F7;
+
+      /* Dark mode (default for app) */
+      --bg:        #080E1A;
+      --surface:   #0D1B2A;
+      --surface2:  #112240;
+      --surface3:  #1A3358;
+      --text:      #F0F4FF;
+      --text-muted:#94A3B8;
+      --border:    #1E3050;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 28px;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.3);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+
+      --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+
+      --sidebar-w: 240px;
+      --topbar-h:  64px;
+      --bottom-nav-h: 64px;
+    }
+
+    [data-theme="light"] {
+      --bg:        #F3F5F9;
+      --surface:   #FFFFFF;
+      --surface2:  #F0F2F7;
+      --surface3:  #E8EBF2;
+      --text:      #0A1628;
+      --text-muted:#6B7280;
+      --border:    #E2E6EF;
+    }
+
+    /* ===================== RESET ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--font-body); border: none; background: none; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ===================== LAYOUT ===================== */
+    .app-shell {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      grid-template-rows: var(--topbar-h) 1fr;
+      grid-template-areas:
+        "sidebar topbar"
+        "sidebar main";
+      min-height: 100vh;
+    }
+
+    /* ===================== SIDEBAR ===================== */
+    .sidebar {
+      grid-area: sidebar;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--sidebar-w);
+      height: 100vh;
+      z-index: 200;
+      transition: transform var(--transition);
+      overflow-y: auto;
+    }
+    .sidebar-logo {
+      display: flex; align-items: center; gap: 10px;
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .logo-mark {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--gold-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 0.9rem; font-weight: 900;
+      color: var(--navy-900); flex-shrink: 0;
+    }
+    .logo-text {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+      color: var(--text); line-height: 1.2;
+    }
+    .logo-text small { display: block; font-family: var(--font-body); font-size: 0.68rem; font-weight: 400; color: var(--text-muted); }
+
+    .sidebar-nav { flex: 1; padding: 12px 10px; }
+    .nav-section-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-muted); padding: 8px 10px 6px; margin-top: 4px;
+    }
+    .nav-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: var(--radius-sm);
+      font-size: 0.875rem; font-weight: 500; color: var(--text-muted);
+      transition: all var(--transition); position: relative; margin-bottom: 2px;
+    }
+    .nav-link:hover { background: var(--surface2); color: var(--text); }
+    .nav-link.active {
+      background: rgba(201,168,76,0.1); color: var(--gold-main);
+      font-weight: 600;
+    }
+    .nav-link.active::before {
+      content: ''; position: absolute; left: 0; top: 20%; bottom: 20%;
+      width: 3px; border-radius: 0 2px 2px 0;
+      background: var(--gold-gradient);
+    }
+    .nav-icon { font-size: 1rem; flex-shrink: 0; width: 20px; text-align: center; }
+    .nav-badge {
+      margin-left: auto; background: var(--gold-main); color: var(--navy-900);
+      font-size: 0.65rem; font-weight: 800; padding: 2px 7px; border-radius: 99px;
+    }
+
+    /* Subject nav items */
+    .subject-nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px; border-radius: var(--radius-sm);
+      font-size: 0.82rem; font-weight: 500; color: var(--text-muted);
+      transition: all var(--transition); margin-bottom: 2px; cursor: pointer;
+    }
+    .subject-nav-item:hover { background: var(--surface2); color: var(--text); }
+    .subject-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    .sidebar-footer {
+      padding: 12px 10px;
+      border-top: 1px solid var(--border);
+    }
+    .plan-badge {
+      background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 8px;
+    }
+    .plan-badge-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+    .plan-badge-name { font-size: 0.85rem; font-weight: 700; color: var(--gold-main); }
+    .plan-upgrade-btn {
+      display: block; width: 100%; padding: 9px;
+      background: var(--gold-gradient); color: var(--navy-900);
+      font-size: 0.8rem; font-weight: 700; border-radius: var(--radius-sm);
+      text-align: center; transition: all var(--transition);
+    }
+    .plan-upgrade-btn:hover { filter: brightness(1.08); }
+
+    /* ===================== TOPBAR ===================== */
+    .topbar {
+      grid-area: topbar;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 24px;
+      position: sticky; top: 0; z-index: 100;
+      gap: 16px;
+      margin-left: var(--sidebar-w);
+    }
+    .topbar-greeting {
+      font-size: 0.9rem; font-weight: 600; color: var(--text);
+    }
+    .topbar-greeting span { color: var(--gold-main); }
+    .topbar-right {
+      display: flex; align-items: center; gap: 12px; margin-left: auto;
+    }
+    .topbar-search {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 8px 14px;
+      font-size: 0.82rem; color: var(--text-muted);
+      transition: border-color var(--transition); cursor: pointer; width: 200px;
+    }
+    .topbar-search:hover { border-color: var(--gold-main); }
+    .topbar-icon-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--surface2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem; color: var(--text-muted);
+      transition: all var(--transition); position: relative;
+    }
+    .topbar-icon-btn:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .notif-dot {
+      position: absolute; top: 6px; right: 6px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold-main); border: 2px solid var(--surface);
+    }
+    .user-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--gold-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.82rem; font-weight: 700; color: var(--navy-900);
+      cursor: pointer; flex-shrink: 0;
+      border: 2px solid rgba(201,168,76,0.4);
+      position: relative;
+    }
+    .user-dropdown {
+      position: absolute; top: calc(100% + 10px); right: 0;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 6px;
+      min-width: 180px; box-shadow: var(--shadow-lg); z-index: 500;
+      display: none;
+    }
+    .user-dropdown.open { display: block; }
+    .dropdown-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 12px; border-radius: var(--radius-sm);
+      font-size: 0.83rem; color: var(--text-muted);
+      transition: all var(--transition); cursor: pointer;
+    }
+    .dropdown-item:hover { background: var(--surface2); color: var(--text); }
+    .dropdown-item.danger:hover { background: rgba(239,68,68,0.08); color: var(--error); }
+    .dropdown-divider { height: 1px; background: var(--border); margin: 4px 0; }
+    .hamburger-btn {
+      display: none; width: 38px; height: 38px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); align-items: center; justify-content: center;
+      flex-direction: column; gap: 4px; cursor: pointer;
+    }
+    .hamburger-btn span { display: block; width: 16px; height: 2px; background: var(--text-muted); border-radius: 2px; }
+
+    /* ===================== MAIN CONTENT ===================== */
+    .main-content {
+      grid-area: main;
+      margin-left: var(--sidebar-w);
+      padding: 28px 28px 100px;
+      max-width: 1200px;
+    }
+
+    /* ===================== WELCOME BANNER ===================== */
+    .welcome-banner {
+      background: var(--navy-700);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 28px; position: relative; overflow: hidden;
+    }
+    .welcome-banner::before {
+      content: ''; position: absolute;
+      width: 400px; height: 400px;
+      right: -80px; top: 50%; transform: translateY(-50%);
+      background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    [data-theme="light"] .welcome-banner { background: var(--navy-800); }
+    .welcome-text { position: relative; z-index: 1; }
+    .welcome-eyebrow {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold-main); margin-bottom: 6px;
+    }
+    .welcome-title {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 900;
+      color: white; margin-bottom: 6px; line-height: 1.2;
+    }
+    .welcome-title em {
+      font-style: normal;
+      background: var(--gold-gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .welcome-sub { font-size: 0.83rem; color: rgba(255,255,255,0.5); }
+    .welcome-actions { display: flex; gap: 10px; position: relative; z-index: 1; }
+    .welcome-cta {
+      padding: 10px 22px; border-radius: var(--radius-sm);
+      font-size: 0.85rem; font-weight: 700;
+      background: var(--gold-gradient); color: var(--navy-900);
+      white-space: nowrap; transition: all var(--transition);
+    }
+    .welcome-cta:hover { filter: brightness(1.08); }
+    .welcome-cta-outline {
+      padding: 10px 18px; border-radius: var(--radius-sm);
+      font-size: 0.85rem; font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7);
+      white-space: nowrap; transition: all var(--transition);
+    }
+    .welcome-cta-outline:hover { border-color: var(--gold-main); color: var(--gold-light); }
+
+    /* Streak pill inside banner */
+    .streak-pill {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 100px; padding: 5px 12px; margin-bottom: 12px;
+      width: fit-content;
+    }
+    .streak-pill span { font-size: 0.75rem; font-weight: 700; color: var(--gold-light); }
+
+    /* ===================== STATS ROW ===================== */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px; margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 18px 20px;
+      transition: all var(--transition);
+    }
+    .stat-card:hover { border-color: rgba(201,168,76,0.3); box-shadow: var(--shadow-sm); }
+    .stat-card-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .stat-card-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); }
+    .stat-card-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+    }
+    .stat-card-icon.gold { background: rgba(201,168,76,0.1); }
+    .stat-card-icon.green { background: rgba(34,197,94,0.1); }
+    .stat-card-icon.blue { background: rgba(59,130,246,0.1); }
+    .stat-card-icon.purple { background: rgba(168,85,247,0.1); }
+    .stat-card-value {
+      font-family: var(--font-display); font-size: 1.7rem; font-weight: 900;
+      color: var(--text); line-height: 1; margin-bottom: 4px;
+    }
+    .stat-card-change {
+      font-size: 0.72rem; color: var(--text-muted);
+    }
+    .stat-card-change.up { color: var(--success); }
+    .stat-card-change.up::before { content: '↑ '; }
+    .stat-card-change.down { color: var(--error); }
+
+    /* ===================== SECTION HEADER ===================== */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+      color: var(--text);
+    }
+    .section-link {
+      font-size: 0.8rem; font-weight: 600; color: var(--gold-main);
+      transition: opacity var(--transition);
+    }
+    .section-link:hover { opacity: 0.75; }
+
+    /* ===================== SUBJECTS GRID ===================== */
+    .subjects-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 16px; margin-bottom: 28px;
+    }
+    .subject-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 20px;
+      transition: all var(--transition); cursor: pointer;
+      position: relative; overflow: hidden;
+    }
+    .subject-card:hover {
+      border-color: rgba(201,168,76,0.3); transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .subject-card-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .subject-icon-wrap {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .subject-icon-wrap.chem { background: rgba(249,115,22,0.12); }
+    .subject-icon-wrap.phys { background: rgba(59,130,246,0.12); }
+    .subject-icon-wrap.bio  { background: rgba(34,197,94,0.12); }
+    .subject-icon-wrap.eng  { background: rgba(168,85,247,0.12); }
+    .subject-part-tag {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 100px;
+    }
+    .part-tag-1 { background: rgba(201,168,76,0.1); color: var(--gold-main); border: 1px solid rgba(201,168,76,0.2); }
+    .part-tag-2 { background: rgba(59,130,246,0.1); color: #60A5FA; border: 1px solid rgba(59,130,246,0.2); }
+    .subject-name {
+      font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px;
+    }
+    .subject-chapter-count {
+      font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px;
+    }
+    .subject-progress-wrap {
+      margin-bottom: 12px;
+    }
+    .progress-label-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.72rem; color: var(--text-muted); margin-bottom: 6px;
+    }
+    .progress-label-row span:last-child { font-weight: 700; color: var(--text); }
+    .progress-track {
+      height: 5px; background: var(--surface2); border-radius: 99px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; border-radius: 99px;
+      background: var(--gold-gradient); transition: width 0.8s ease;
+    }
+    .progress-fill.chem { background: linear-gradient(90deg, #F97316, #FDBA74); }
+    .progress-fill.phys { background: linear-gradient(90deg, #3B82F6, #93C5FD); }
+    .progress-fill.bio  { background: linear-gradient(90deg, #22C55E, #86EFAC); }
+    .progress-fill.eng  { background: linear-gradient(90deg, #A855F7, #D8B4FE); }
+    .subject-footer {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .subject-meta-row { display: flex; gap: 12px; }
+    .subject-meta-chip {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.72rem; color: var(--text-muted);
+    }
+    .subject-meta-chip strong { color: var(--text); font-weight: 700; }
+    .subject-continue-btn {
+      font-size: 0.78rem; font-weight: 700; color: var(--gold-main);
+      display: flex; align-items: center; gap: 5px;
+      transition: gap var(--transition);
+    }
+    .subject-card:hover .subject-continue-btn { gap: 9px; }
+
+    /* ===================== RECENT ACTIVITY + LEADERBOARD ROW ===================== */
+    .two-col-row {
+      display: grid; grid-template-columns: 1fr 340px;
+      gap: 16px; margin-bottom: 28px;
+    }
+
+    /* ===================== RECENT ACTIVITY ===================== */
+    .panel {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 20px;
+    }
+    .activity-list { display: flex; flex-direction: column; gap: 2px; }
+    .activity-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 12px; border-radius: var(--radius-sm);
+      transition: background var(--transition); cursor: pointer;
+    }
+    .activity-item:hover { background: var(--surface2); }
+    .activity-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem; flex-shrink: 0;
+    }
+    .activity-icon.mcq   { background: rgba(34,197,94,0.1); }
+    .activity-icon.notes { background: rgba(59,130,246,0.1); }
+    .activity-icon.mock  { background: rgba(201,168,76,0.1); }
+    .activity-icon.short { background: rgba(168,85,247,0.1); }
+    .activity-body { flex: 1; min-width: 0; }
+    .activity-title { font-size: 0.83rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .activity-sub { font-size: 0.72rem; color: var(--text-muted); }
+    .activity-right { text-align: right; flex-shrink: 0; }
+    .activity-score { font-size: 0.82rem; font-weight: 700; }
+    .activity-score.good { color: var(--success); }
+    .activity-score.avg  { color: var(--warning); }
+    .activity-time { font-size: 0.68rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ===================== LEADERBOARD ===================== */
+    .leaderboard-list { display: flex; flex-direction: column; gap: 4px; }
+    .lb-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 10px; border-radius: var(--radius-sm);
+      transition: background var(--transition);
+    }
+    .lb-item:hover { background: var(--surface2); }
+    .lb-rank {
+      width: 24px; text-align: center;
+      font-size: 0.78rem; font-weight: 800; color: var(--text-muted); flex-shrink: 0;
+    }
+    .lb-rank.gold-rank   { color: var(--gold-main); }
+    .lb-rank.silver-rank { color: #94A3B8; }
+    .lb-rank.bronze-rank { color: #CD7F32; }
+    .lb-avatar {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700; color: var(--navy-900);
+    }
+    .lb-info { flex: 1; min-width: 0; }
+    .lb-name { font-size: 0.83rem; font-weight: 600; color: var(--text); }
+    .lb-meta { font-size: 0.7rem; color: var(--text-muted); }
+    .lb-score {
+      font-size: 0.82rem; font-weight: 800; color: var(--gold-main); flex-shrink: 0;
+    }
+    /* "You" highlight */
+    .lb-item.you {
+      background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.15);
+    }
+    .you-tag {
+      font-size: 0.62rem; font-weight: 700; background: rgba(201,168,76,0.15);
+      color: var(--gold-main); padding: 2px 6px; border-radius: 4px;
+    }
+
+    /* ===================== MDCAT CARD + QUICK ACTIONS ROW ===================== */
+    .bottom-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 28px;
+    }
+
+    /* MDCAT Card */
+    .mdcat-card {
+      background: var(--navy-700); border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius-md); padding: 24px;
+      position: relative; overflow: hidden;
+    }
+    [data-theme="light"] .mdcat-card { background: var(--navy-800); }
+    .mdcat-card::before {
+      content: 'MDCAT';
+      position: absolute; right: -20px; bottom: -20px;
+      font-family: var(--font-display); font-size: 5rem; font-weight: 900;
+      color: rgba(201,168,76,0.05); line-height: 1; pointer-events: none;
+    }
+    .mdcat-card-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold-main); margin-bottom: 8px;
+    }
+    .mdcat-card-title {
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 900;
+      color: white; margin-bottom: 6px; line-height: 1.2;
+    }
+    .mdcat-card-sub { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-bottom: 20px; }
+    .mdcat-stats-row { display: flex; gap: 16px; margin-bottom: 20px; }
+    .mdcat-stat { }
+    .mdcat-stat-num { font-size: 1.2rem; font-weight: 800; color: var(--gold-light); line-height: 1; }
+    .mdcat-stat-label { font-size: 0.65rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+    .mdcat-card-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      background: var(--gold-gradient); color: var(--navy-900);
+      font-size: 0.82rem; font-weight: 700; transition: all var(--transition);
+    }
+    .mdcat-card-btn:hover { filter: brightness(1.08); }
+    .mdcat-card-secondary {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 16px; border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.65);
+      font-size: 0.82rem; font-weight: 600; transition: all var(--transition); margin-left: 8px;
+    }
+    .mdcat-card-secondary:hover { border-color: var(--gold-main); color: var(--gold-light); }
+
+    /* Quick Actions */
+    .quick-actions-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .quick-action {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 16px;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+      transition: all var(--transition); cursor: pointer;
+    }
+    .quick-action:hover { border-color: rgba(201,168,76,0.3); background: var(--surface); box-shadow: var(--shadow-sm); }
+    .qa-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+    .qa-label { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+    .qa-sub   { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* ===================== BOOKMARKS STRIP ===================== */
+    .bookmarks-strip {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 20px;
+      margin-bottom: 28px;
+    }
+    .bookmarks-list {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; margin-top: 14px;
+    }
+    .bookmark-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 12px 14px;
+      transition: all var(--transition); cursor: pointer;
+    }
+    .bookmark-card:hover { border-color: rgba(201,168,76,0.3); }
+    .bookmark-tag {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 6px;
+    }
+    .bookmark-q {
+      font-size: 0.8rem; color: var(--text); line-height: 1.4;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .bookmark-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 8px;
+    }
+    .bookmark-chapter { font-size: 0.68rem; color: var(--text-muted); }
+    .bookmark-type-icon { font-size: 0.75rem; }
+
+    /* ===================== PREMIUM GATE MODAL ===================== */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: var(--surface); border: 1px solid rgba(201,168,76,0.25);
+      border-radius: var(--radius-lg); padding: 32px;
+      max-width: 420px; width: 100%; text-align: center;
+      transform: translateY(20px); transition: transform 0.25s ease;
+      position: relative;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--surface2); color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; transition: all var(--transition);
+    }
+    .modal-close:hover { background: var(--surface3); color: var(--text); }
+    .modal-icon { font-size: 2.5rem; margin-bottom: 14px; }
+    .modal-title {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 900;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .modal-sub { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; }
+    .modal-features { text-align: left; margin-bottom: 24px; display: flex; flex-direction: column; gap: 8px; }
+    .modal-feat {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.82rem; color: var(--text-muted);
+    }
+    .modal-feat::before { content: '✓'; color: var(--gold-main); font-weight: 700; }
+    .modal-btn {
+      display: block; width: 100%; padding: 13px;
+      background: var(--gold-gradient); color: var(--navy-900);
+      font-size: 0.92rem; font-weight: 800; border-radius: var(--radius-sm);
+      margin-bottom: 10px; transition: all var(--transition);
+    }
+    .modal-btn:hover { filter: brightness(1.08); }
+    .modal-skip { font-size: 0.78rem; color: var(--text-muted); cursor: pointer; }
+    .modal-skip:hover { color: var(--text); }
+
+    /* ===================== TOAST ===================== */
+    .toast {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 12px 20px;
+      font-size: 0.83rem; font-weight: 600; color: var(--text);
+      box-shadow: var(--shadow-lg); z-index: 2000;
+      opacity: 0; transition: all 0.3s ease; white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.success { border-color: rgba(34,197,94,0.3); }
+    .toast.success::before { content: '✓ '; color: var(--success); }
+
+    /* ===================== MOBILE BOTTOM NAV ===================== */
+    .bottom-nav {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 8px 0 env(safe-area-inset-bottom, 0);
+      height: var(--bottom-nav-h);
+    }
+    .bottom-nav-inner {
+      display: flex; align-items: center; justify-content: space-around;
+      max-width: 480px; margin: 0 auto;
+    }
+    .bottom-nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 4px 16px; border-radius: var(--radius-sm);
+      font-size: 0.65rem; font-weight: 600; color: var(--text-muted);
+      transition: all var(--transition); cursor: pointer; min-width: 56px;
+    }
+    .bottom-nav-item .bn-icon { font-size: 1.1rem; }
+    .bottom-nav-item.active { color: var(--gold-main); }
+    .bottom-nav-item.active .bn-icon { filter: drop-shadow(0 0 4px rgba(201,168,76,0.4)); }
+
+    /* ===================== SIDEBAR OVERLAY (mobile) ===================== */
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0; z-index: 190;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(2px);
+    }
+    .sidebar-overlay.open { display: block; }
+
+    /* ===================== EMPTY STATE ===================== */
+    .empty-state {
+      text-align: center; padding: 32px 20px;
+      color: var(--text-muted); font-size: 0.85rem;
+    }
+    .empty-state .empty-icon { font-size: 2rem; margin-bottom: 10px; }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 1100px) {
+      .two-col-row { grid-template-columns: 1fr; }
+      .bottom-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .subjects-grid { grid-template-columns: 1fr; }
+      .bookmarks-list { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      :root { --sidebar-w: 240px; }
+      .app-shell { grid-template-columns: 1fr; grid-template-areas: "topbar" "main"; }
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .topbar { margin-left: 0; }
+      .main-content { margin-left: 0; padding: 16px 16px 80px; }
+      .hamburger-btn { display: flex; }
+      .bottom-nav { display: block; }
+      .welcome-banner { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .welcome-actions { width: 100%; }
+      .welcome-cta, .welcome-cta-outline { flex: 1; text-align: center; justify-content: center; display: flex; }
+      .quick-actions-grid { grid-template-columns: repeat(2, 1fr); }
+      .bookmarks-list { grid-template-columns: 1fr; }
+      .topbar-search { display: none; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .bottom-row { grid-template-columns: 1fr; }
+      .quick-actions-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =================== PREMIUM GATE MODAL =================== -->
+<div class="modal-overlay" id="premiumModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closePremiumModal()">✕</button>
+    <div class="modal-icon">🔒</div>
+    <div class="modal-title">Premium Content</div>
+    <p class="modal-sub">This chapter is part of the Premium plan. Unlock everything for less than a cup of chai per day.</p>
+    <div class="modal-features">
+      <div class="modal-feat">All chapter notes — PDF + online reader</div>
+      <div class="modal-feat">Unlimited MCQs & practice tests</div>
+      <div class="modal-feat">Full MDCAT mock tests (200 MCQs)</div>
+      <div class="modal-feat">Progress analytics & leaderboard</div>
+    </div>
+    <a href="login.html?plan=premium" class="modal-btn">Upgrade to Premium — Rs. 499/mo →</a>
+    <div class="modal-skip" onclick="closePremiumModal()">Maybe later</div>
+  </div>
+</div>
+
+<!-- =================== APP SHELL =================== -->
+<div class="app-shell">
+
+  <!-- =================== SIDEBAR =================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">IL</div>
+      <div class="logo-text">
+        Imoria
+        <small>Learn Smart. Rise Beyond.</small>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Menu</div>
+      <a href="dashboard.html" class="nav-link active">
+        <span class="nav-icon">🏠</span> Dashboard
+      </a>
+      <a href="profile.html" class="nav-link">
+        <span class="nav-icon">👤</span> My Profile
+      </a>
+      <a href="leaderboard.html" class="nav-link">
+        <span class="nav-icon">🏆</span> Leaderboard
+        <span class="nav-badge">Live</span>
+      </a>
+      <a href="#bookmarks" class="nav-link" onclick="scrollToBookmarks(event)">
+        <span class="nav-icon">🔖</span> Bookmarks
+      </a>
+
+      <div class="nav-section-label" style="margin-top:12px;">Subjects</div>
+      <div class="subject-nav-item" onclick="window.location.href='subject.html?s=chemistry'">
+        <span class="subject-dot" style="background:#F97316;"></span> Chemistry
+      </div>
+      <div class="subject-nav-item" onclick="window.location.href='subject.html?s=physics'">
+        <span class="subject-dot" style="background:#3B82F6;"></span> Physics
+      </div>
+      <div class="subject-nav-item" onclick="window.location.href='subject.html?s=biology'">
+        <span class="subject-dot" style="background:#22C55E;"></span> Biology
+      </div>
+      <div class="subject-nav-item" onclick="window.location.href='subject.html?s=english'">
+        <span class="subject-dot" style="background:#A855F7;"></span> English
+      </div>
+
+      <div class="nav-section-label" style="margin-top:12px;">Exam Prep</div>
+      <a href="mdcat.html" class="nav-link">
+        <span class="nav-icon">🎯</span> MDCAT Section
+      </a>
+      <a href="mdcat-mock.html" class="nav-link">
+        <span class="nav-icon">📝</span> Mock Tests
+      </a>
+
+      <div class="nav-section-label" style="margin-top:12px;">Support</div>
+      <a href="contact.html" class="nav-link">
+        <span class="nav-icon">💬</span> Contact Us
+      </a>
+      <a href="https://wa.me/923001234567" target="_blank" rel="noopener" class="nav-link">
+        <span class="nav-icon">📱</span> WhatsApp Help
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="plan-badge">
+        <div class="plan-badge-label">Current Plan</div>
+        <div class="plan-badge-name" id="sidebarPlanName">Free Plan</div>
+      </div>
+      <a href="login.html?plan=premium" class="plan-upgrade-btn" id="upgradeBtn">
+        ⚡ Upgrade to Premium
+      </a>
+    </div>
+  </aside>
+
+  <!-- Sidebar overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- =================== TOPBAR =================== -->
+  <header class="topbar">
+    <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="topbar-greeting">
+      Good <span id="timeOfDay">morning</span>, <span id="userFirstName">Student</span> 👋
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-search" onclick="showToast('Search coming soon!', 'info')">
+        🔍 Search chapters, MCQs…
+      </div>
+      <button class="topbar-icon-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">
+        🌙
+      </button>
+      <button class="topbar-icon-btn" onclick="showToast('No new notifications', 'info')" aria-label="Notifications">
+        🔔
+        <span class="notif-dot"></span>
+      </button>
+      <div class="user-avatar" id="userAvatar" onclick="toggleDropdown()">
+        AK
+        <div class="user-dropdown" id="userDropdown">
+          <div class="dropdown-item" onclick="window.location.href='profile.html'">👤 My Profile</div>
+          <div class="dropdown-item" onclick="window.location.href='leaderboard.html'">🏆 Leaderboard</div>
+          <div class="dropdown-item" onclick="window.location.href='login.html?plan=premium'">⚡ Upgrade Plan</div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item danger" onclick="signOut()">🚪 Sign Out</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =================== MAIN =================== -->
+  <main class="main-content" id="mainContent">
+
+    <!-- WELCOME BANNER -->
+    <div class="welcome-banner">
+      <div class="welcome-text">
+        <div class="streak-pill">
+          🔥 <span id="streakCount">4</span> day streak — keep it up!
+        </div>
+        <div class="welcome-eyebrow">Your Study Dashboard</div>
+        <div class="welcome-title">
+          Ready to study,<br><em id="welcomeName">Ayesha?</em>
+        </div>
+        <div class="welcome-sub" id="welcomeSub">You've completed 3 chapters this week. MDCAT in 47 days.</div>
+      </div>
+      <div class="welcome-actions">
+        <a href="subject.html?s=chemistry" class="welcome-cta">Continue Chemistry →</a>
+        <a href="mdcat.html" class="welcome-cta-outline">MDCAT Prep</a>
+      </div>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-card-top">
+          <div class="stat-card-label">Chapters Completed</div>
+          <div class="stat-card-icon gold">📚</div>
+        </div>
+        <div class="stat-card-value" id="statChapters">14</div>
+        <div class="stat-card-change up" id="statChaptersChange">3 this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-top">
+          <div class="stat-card-label">MCQs Attempted</div>
+          <div class="stat-card-icon green">✅</div>
+        </div>
+        <div class="stat-card-value" id="statMCQs">382</div>
+        <div class="stat-card-change up">+48 today</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-top">
+          <div class="stat-card-label">Average Score</div>
+          <div class="stat-card-icon blue">📊</div>
+        </div>
+        <div class="stat-card-value" id="statScore">74%</div>
+        <div class="stat-card-change up">↑ from 68%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-top">
+          <div class="stat-card-label">Leaderboard Rank</div>
+          <div class="stat-card-icon purple">🏆</div>
+        </div>
+        <div class="stat-card-value" id="statRank">#23</div>
+        <div class="stat-card-change up">↑ 5 places</div>
+      </div>
+    </div>
+
+    <!-- SUBJECTS GRID -->
+    <div class="section-header">
+      <div class="section-title">Your Subjects</div>
+      <a href="subject.html" class="section-link">View all →</a>
+    </div>
+    <div class="subjects-grid">
+
+      <!-- Chemistry -->
+      <div class="subject-card" onclick="window.location.href='subject.html?s=chemistry'">
+        <div class="subject-card-top">
+          <div class="subject-icon-wrap chem">🧪</div>
+          <span class="subject-part-tag part-tag-1">Part I</span>
+        </div>
+        <div class="subject-name">Chemistry</div>
+        <div class="subject-chapter-count">11 chapters · Organic, Inorganic &amp; Physical</div>
+        <div class="subject-progress-wrap">
+          <div class="progress-label-row">
+            <span>Progress</span><span>5 / 11 chapters</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill chem" style="width:45%"></div></div>
+        </div>
+        <div class="subject-footer">
+          <div class="subject-meta-row">
+            <div class="subject-meta-chip">🎯 <strong>142</strong> MCQs done</div>
+            <div class="subject-meta-chip">⌀ <strong>71%</strong></div>
+          </div>
+          <div class="subject-continue-btn">Continue →</div>
+        </div>
+      </div>
+
+      <!-- Physics -->
+      <div class="subject-card" onclick="window.location.href='subject.html?s=physics'">
+        <div class="subject-card-top">
+          <div class="subject-icon-wrap phys">⚡</div>
+          <span class="subject-part-tag part-tag-1">Part I</span>
+        </div>
+        <div class="subject-name">Physics</div>
+        <div class="subject-chapter-count">11 chapters · Mechanics to Modern Physics</div>
+        <div class="subject-progress-wrap">
+          <div class="progress-label-row">
+            <span>Progress</span><span>3 / 11 chapters</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill phys" style="width:27%"></div></div>
+        </div>
+        <div class="subject-footer">
+          <div class="subject-meta-row">
+            <div class="subject-meta-chip">🎯 <strong>88</strong> MCQs done</div>
+            <div class="subject-meta-chip">⌀ <strong>69%</strong></div>
+          </div>
+          <div class="subject-continue-btn">Continue →</div>
+        </div>
+      </div>
+
+      <!-- Biology -->
+      <div class="subject-card" onclick="window.location.href='subject.html?s=biology'">
+        <div class="subject-card-top">
+          <div class="subject-icon-wrap bio">🧬</div>
+          <span class="subject-part-tag part-tag-1">Part I</span>
+        </div>
+        <div class="subject-name">Biology</div>
+        <div class="subject-chapter-count">13 chapters · Cell Biology to Physiology</div>
+        <div class="subject-progress-wrap">
+          <div class="progress-label-row">
+            <span>Progress</span><span>6 / 13 chapters</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill bio" style="width:46%"></div></div>
+        </div>
+        <div class="subject-footer">
+          <div class="subject-meta-row">
+            <div class="subject-meta-chip">🎯 <strong>109</strong> MCQs done</div>
+            <div class="subject-meta-chip">⌀ <strong>80%</strong></div>
+          </div>
+          <div class="subject-continue-btn">Continue →</div>
+        </div>
+      </div>
+
+      <!-- English -->
+      <div class="subject-card" onclick="window.location.href='subject.html?s=english'">
+        <div class="subject-card-top">
+          <div class="subject-icon-wrap eng">📖</div>
+          <span class="subject-part-tag part-tag-2">Part I + II</span>
+        </div>
+        <div class="subject-name">English</div>
+        <div class="subject-chapter-count">12 units · Grammar, Essays &amp; Comprehension</div>
+        <div class="subject-progress-wrap">
+          <div class="progress-label-row">
+            <span>Progress</span><span>0 / 12 units</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill eng" style="width:0%"></div></div>
+        </div>
+        <div class="subject-footer">
+          <div class="subject-meta-row">
+            <div class="subject-meta-chip">🎯 <strong>0</strong> MCQs done</div>
+            <div class="subject-meta-chip">⌀ <strong>—</strong></div>
+          </div>
+          <div class="subject-continue-btn">Start now →</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ACTIVITY + LEADERBOARD -->
+    <div class="two-col-row">
+
+      <!-- Recent Activity -->
+      <div class="panel">
+        <div class="section-header">
+          <div class="section-title">Recent Activity</div>
+          <a href="profile.html" class="section-link">View history →</a>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-icon mcq">✅</div>
+            <div class="activity-body">
+              <div class="activity-title">MCQ Practice — Ch.5 Thermochemistry</div>
+              <div class="activity-sub">Chemistry · Part I</div>
+            </div>
+            <div class="activity-right">
+              <div class="activity-score good">18/20</div>
+              <div class="activity-time">2 hrs ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon notes">📖</div>
+            <div class="activity-body">
+              <div class="activity-title">Notes Read — Ch.4 The Cell</div>
+              <div class="activity-sub">Biology · Part I</div>
+            </div>
+            <div class="activity-right">
+              <div class="activity-score" style="color:var(--info)">Read</div>
+              <div class="activity-time">Yesterday</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon mock">🎯</div>
+            <div class="activity-body">
+              <div class="activity-title">MDCAT Chapter Mock — Biology</div>
+              <div class="activity-sub">40 MCQs · 45 minutes</div>
+            </div>
+            <div class="activity-right">
+              <div class="activity-score avg">28/40</div>
+              <div class="activity-time">Yesterday</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon mcq">✅</div>
+            <div class="activity-body">
+              <div class="activity-title">MCQ Practice — Ch.3 Vectors & Scalars</div>
+              <div class="activity-sub">Physics · Part I</div>
+            </div>
+            <div class="activity-right">
+              <div class="activity-score good">14/15</div>
+              <div class="activity-time">2 days ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon short">📝</div>
+            <div class="activity-body">
+              <div class="activity-title">Short Questions — Ch.2 Atomic Structure</div>
+              <div class="activity-sub">Chemistry · Part I</div>
+            </div>
+            <div class="activity-right">
+              <div class="activity-score" style="color:var(--info)">Reviewed</div>
+              <div class="activity-time">3 days ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="panel">
+        <div class="section-header">
+          <div class="section-title">🏆 Weekly Top 10</div>
+          <a href="leaderboard.html" class="section-link">Full board →</a>
+        </div>
+        <div class="leaderboard-list">
+          <div class="lb-item">
+            <div class="lb-rank gold-rank">🥇</div>
+            <div class="lb-avatar" style="background:linear-gradient(135deg,#F0D080,#C9A84C);">ZM</div>
+            <div class="lb-info">
+              <div class="lb-name">Zara Malik</div>
+              <div class="lb-meta">Islamabad</div>
+            </div>
+            <div class="lb-score">2,840</div>
+          </div>
+          <div class="lb-item">
+            <div class="lb-rank silver-rank">🥈</div>
+            <div class="lb-avatar" style="background:linear-gradient(135deg,#93C5FD,#3B82F6);">HA</div>
+            <div class="lb-info">
+              <div class="lb-name">Hassan Ahmed</div>
+              <div class="lb-meta">Karachi</div>
+            </div>
+            <div class="lb-score">2,610</div>
+          </div>
+          <div class="lb-item">
+            <div class="lb-rank bronze-rank">🥉</div>
+            <div class="lb-avatar" style="background:linear-gradient(135deg,#86EFAC,#22C55E);">SR</div>
+            <div class="lb-info">
+              <div class="lb-name">Sara Raza</div>
+              <div class="lb-meta">Lahore</div>
+            </div>
+            <div class="lb-score">2,490</div>
+          </div>
+          <div class="lb-item">
+            <div class="lb-rank">4</div>
+            <div class="lb-avatar" style="background:linear-gradient(135deg,#D8B4FE,#A855F7);">UK</div>
+            <div class="lb-info">
+              <div class="lb-name">Usman Khan</div>
+              <div class="lb-meta">Peshawar</div>
+            </div>
+            <div class="lb-score">2,210</div>
+          </div>
+          <div class="lb-item">
+            <div class="lb-rank">5</div>
+            <div class="lb-avatar" style="background:linear-gradient(135deg,#FCA5A5,#EF4444);">FA</div>
+            <div class="lb-info">
+              <div class="lb-name">Fatima Ali</div>
+              <div class="lb-meta">Faisalabad</div>
+            </div>
+            <div class="lb-score">1,980</div>
+          </div>
+          <!-- YOU -->
+          <div class="lb-item you">
+            <div class="lb-rank">23</div>
+            <div class="lb-avatar" style="background:var(--gold-gradient);">AK</div>
+            <div class="lb-info">
+              <div class="lb-name">Ayesha Khan <span class="you-tag">You</span></div>
+              <div class="lb-meta">Lahore</div>
+            </div>
+            <div class="lb-score">940</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MDCAT CARD + QUICK ACTIONS -->
+    <div class="bottom-row">
+
+      <!-- MDCAT Card -->
+      <div class="mdcat-card">
+        <div class="mdcat-card-label">MDCAT Preparation</div>
+        <div class="mdcat-card-title">Your MDCAT is<br>47 days away.</div>
+        <div class="mdcat-card-sub">You've completed 2 full mock tests. Aim for 5 more before exam day.</div>
+        <div class="mdcat-stats-row">
+          <div class="mdcat-stat">
+            <div class="mdcat-stat-num">2</div>
+            <div class="mdcat-stat-label">Mocks Done</div>
+          </div>
+          <div class="mdcat-stat">
+            <div class="mdcat-stat-num">148</div>
+            <div class="mdcat-stat-label">Last Score /200</div>
+          </div>
+          <div class="mdcat-stat">
+            <div class="mdcat-stat-num">74%</div>
+            <div class="mdcat-stat-label">Avg Percentile</div>
+          </div>
+        </div>
+        <a href="mdcat-mock.html" class="mdcat-card-btn">Start Full Mock →</a>
+        <a href="mdcat.html" class="mdcat-card-secondary">Chapter-wise</a>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="panel">
+        <div class="section-header" style="margin-bottom:14px;">
+          <div class="section-title">Quick Actions</div>
+        </div>
+        <div class="quick-actions-grid">
+          <div class="quick-action" onclick="window.location.href='mcq-practice.html?s=chemistry'">
+            <div class="qa-icon" style="background:rgba(249,115,22,0.1);">🧪</div>
+            <div class="qa-label">Chem MCQs</div>
+            <div class="qa-sub">Resume practice</div>
+          </div>
+          <div class="quick-action" onclick="window.location.href='mcq-practice.html?s=biology'">
+            <div class="qa-icon" style="background:rgba(34,197,94,0.1);">🧬</div>
+            <div class="qa-label">Bio MCQs</div>
+            <div class="qa-sub">Random 20 Qs</div>
+          </div>
+          <div class="quick-action" onclick="window.location.href='mcq-practice.html?s=physics'">
+            <div class="qa-icon" style="background:rgba(59,130,246,0.1);">⚡</div>
+            <div class="qa-label">Physics MCQs</div>
+            <div class="qa-sub">From Ch.4</div>
+          </div>
+          <div class="quick-action" onclick="openPremiumModal()">
+            <div class="qa-icon" style="background:rgba(201,168,76,0.1);">📄</div>
+            <div class="qa-label">Download PDF</div>
+            <div class="qa-sub">🔒 Premium</div>
+          </div>
+          <div class="quick-action" onclick="window.location.href='notes-viewer.html'">
+            <div class="qa-icon" style="background:rgba(168,85,247,0.1);">📖</div>
+            <div class="qa-label">Read Notes</div>
+            <div class="qa-sub">Biology Ch.5</div>
+          </div>
+          <div class="quick-action" onclick="window.location.href='mdcat-mock.html'">
+            <div class="qa-icon" style="background:rgba(239,68,68,0.1);">🎯</div>
+            <div class="qa-label">Full Mock Test</div>
+            <div class="qa-sub">200 MCQs</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOOKMARKS -->
+    <div class="bookmarks-strip" id="bookmarks">
+      <div class="section-header">
+        <div class="section-title">🔖 Your Bookmarks</div>
+        <a href="profile.html#bookmarks" class="section-link">See all →</a>
+      </div>
+      <div class="bookmarks-list">
+        <div class="bookmark-card" onclick="window.location.href='mcq-practice.html'">
+          <div class="bookmark-tag">🧪 Chemistry · MCQ</div>
+          <div class="bookmark-q">What is the unit of rate constant for a first-order reaction?</div>
+          <div class="bookmark-footer">
+            <div class="bookmark-chapter">Ch.8 Reaction Kinetics</div>
+            <div class="bookmark-type-icon">✅</div>
+          </div>
+        </div>
+        <div class="bookmark-card" onclick="window.location.href='subject.html?s=biology'">
+          <div class="bookmark-tag">🧬 Biology · Short Q</div>
+          <div class="bookmark-q">Differentiate between prokaryotic and eukaryotic cells with examples.</div>
+          <div class="bookmark-footer">
+            <div class="bookmark-chapter">Ch.4 The Cell</div>
+            <div class="bookmark-type-icon">📝</div>
+          </div>
+        </div>
+        <div class="bookmark-card" onclick="window.location.href='subject.html?s=physics'">
+          <div class="bookmark-tag">⚡ Physics · MCQ</div>
+          <div class="bookmark-q">A projectile is fired at angle θ with horizontal. The horizontal component of velocity…</div>
+          <div class="bookmark-footer">
+            <div class="bookmark-chapter">Ch.3 Motion &amp; Force</div>
+            <div class="bookmark-type-icon">✅</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <div class="bottom-nav-item active" onclick="window.location.href='dashboard.html'">
+      <div class="bn-icon">🏠</div>
+      <span>Home</span>
+    </div>
+    <div class="bottom-nav-item" onclick="window.location.href='subject.html'">
+      <div class="bn-icon">📚</div>
+      <span>Subjects</span>
+    </div>
+    <div class="bottom-nav-item" onclick="window.location.href='mdcat.html'">
+      <div class="bn-icon">🎯</div>
+      <span>MDCAT</span>
+    </div>
+    <div class="bottom-nav-item" onclick="window.location.href='leaderboard.html'">
+      <div class="bn-icon">🏆</div>
+      <span>Ranks</span>
+    </div>
+    <div class="bottom-nav-item" onclick="window.location.href='profile.html'">
+      <div class="bn-icon">👤</div>
+      <span>Profile</span>
+    </div>
+  </div>
+</nav>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923001234567?text=Hi%20Imoria%20Learning!%20I%20need%20help%20with..." 
+   style="position:fixed;bottom:80px;right:20px;z-index:900;width:48px;height:48px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:white;box-shadow:0 4px 16px rgba(37,211,102,0.4);transition:transform 0.2s;"
+   onmouseenter="this.style.transform='scale(1.1)'" onmouseleave="this.style.transform='scale(1)'"
+   target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- =================== FIREBASE + LOGIC =================== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+  import {
+    getAuth, onAuthStateChanged, signOut as fbSignOut
+  } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+  import {
+    getFirestore, doc, getDoc, collection, getDocs, query, orderBy, limit
+  } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+  // ---- CONFIG (replace with yours) ----
+  const firebaseConfig = {
+    apiKey:            "YOUR_API_KEY",
+    authDomain:        "YOUR_PROJECT.firebaseapp.com",
+    projectId:         "YOUR_PROJECT_ID",
+    storageBucket:     "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId:             "YOUR_APP_ID"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  // ---- Auth gate: redirect to login if not signed in ----
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = 'login.html?redirect=dashboard.html';
+      return;
+    }
+    loadUserData(user);
+  });
+
+  async function loadUserData(user) {
+    // Set greeting
+    const name    = user.displayName || 'Student';
+    const firstName = name.split(' ')[0];
+    document.getElementById('userFirstName').textContent = firstName;
+    document.getElementById('welcomeName').textContent   = firstName + '?';
+
+    // Avatar initials
+    const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('userAvatar').childNodes[0].textContent = initials;
+
+    // Load Firestore user doc
+    try {
+      const userSnap = await getDoc(doc(db, 'users', user.uid));
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        const isPremium = data.plan === 'premium';
+
+        // Plan badge
+        document.getElementById('sidebarPlanName').textContent = isPremium ? 'Premium Plan ⚡' : 'Free Plan';
+        if (isPremium) {
+          document.getElementById('upgradeBtn').style.display = 'none';
+        }
+      }
+
+      // Load progress sub-collections
+      const subjects = ['chemistry','physics','biology','english'];
+      let totalChapters = 0, totalMCQs = 0, totalScore = 0, subjectCount = 0;
+
+      for (const subject of subjects) {
+        const progressSnap = await getDoc(doc(db, 'users', user.uid, 'progress', subject));
+        if (progressSnap.exists()) {
+          const pd = progressSnap.data();
+          const completed = (pd.chaptersCompleted || []).length;
+          const mcqs      = pd.mcqsAttempted || 0;
+          const avg       = pd.avgScore || 0;
+          totalChapters += completed;
+          totalMCQs     += mcqs;
+          if (avg > 0) { totalScore += avg; subjectCount++; }
+
+          // Update subject cards
+          updateSubjectCard(subject, completed, mcqs, avg);
+        }
+      }
+
+      // Update stat cards
+      if (totalChapters) document.getElementById('statChapters').textContent = totalChapters;
+      if (totalMCQs)     document.getElementById('statMCQs').textContent = totalMCQs.toLocaleString();
+      if (subjectCount)  document.getElementById('statScore').textContent = Math.round(totalScore / subjectCount) + '%';
+
+    } catch (e) {
+      console.log('Firestore not configured yet — showing placeholder data.');
+    }
+  }
+
+  function updateSubjectCard(subject, completed, mcqs, avg) {
+    // Cards are currently placeholder — in production, update DOM here
+  }
+
+  // Sign out
+  window.signOut = async function() {
+    await fbSignOut(auth);
+    window.location.href = 'index.html';
+  };
+</script>
+
+<script>
+  // =================== UI LOGIC ===================
+
+  // Time of day greeting
+  const hour = new Date().getHours();
+  const tod = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
+  document.getElementById('timeOfDay').textContent = tod;
+
+  // Theme
+  const savedTheme = localStorage.getItem('imoria-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  document.getElementById('themeBtn').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+  function toggleTheme() {
+    const cur  = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('imoria-theme', next);
+    document.getElementById('themeBtn').textContent = next === 'dark' ? '☀️' : '🌙';
+  }
+
+  // Sidebar toggle (mobile)
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('open');
+  }
+
+  // User dropdown
+  function toggleDropdown() {
+    document.getElementById('userDropdown').classList.toggle('open');
+  }
+  document.addEventListener('click', (e) => {
+    const avatar = document.getElementById('userAvatar');
+    if (!avatar.contains(e.target)) {
+      document.getElementById('userDropdown').classList.remove('open');
+    }
+  });
+
+  // Premium modal
+  function openPremiumModal() {
+    document.getElementById('premiumModal').classList.add('open');
+  }
+  function closePremiumModal() {
+    document.getElementById('premiumModal').classList.remove('open');
+  }
+  document.getElementById('premiumModal').addEventListener('click', function(e) {
+    if (e.target === this) closePremiumModal();
+  });
+
+  // Toast
+  function showToast(msg, type = 'info') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast ${type} show`;
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // Scroll to bookmarks
+  function scrollToBookmarks(e) {
+    e.preventDefault();
+    document.getElementById('bookmarks').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    closeSidebar();
+  }
+
+  // Animate progress bars on load
+  window.addEventListener('load', () => {
+    const fills = document.querySelectorAll('.progress-fill');
+    fills.forEach(fill => {
+      const w = fill.style.width;
+      fill.style.width = '0%';
+      setTimeout(() => { fill.style.width = w; }, 200);
+    });
+  });
+
+  // Expose functions globally
+  window.toggleTheme       = toggleTheme;
+  window.toggleSidebar     = toggleSidebar;
+  window.closeSidebar      = closeSidebar;
+  window.toggleDropdown    = toggleDropdown;
+  window.openPremiumModal  = openPremiumModal;
+  window.closePremiumModal = closePremiumModal;
+  window.showToast         = showToast;
+  window.scrollToBookmarks = scrollToBookmarks;
+</script>
+
+</body>
+</html>
