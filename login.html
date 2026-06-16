@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login & Sign Up | Imoria Learning</title>
+  <meta name="description" content="Sign in to Imoria Learning to access chapter-wise notes, MCQs, and MDCAT mock tests for FSc Pre-Medical students in Pakistan." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== TOKENS ===== */
+    :root {
+      --navy-900: #0A1628;
+      --navy-800: #0D1B2A;
+      --navy-700: #112240;
+      --navy-600: #1A3358;
+      --gold-light: #F0D080;
+      --gold-main:  #C9A84C;
+      --gold-dark:  #A07830;
+      --gold-gradient: linear-gradient(135deg, #F0D080 0%, #C9A84C 50%, #A07830 100%);
+      --gold-glow: 0 0 32px rgba(201,168,76,0.3);
+      --white: #FFFFFF;
+      --gray-50:  #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-400: #9CA3AF;
+      --gray-600: #6B7280;
+      --success: #22C55E;
+      --error:   #EF4444;
+
+      --bg:      #F3F4F6;
+      --surface: #FFFFFF;
+      --text:    #0A1628;
+      --text-muted: #6B7280;
+      --border:  #E5E7EB;
+      --input-bg: #FFFFFF;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+      --radius: 10px;
+      --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+    }
+    [data-theme="dark"] {
+      --bg:      #070D18;
+      --surface: #0D1B2A;
+      --text:    #EFF4FF;
+      --text-muted: #94A3B8;
+      --border:  #1A3050;
+      --input-bg: #112240;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      transition: background var(--transition), color var(--transition);
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--font-body); border: none; }
+    input, select { font-family: var(--font-body); }
+
+    /* ===== LEFT PANEL (branding) ===== */
+    .left-panel {
+      background: var(--navy-800);
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 52px 48px;
+      position: relative; overflow: hidden;
+      min-height: 100vh;
+    }
+    /* Radial gold glow top-right */
+    .left-panel::before {
+      content: ''; position: absolute;
+      width: 500px; height: 500px;
+      top: -100px; right: -150px;
+      background: radial-gradient(circle, rgba(201,168,76,0.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    /* Subtle dot grid */
+    .left-panel::after {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%23C9A84C' fill-opacity='0.07'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .left-logo {
+      display: flex; align-items: center; gap: 10px; position: relative; z-index: 1;
+    }
+    .logo-mark {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--gold-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 1rem; font-weight: 900;
+      color: var(--navy-900); flex-shrink: 0;
+    }
+    .logo-text { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: white; }
+
+    .left-content { position: relative; z-index: 1; }
+    .left-content h2 {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 900;
+      color: white; line-height: 1.2; margin-bottom: 16px;
+    }
+    .left-content h2 em {
+      font-style: normal;
+      background: var(--gold-gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .left-content p { color: rgba(255,255,255,0.5); font-size: 0.88rem; line-height: 1.7; margin-bottom: 32px; max-width: 340px; }
+
+    /* Feature list */
+    .feature-list { display: flex; flex-direction: column; gap: 14px; }
+    .feature-item { display: flex; align-items: flex-start; gap: 12px; }
+    .feature-check {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+      background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-main); font-size: 0.65rem; font-weight: 700;
+    }
+    .feature-text { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+    .feature-text strong { color: white; font-weight: 600; }
+
+    /* Testimonial snippet */
+    .left-testimonial {
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 12px; padding: 18px 20px;
+    }
+    .left-testimonial p { font-size: 0.82rem; color: rgba(255,255,255,0.6); font-style: italic; margin-bottom: 12px; line-height: 1.6; }
+    .left-testimonial p::before { content: '\201C'; color: var(--gold-main); font-size: 1.4rem; vertical-align: -4px; margin-right: 2px; font-family: var(--font-display); }
+    .testimonial-meta { display: flex; align-items: center; gap: 10px; }
+    .t-avatar {
+      width: 32px; height: 32px; border-radius: 50%; background: var(--gold-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700; color: var(--navy-900); flex-shrink: 0;
+    }
+    .t-name { font-size: 0.78rem; font-weight: 600; color: white; }
+    .t-sub  { font-size: 0.7rem; color: rgba(255,255,255,0.35); }
+    .t-score {
+      margin-left: auto; font-size: 0.68rem; font-weight: 700;
+      background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold-main); padding: 3px 9px; border-radius: 100px;
+    }
+
+    /* ===== RIGHT PANEL (form) ===== */
+    .right-panel {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px 20px; min-height: 100vh; position: relative;
+    }
+    .theme-toggle-wrap {
+      position: absolute; top: 24px; right: 24px;
+    }
+    .theme-btn {
+      width: 38px; height: 38px; border-radius: 50%; font-size: 0.9rem;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-muted); display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition); cursor: pointer;
+    }
+    .theme-btn:hover { border-color: var(--gold-main); color: var(--gold-main); }
+
+    .auth-box {
+      width: 100%; max-width: 420px;
+    }
+
+    /* Tabs */
+    .auth-tabs {
+      display: flex; background: var(--gray-100); border-radius: 10px;
+      padding: 4px; margin-bottom: 28px; gap: 4px;
+    }
+    [data-theme="dark"] .auth-tabs { background: var(--navy-700); }
+    .auth-tab {
+      flex: 1; padding: 10px; border-radius: 7px; font-size: 0.88rem; font-weight: 600;
+      color: var(--text-muted); background: transparent; border: none;
+      transition: all var(--transition); cursor: pointer;
+    }
+    .auth-tab.active {
+      background: var(--surface); color: var(--text);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] .auth-tab.active { background: var(--navy-600); color: white; }
+
+    /* Form header */
+    .form-heading { font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+    .form-sub { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 28px; }
+
+    /* Google button */
+    .btn-google {
+      width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 12px; border-radius: var(--radius); font-size: 0.9rem; font-weight: 600;
+      background: var(--surface); border: 1.5px solid var(--border); color: var(--text);
+      transition: all var(--transition); cursor: pointer; margin-bottom: 20px;
+    }
+    .btn-google:hover { border-color: var(--gold-main); box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    .btn-google svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* Divider */
+    .divider {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .divider span { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; white-space: nowrap; }
+
+    /* Form fields */
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block; font-size: 0.8rem; font-weight: 600; color: var(--text);
+      margin-bottom: 6px;
+    }
+    .field-wrap { position: relative; }
+    .field input {
+      width: 100%; padding: 12px 14px; border-radius: var(--radius);
+      border: 1.5px solid var(--border); background: var(--input-bg);
+      font-size: 0.9rem; color: var(--text); outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .field input::placeholder { color: var(--gray-400); }
+    .field input:focus {
+      border-color: var(--gold-main); box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    }
+    .field input.error-field { border-color: var(--error); }
+    .field input.error-field:focus { box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
+    .field-error { font-size: 0.75rem; color: var(--error); margin-top: 5px; display: none; }
+    .field-error.show { display: block; }
+
+    /* Password toggle */
+    .pass-toggle {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); cursor: pointer; font-size: 0.85rem; padding: 4px;
+      transition: color var(--transition); background: none; border: none;
+      display: flex; align-items: center;
+    }
+    .pass-toggle:hover { color: var(--text); }
+
+    /* Phone OTP fields */
+    .phone-row { display: flex; gap: 8px; }
+    .phone-row .field-wrap { flex: 0 0 110px; }
+    .phone-row .field-wrap:last-child { flex: 1; }
+    .country-select {
+      width: 100%; padding: 12px 10px; border-radius: var(--radius);
+      border: 1.5px solid var(--border); background: var(--input-bg);
+      font-size: 0.88rem; color: var(--text); outline: none;
+      transition: border-color var(--transition);
+      appearance: none; cursor: pointer;
+    }
+    .country-select:focus { border-color: var(--gold-main); }
+    .otp-row { display: flex; gap: 8px; }
+    .otp-input {
+      flex: 1; padding: 14px 10px; border-radius: var(--radius);
+      border: 1.5px solid var(--border); background: var(--input-bg);
+      font-size: 1.2rem; font-weight: 700; text-align: center;
+      color: var(--text); outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .otp-input:focus { border-color: var(--gold-main); box-shadow: 0 0 0 3px rgba(201,168,76,0.12); }
+
+    /* Forgot password link */
+    .forgot-link {
+      font-size: 0.78rem; color: var(--gold-main); font-weight: 600;
+      display: block; text-align: right; margin-top: -8px; margin-bottom: 16px;
+      transition: opacity var(--transition);
+    }
+    .forgot-link:hover { opacity: 0.75; }
+
+    /* Terms checkbox */
+    .terms-row {
+      display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px;
+    }
+    .terms-check {
+      width: 16px; height: 16px; border-radius: 4px;
+      border: 1.5px solid var(--border); background: var(--input-bg);
+      flex-shrink: 0; margin-top: 2px; cursor: pointer; accent-color: var(--gold-main);
+    }
+    .terms-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+    .terms-label a { color: var(--gold-main); font-weight: 600; }
+    .terms-label a:hover { text-decoration: underline; }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%; padding: 13px; border-radius: var(--radius);
+      background: var(--gold-gradient); color: var(--navy-900);
+      font-size: 0.95rem; font-weight: 800; border: none;
+      box-shadow: 0 3px 14px rgba(201,168,76,0.3);
+      transition: all var(--transition); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-bottom: 20px; position: relative;
+    }
+    .btn-submit:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: var(--gold-glow); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-submit .spinner {
+      width: 16px; height: 16px; border: 2px solid rgba(10,22,40,0.25);
+      border-top-color: var(--navy-900); border-radius: 50%;
+      animation: spin 0.7s linear infinite; display: none;
+    }
+    .btn-submit.loading .spinner { display: block; }
+    .btn-submit.loading .btn-label { opacity: 0.6; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Switch panel */
+    .auth-switch {
+      text-align: center; font-size: 0.82rem; color: var(--text-muted);
+    }
+    .auth-switch a { color: var(--gold-main); font-weight: 700; cursor: pointer; }
+    .auth-switch a:hover { text-decoration: underline; }
+
+    /* Auth method tabs (email/phone) */
+    .method-tabs {
+      display: flex; gap: 6px; margin-bottom: 20px;
+    }
+    .method-tab {
+      flex: 1; padding: 9px; border-radius: 7px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      border: 1.5px solid var(--border); background: transparent;
+      color: var(--text-muted); transition: all var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .method-tab.active { border-color: var(--gold-main); color: var(--gold-main); background: rgba(201,168,76,0.06); }
+
+    /* OTP step */
+    .otp-step { display: none; }
+    .otp-step.show { display: block; }
+    .otp-hint { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
+    .otp-hint strong { color: var(--text); }
+    .resend-row { text-align: center; font-size: 0.78rem; color: var(--text-muted); margin-top: 12px; }
+    .resend-btn { color: var(--gold-main); font-weight: 600; cursor: pointer; background: none; border: none; font-family: var(--font-body); font-size: 0.78rem; }
+    .resend-btn:disabled { color: var(--text-muted); cursor: not-allowed; }
+    #resend-timer { color: var(--gold-main); }
+
+    /* Toast notification */
+    .toast {
+      position: fixed; top: 24px; right: 24px; z-index: 9999;
+      padding: 14px 20px; border-radius: var(--radius);
+      font-size: 0.85rem; font-weight: 600; color: white;
+      display: flex; align-items: center; gap: 10px;
+      transform: translateX(120%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      max-width: 340px; box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+    .toast.show { transform: translateX(0); }
+    .toast.success { background: #15803D; }
+    .toast.error   { background: #B91C1C; }
+    .toast.info    { background: var(--navy-700); border: 1px solid rgba(201,168,76,0.2); }
+
+    /* Alert box */
+    .alert-box {
+      padding: 12px 16px; border-radius: var(--radius);
+      font-size: 0.82rem; margin-bottom: 16px; display: none; line-height: 1.5;
+    }
+    .alert-box.show { display: block; }
+    .alert-box.error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: #EF4444; }
+    .alert-box.success { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); color: #22C55E; }
+
+    /* Password strength */
+    .strength-bar {
+      display: flex; gap: 4px; margin-top: 8px; height: 3px;
+    }
+    .strength-seg {
+      flex: 1; border-radius: 99px; background: var(--border);
+      transition: background 0.3s;
+    }
+    .strength-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* Back to home */
+    .back-home {
+      position: absolute; top: 24px; left: 24px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; color: var(--text-muted); font-weight: 500;
+      transition: color var(--transition);
+    }
+    .back-home:hover { color: var(--gold-main); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      body { grid-template-columns: 1fr; }
+      .left-panel { display: none; }
+      .right-panel { padding: 80px 24px 40px; justify-content: flex-start; }
+      .auth-box { max-width: 100%; }
+      .back-home { display: flex; }
+    }
+    @media (min-width: 769px) {
+      .back-home { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== LEFT PANEL ===== -->
+  <div class="left-panel">
+    <a href="index.html" class="left-logo">
+      <div class="logo-mark">IL</div>
+      <span class="logo-text">Imoria Learning</span>
+    </a>
+
+    <div class="left-content">
+      <h2>Learn Smart.<br><em>Rise Beyond.</em></h2>
+      <p>Pakistan's most structured FSc Pre-Medical platform. Everything you need to score A+ and crack MDCAT — in one place.</p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text"><strong>Chapter-wise Notes</strong> — PDF &amp; online reader for all 4 subjects</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text"><strong>10,000+ MCQs</strong> — Timed practice with instant explanations</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text"><strong>MDCAT Mock Tests</strong> — Full 200-MCQ tests in real exam format</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text"><strong>Progress Tracking</strong> — See your rank, streak &amp; weak topics</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="left-testimonial">
+      <p>Imoria Learning's MDCAT mocks felt exactly like the real thing. I went from 60th to 89th percentile in 3 weeks.</p>
+      <div class="testimonial-meta">
+        <div class="t-avatar">ZM</div>
+        <div>
+          <div class="t-name">Zara Malik</div>
+          <div class="t-sub">Islamabad · MDCAT 2024</div>
+        </div>
+        <div class="t-score">Top 5%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RIGHT PANEL ===== -->
+  <div class="right-panel">
+    <a href="index.html" class="back-home">← Back to home</a>
+    <div class="theme-toggle-wrap">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">🌙</button>
+    </div>
+
+    <div class="auth-box">
+      <!-- Tabs: Login / Sign Up -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchMode('login')">Log In</button>
+        <button class="auth-tab" id="tabSignup" onclick="switchMode('signup')">Sign Up</button>
+      </div>
+
+      <!-- ========== LOGIN FORM ========== -->
+      <div id="loginPanel">
+        <div class="form-heading" id="loginHeading">Welcome back</div>
+        <p class="form-sub" id="loginSub">Log in to continue your prep.</p>
+
+        <!-- Auth method tabs -->
+        <div class="method-tabs">
+          <button class="method-tab active" id="loginEmailTab" onclick="switchLoginMethod('email')">
+            ✉️ Email
+          </button>
+          <button class="method-tab" id="loginPhoneTab" onclick="switchLoginMethod('phone')">
+            📱 Phone OTP
+          </button>
+        </div>
+
+        <div class="alert-box" id="loginAlert"></div>
+
+        <!-- Google -->
+        <button class="btn-google" onclick="signInWithGoogle()">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <div class="divider"><span>or</span></div>
+
+        <!-- Email login -->
+        <div id="loginEmailFields">
+          <div class="field">
+            <label for="loginEmail">Email Address</label>
+            <div class="field-wrap">
+              <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email" />
+            </div>
+            <div class="field-error" id="loginEmailErr">Please enter a valid email address.</div>
+          </div>
+          <div class="field">
+            <label for="loginPassword">Password</label>
+            <div class="field-wrap">
+              <input type="password" id="loginPassword" placeholder="Your password" autocomplete="current-password" />
+              <button class="pass-toggle" onclick="togglePass('loginPassword', this)" type="button" aria-label="Show password">👁</button>
+            </div>
+            <div class="field-error" id="loginPassErr">Password is required.</div>
+          </div>
+          <a href="#" class="forgot-link" onclick="showForgotPassword(event)">Forgot password?</a>
+          <button class="btn-submit" id="loginBtn" onclick="handleEmailLogin()">
+            <div class="spinner"></div>
+            <span class="btn-label">Log In →</span>
+          </button>
+        </div>
+
+        <!-- Phone OTP login -->
+        <div id="loginPhoneFields" style="display:none;">
+          <div class="field">
+            <label>Phone Number</label>
+            <div class="phone-row">
+              <div class="field-wrap">
+                <select class="country-select" id="loginCountryCode">
+                  <option value="+92">🇵🇰 +92</option>
+                  <option value="+91">🇮🇳 +91</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+971">🇦🇪 +971</option>
+                </select>
+              </div>
+              <div class="field-wrap">
+                <input type="tel" id="loginPhone" placeholder="3001234567" autocomplete="tel" />
+              </div>
+            </div>
+            <div class="field-error" id="loginPhoneErr">Enter a valid phone number.</div>
+          </div>
+          <!-- OTP step -->
+          <div class="otp-step" id="loginOtpStep">
+            <p class="otp-hint">Enter the 6-digit code sent to <strong id="loginPhoneDisplay"></strong></p>
+            <div class="otp-row">
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+            </div>
+            <div class="resend-row">
+              Didn't receive it?
+              <button class="resend-btn" id="resendBtn" onclick="resendOTP()" disabled>
+                Resend in <span id="resend-timer">30s</span>
+              </button>
+            </div>
+          </div>
+          <button class="btn-submit" id="loginPhoneBtn" onclick="handlePhoneLogin()" style="margin-top:16px;">
+            <div class="spinner"></div>
+            <span class="btn-label" id="loginPhoneBtnLabel">Send OTP →</span>
+          </button>
+        </div>
+
+        <div class="auth-switch">
+          Don't have an account? <a onclick="switchMode('signup')">Sign up free</a>
+        </div>
+      </div>
+
+      <!-- ========== SIGNUP FORM ========== -->
+      <div id="signupPanel" style="display:none;">
+        <div class="form-heading">Create your account</div>
+        <p class="form-sub">Free forever. No credit card needed.</p>
+
+        <div class="method-tabs">
+          <button class="method-tab active" id="signupEmailTab" onclick="switchSignupMethod('email')">✉️ Email</button>
+          <button class="method-tab" id="signupPhoneTab" onclick="switchSignupMethod('phone')">📱 Phone OTP</button>
+        </div>
+
+        <div class="alert-box" id="signupAlert"></div>
+
+        <button class="btn-google" onclick="signInWithGoogle()">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Sign up with Google
+        </button>
+
+        <div class="divider"><span>or</span></div>
+
+        <!-- Email signup -->
+        <div id="signupEmailFields">
+          <div class="field">
+            <label for="signupName">Full Name</label>
+            <div class="field-wrap">
+              <input type="text" id="signupName" placeholder="e.g. Ayesha Khan" autocomplete="name" />
+            </div>
+            <div class="field-error" id="signupNameErr">Please enter your full name.</div>
+          </div>
+          <div class="field">
+            <label for="signupEmail">Email Address</label>
+            <div class="field-wrap">
+              <input type="email" id="signupEmail" placeholder="you@example.com" autocomplete="email" />
+            </div>
+            <div class="field-error" id="signupEmailErr">Please enter a valid email address.</div>
+          </div>
+          <div class="field">
+            <label for="signupPassword">Password</label>
+            <div class="field-wrap">
+              <input type="password" id="signupPassword" placeholder="Min. 8 characters" autocomplete="new-password" oninput="checkStrength(this.value)" />
+              <button class="pass-toggle" onclick="togglePass('signupPassword', this)" type="button" aria-label="Show password">👁</button>
+            </div>
+            <div class="field-error" id="signupPassErr">Password must be at least 8 characters.</div>
+            <div class="strength-bar" id="strengthBar">
+              <div class="strength-seg" id="s1"></div>
+              <div class="strength-seg" id="s2"></div>
+              <div class="strength-seg" id="s3"></div>
+              <div class="strength-seg" id="s4"></div>
+            </div>
+            <div class="strength-label" id="strengthLabel"></div>
+          </div>
+
+          <!-- Referral code (optional) -->
+          <div class="field" id="refField">
+            <label for="signupRef">Referral Code <span style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
+            <div class="field-wrap">
+              <input type="text" id="signupRef" placeholder="e.g. AYESHA7" style="text-transform:uppercase;" />
+            </div>
+          </div>
+
+          <div class="terms-row">
+            <input type="checkbox" id="termsCheck" class="terms-check" />
+            <label for="termsCheck" class="terms-label">
+              I agree to Imoria Learning's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.
+            </label>
+          </div>
+
+          <button class="btn-submit" id="signupBtn" onclick="handleEmailSignup()">
+            <div class="spinner"></div>
+            <span class="btn-label">Create Free Account →</span>
+          </button>
+        </div>
+
+        <!-- Phone signup -->
+        <div id="signupPhoneFields" style="display:none;">
+          <div class="field">
+            <label for="signupNamePhone">Full Name</label>
+            <div class="field-wrap">
+              <input type="text" id="signupNamePhone" placeholder="e.g. Hassan Ahmed" />
+            </div>
+            <div class="field-error" id="signupNamePhoneErr">Please enter your full name.</div>
+          </div>
+          <div class="field">
+            <label>Phone Number</label>
+            <div class="phone-row">
+              <div class="field-wrap">
+                <select class="country-select" id="signupCountryCode">
+                  <option value="+92">🇵🇰 +92</option>
+                  <option value="+91">🇮🇳 +91</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+971">🇦🇪 +971</option>
+                </select>
+              </div>
+              <div class="field-wrap">
+                <input type="tel" id="signupPhone" placeholder="3001234567" />
+              </div>
+            </div>
+            <div class="field-error" id="signupPhoneErr">Enter a valid phone number.</div>
+          </div>
+          <div class="otp-step" id="signupOtpStep">
+            <p class="otp-hint">Enter the 6-digit code sent to <strong id="signupPhoneDisplay"></strong></p>
+            <div class="otp-row">
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+              <input class="otp-input" type="text" maxlength="1" inputmode="numeric" />
+            </div>
+            <div class="resend-row">
+              Didn't receive it?
+              <button class="resend-btn" id="resendBtnSignup" onclick="resendOTP('signup')" disabled>
+                Resend in <span id="resend-timer-signup">30s</span>
+              </button>
+            </div>
+          </div>
+          <div class="terms-row" style="margin-top:16px;">
+            <input type="checkbox" id="termsCheckPhone" class="terms-check" />
+            <label for="termsCheckPhone" class="terms-label">
+              I agree to Imoria Learning's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.
+            </label>
+          </div>
+          <button class="btn-submit" id="signupPhoneBtn" onclick="handlePhoneSignup()" style="margin-top:4px;">
+            <div class="spinner"></div>
+            <span class="btn-label" id="signupPhoneBtnLabel">Send OTP →</span>
+          </button>
+        </div>
+
+        <div class="auth-switch">
+          Already have an account? <a onclick="switchMode('login')">Log in</a>
+        </div>
+      </div>
+
+      <!-- ========== FORGOT PASSWORD ========== -->
+      <div id="forgotPanel" style="display:none;">
+        <div class="form-heading">Reset Password</div>
+        <p class="form-sub">Enter your email and we'll send you a reset link.</p>
+        <div class="alert-box" id="forgotAlert"></div>
+        <div class="field">
+          <label for="forgotEmail">Email Address</label>
+          <div class="field-wrap">
+            <input type="email" id="forgotEmail" placeholder="you@example.com" />
+          </div>
+          <div class="field-error" id="forgotEmailErr">Please enter a valid email.</div>
+        </div>
+        <button class="btn-submit" id="forgotBtn" onclick="handleForgotPassword()">
+          <div class="spinner"></div>
+          <span class="btn-label">Send Reset Link →</span>
+        </button>
+        <div class="auth-switch" style="margin-top:8px;">
+          <a onclick="switchMode('login')">← Back to login</a>
+        </div>
+      </div>
+
+    </div><!-- /auth-box -->
+  </div><!-- /right-panel -->
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // =============================================
+    // FIREBASE CONFIGURATION
+    // Replace these values with your own Firebase project config
+    // from: Firebase Console → Project Settings → Your Apps
+    // =============================================
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import {
+      getAuth,
+      signInWithPopup,
+      GoogleAuthProvider,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      sendPasswordResetEmail,
+      updateProfile,
+      RecaptchaVerifier,
+      signInWithPhoneNumber,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey:            "YOUR_API_KEY",
+      authDomain:        "YOUR_PROJECT.firebaseapp.com",
+      projectId:         "YOUR_PROJECT_ID",
+      storageBucket:     "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId:             "YOUR_APP_ID"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    // ---- Redirect if already logged in ----
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        const dest = new URLSearchParams(window.location.search).get('redirect') || 'dashboard.html';
+        window.location.href = dest;
+      }
+    });
+
+    // ---- Generate referral code ----
+    function genReferralCode(uid) {
+      return uid.substring(0, 6).toUpperCase() + Math.floor(Math.random()*100);
+    }
+
+    // ---- Create user doc in Firestore ----
+    async function createUserDoc(user, extra = {}) {
+      const ref  = doc(db, 'users', user.uid);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        const refCode = genReferralCode(user.uid);
+        await setDoc(ref, {
+          name:         user.displayName || extra.name || '',
+          email:        user.email || '',
+          phone:        user.phoneNumber || extra.phone || '',
+          photoURL:     user.photoURL || '',
+          plan:         'free',
+          planExpiry:   null,
+          referralCode: refCode,
+          referredBy:   extra.referredBy || null,
+          joinedAt:     serverTimestamp()
+        });
+      }
+    }
+
+    // ---- Google Sign In ----
+    window.signInWithGoogle = async function() {
+      const provider = new GoogleAuthProvider();
+      try {
+        setLoading('loginBtn', true);
+        setLoading('signupBtn', true);
+        const result = await signInWithPopup(auth, provider);
+        await createUserDoc(result.user);
+        showToast('Signed in with Google! Redirecting…', 'success');
+        setTimeout(() => window.location.href = 'dashboard.html', 800);
+      } catch (err) {
+        showFirebaseError(err, 'loginAlert');
+      } finally {
+        setLoading('loginBtn', false);
+        setLoading('signupBtn', false);
+      }
+    };
+
+    // ---- Email Login ----
+    window.handleEmailLogin = async function() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass  = document.getElementById('loginPassword').value;
+      let valid = true;
+      if (!email || !email.includes('@')) { showFieldError('loginEmailErr'); valid = false; } else clearFieldError('loginEmailErr');
+      if (!pass) { showFieldError('loginPassErr'); valid = false; } else clearFieldError('loginPassErr');
+      if (!valid) return;
+      setLoading('loginBtn', true);
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        showToast('Logged in! Redirecting…', 'success');
+        setTimeout(() => window.location.href = 'dashboard.html', 800);
+      } catch (err) {
+        showFirebaseError(err, 'loginAlert');
+      } finally { setLoading('loginBtn', false); }
+    };
+
+    // ---- Email Signup ----
+    window.handleEmailSignup = async function() {
+      const name   = document.getElementById('signupName').value.trim();
+      const email  = document.getElementById('signupEmail').value.trim();
+      const pass   = document.getElementById('signupPassword').value;
+      const refCode = document.getElementById('signupRef').value.trim().toUpperCase();
+      const terms  = document.getElementById('termsCheck').checked;
+      let valid = true;
+      if (!name) { showFieldError('signupNameErr'); valid = false; } else clearFieldError('signupNameErr');
+      if (!email || !email.includes('@')) { showFieldError('signupEmailErr'); valid = false; } else clearFieldError('signupEmailErr');
+      if (!pass || pass.length < 8) { showFieldError('signupPassErr'); valid = false; } else clearFieldError('signupPassErr');
+      if (!terms) { showAlert('signupAlert', 'error', 'Please accept the Terms of Use to continue.'); valid = false; }
+      if (!valid) return;
+      setLoading('signupBtn', true);
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        await updateProfile(cred.user, { displayName: name });
+        await createUserDoc(cred.user, { name, referredBy: refCode || null });
+        showToast('Account created! Welcome to Imoria Learning 🎉', 'success');
+        setTimeout(() => window.location.href = 'dashboard.html', 1200);
+      } catch (err) {
+        showFirebaseError(err, 'signupAlert');
+      } finally { setLoading('signupBtn', false); }
+    };
+
+    // ---- Forgot Password ----
+    window.handleForgotPassword = async function() {
+      const email = document.getElementById('forgotEmail').value.trim();
+      if (!email || !email.includes('@')) { showFieldError('forgotEmailErr'); return; }
+      clearFieldError('forgotEmailErr');
+      setLoading('forgotBtn', true);
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showAlert('forgotAlert', 'success', `Reset link sent to ${email}. Check your inbox.`);
+      } catch (err) {
+        showFirebaseError(err, 'forgotAlert');
+      } finally { setLoading('forgotBtn', false); }
+    };
+
+    // ---- Phone Auth ----
+    let confirmationResult = null;
+    let resendCountdown = null;
+
+    function setupRecaptcha(btnId) {
+      if (window.recaptchaVerifier) { window.recaptchaVerifier.clear(); }
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, btnId, {
+        'size': 'invisible',
+        'callback': () => {}
+      });
+    }
+
+    window.handlePhoneLogin = async function() {
+      const step = document.getElementById('loginOtpStep');
+      if (step.classList.contains('show')) {
+        // Verify OTP
+        const code = [...document.querySelectorAll('#loginOtpStep .otp-input')].map(i => i.value).join('');
+        if (code.length !== 6) { showAlert('loginAlert', 'error', 'Please enter all 6 digits of your OTP.'); return; }
+        setLoading('loginPhoneBtn', true);
+        try {
+          const result = await confirmationResult.confirm(code);
+          await createUserDoc(result.user);
+          showToast('Logged in! Redirecting…', 'success');
+          setTimeout(() => window.location.href = 'dashboard.html', 800);
+        } catch { showAlert('loginAlert', 'error', 'Invalid OTP. Please try again.'); }
+        finally { setLoading('loginPhoneBtn', false); }
+      } else {
+        // Send OTP
+        const cc    = document.getElementById('loginCountryCode').value;
+        const phone = document.getElementById('loginPhone').value.trim();
+        if (!phone || phone.length < 7) { showFieldError('loginPhoneErr'); return; }
+        clearFieldError('loginPhoneErr');
+        setLoading('loginPhoneBtn', true);
+        try {
+          setupRecaptcha('loginPhoneBtn');
+          confirmationResult = await signInWithPhoneNumber(auth, cc + phone, window.recaptchaVerifier);
+          document.getElementById('loginPhoneDisplay').textContent = cc + phone;
+          step.classList.add('show');
+          document.getElementById('loginPhoneBtnLabel').textContent = 'Verify OTP →';
+          startResendTimer('resend-timer', 'resendBtn');
+        } catch (err) { showFirebaseError(err, 'loginAlert'); }
+        finally { setLoading('loginPhoneBtn', false); }
+      }
+    };
+
+    window.handlePhoneSignup = async function() {
+      const step = document.getElementById('signupOtpStep');
+      if (step.classList.contains('show')) {
+        const code = [...document.querySelectorAll('#signupOtpStep .otp-input')].map(i => i.value).join('');
+        if (code.length !== 6) { showAlert('signupAlert', 'error', 'Please enter all 6 digits.'); return; }
+        const terms = document.getElementById('termsCheckPhone').checked;
+        if (!terms) { showAlert('signupAlert', 'error', 'Please accept the Terms of Use.'); return; }
+        setLoading('signupPhoneBtn', true);
+        try {
+          const result = await confirmationResult.confirm(code);
+          const name   = document.getElementById('signupNamePhone').value.trim();
+          if (name) await updateProfile(result.user, { displayName: name });
+          await createUserDoc(result.user, { name });
+          showToast('Account created! Welcome to Imoria Learning 🎉', 'success');
+          setTimeout(() => window.location.href = 'dashboard.html', 1200);
+        } catch { showAlert('signupAlert', 'error', 'Invalid OTP. Please try again.'); }
+        finally { setLoading('signupPhoneBtn', false); }
+      } else {
+        const name  = document.getElementById('signupNamePhone').value.trim();
+        const cc    = document.getElementById('signupCountryCode').value;
+        const phone = document.getElementById('signupPhone').value.trim();
+        let valid = true;
+        if (!name) { showFieldError('signupNamePhoneErr'); valid = false; } else clearFieldError('signupNamePhoneErr');
+        if (!phone || phone.length < 7) { showFieldError('signupPhoneErr'); valid = false; } else clearFieldError('signupPhoneErr');
+        if (!valid) return;
+        setLoading('signupPhoneBtn', true);
+        try {
+          setupRecaptcha('signupPhoneBtn');
+          confirmationResult = await signInWithPhoneNumber(auth, cc + phone, window.recaptchaVerifier);
+          document.getElementById('signupPhoneDisplay').textContent = cc + phone;
+          step.classList.add('show');
+          document.getElementById('signupPhoneBtnLabel').textContent = 'Verify & Create Account →';
+          startResendTimer('resend-timer-signup', 'resendBtnSignup');
+        } catch (err) { showFirebaseError(err, 'signupAlert'); }
+        finally { setLoading('signupPhoneBtn', false); }
+      }
+    };
+
+    window.resendOTP = function(ctx = 'login') {
+      // Re-send: just call handlePhoneLogin/Signup which resets state
+      if (ctx === 'signup') {
+        document.getElementById('signupOtpStep').classList.remove('show');
+        document.getElementById('signupPhoneBtnLabel').textContent = 'Send OTP →';
+        handlePhoneSignup();
+      } else {
+        document.getElementById('loginOtpStep').classList.remove('show');
+        document.getElementById('loginPhoneBtnLabel').textContent = 'Send OTP →';
+        handlePhoneLogin();
+      }
+    };
+
+    // ---- Firebase error messages ----
+    function showFirebaseError(err, alertId) {
+      const map = {
+        'auth/user-not-found':          'No account found with this email.',
+        'auth/wrong-password':          'Incorrect password. Try again.',
+        'auth/email-already-in-use':    'An account with this email already exists.',
+        'auth/weak-password':           'Password should be at least 6 characters.',
+        'auth/invalid-email':           'Please enter a valid email address.',
+        'auth/popup-closed-by-user':    'Sign-in popup was closed. Please try again.',
+        'auth/too-many-requests':       'Too many attempts. Please wait a moment.',
+        'auth/invalid-phone-number':    'Invalid phone number. Use format: 03001234567',
+        'auth/invalid-verification-code': 'Incorrect OTP. Please check and try again.',
+        'auth/code-expired':            'OTP expired. Please request a new one.',
+        'auth/network-request-failed':  'Network error. Please check your connection.',
+      };
+      const msg = map[err.code] || 'Something went wrong. Please try again.';
+      showAlert(alertId, 'error', msg);
+    }
+
+    // Make functions globally accessible
+    window._createUserDoc = createUserDoc;
+  </script>
+
+  <script>
+    // ===== THEME =====
+    const savedTheme = localStorage.getItem('imoria-theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    const themeBtn = document.getElementById('themeBtn');
+    themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    themeBtn.addEventListener('click', () => {
+      const cur  = document.documentElement.getAttribute('data-theme');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('imoria-theme', next);
+      themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+
+    // ===== CHECK FOR ?signup=1 param =====
+    if (new URLSearchParams(window.location.search).get('signup') === '1') {
+      switchMode('signup');
+    }
+    // ===== CHECK FOR ?plan=premium =====
+    const planParam = new URLSearchParams(window.location.search).get('plan');
+    if (planParam === 'premium') {
+      // Pre-fill referral field note (handled after signup)
+      localStorage.setItem('imoria-pending-plan', 'premium');
+    }
+
+    // ===== MODE SWITCH =====
+    function switchMode(mode) {
+      document.getElementById('loginPanel').style.display  = mode === 'login'  ? '' : 'none';
+      document.getElementById('signupPanel').style.display = mode === 'signup' ? '' : 'none';
+      document.getElementById('forgotPanel').style.display = 'none';
+      document.getElementById('tabLogin').classList.toggle('active',  mode === 'login');
+      document.getElementById('tabSignup').classList.toggle('active', mode === 'signup');
+    }
+    window.switchMode = switchMode;
+
+    function showForgotPassword(e) {
+      e.preventDefault();
+      document.getElementById('loginPanel').style.display  = 'none';
+      document.getElementById('signupPanel').style.display = 'none';
+      document.getElementById('forgotPanel').style.display = '';
+      document.getElementById('tabLogin').classList.remove('active');
+      document.getElementById('tabSignup').classList.remove('active');
+    }
+    window.showForgotPassword = showForgotPassword;
+
+    // ===== AUTH METHOD SWITCH =====
+    function switchLoginMethod(method) {
+      document.getElementById('loginEmailFields').style.display = method === 'email' ? '' : 'none';
+      document.getElementById('loginPhoneFields').style.display = method === 'phone' ? '' : 'none';
+      document.getElementById('loginEmailTab').classList.toggle('active', method === 'email');
+      document.getElementById('loginPhoneTab').classList.toggle('active', method === 'phone');
+    }
+    window.switchLoginMethod = switchLoginMethod;
+
+    function switchSignupMethod(method) {
+      document.getElementById('signupEmailFields').style.display = method === 'email' ? '' : 'none';
+      document.getElementById('signupPhoneFields').style.display = method === 'phone' ? '' : 'none';
+      document.getElementById('signupEmailTab').classList.toggle('active', method === 'email');
+      document.getElementById('signupPhoneTab').classList.toggle('active', method === 'phone');
+    }
+    window.switchSignupMethod = switchSignupMethod;
+
+    // ===== PASSWORD VISIBILITY =====
+    function togglePass(id, btn) {
+      const input = document.getElementById(id);
+      input.type = input.type === 'password' ? 'text' : 'password';
+      btn.textContent = input.type === 'password' ? '👁' : '🙈';
+    }
+    window.togglePass = togglePass;
+
+    // ===== PASSWORD STRENGTH =====
+    function checkStrength(val) {
+      const segs  = ['s1','s2','s3','s4'];
+      const label = document.getElementById('strengthLabel');
+      const colors = ['#EF4444','#F59E0B','#22C55E','#16A34A'];
+      const labels = ['Too short','Fair','Good','Strong'];
+      let score = 0;
+      if (val.length >= 8)  score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+      segs.forEach((id, i) => {
+        document.getElementById(id).style.background = i < score ? colors[score - 1] : 'var(--border)';
+      });
+      label.textContent = val.length > 0 ? labels[Math.max(0, score - 1)] : '';
+      label.style.color = score > 0 ? colors[score - 1] : 'var(--text-muted)';
+    }
+    window.checkStrength = checkStrength;
+
+    // ===== FIELD ERRORS =====
+    function showFieldError(id) {
+      document.getElementById(id).classList.add('show');
+      const input = document.getElementById(id.replace('Err',''));
+      if (input) input.classList.add('error-field');
+    }
+    function clearFieldError(id) {
+      document.getElementById(id).classList.remove('show');
+      const input = document.getElementById(id.replace('Err',''));
+      if (input) input.classList.remove('error-field');
+    }
+    window.showFieldError = showFieldError;
+    window.clearFieldError = clearFieldError;
+
+    // ===== ALERT BOX =====
+    function showAlert(id, type, msg) {
+      const el = document.getElementById(id);
+      el.className = `alert-box ${type} show`;
+      el.textContent = msg;
+    }
+    window.showAlert = showAlert;
+
+    // ===== LOADING STATE =====
+    function setLoading(btnId, loading) {
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
+      btn.disabled = loading;
+      btn.classList.toggle('loading', loading);
+    }
+    window.setLoading = setLoading;
+
+    // ===== TOAST =====
+    function showToast(msg, type = 'info') {
+      const t = document.getElementById('toast');
+      const icons = { success: '✓', error: '✕', info: 'ℹ' };
+      t.textContent = (icons[type] || '') + ' ' + msg;
+      t.className = `toast ${type} show`;
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+    window.showToast = showToast;
+
+    // ===== OTP INPUT — auto-advance =====
+    document.querySelectorAll('.otp-input').forEach((input, i, arr) => {
+      input.addEventListener('input', e => {
+        const val = e.target.value.replace(/\D/g,'');
+        e.target.value = val;
+        if (val && i < arr.length - 1) arr[i + 1].focus();
+      });
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !e.target.value && i > 0) arr[i - 1].focus();
+      });
+      input.addEventListener('paste', e => {
+        const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g,'');
+        if (text.length === 6) {
+          arr.forEach((inp, j) => { inp.value = text[j] || ''; });
+          arr[5].focus();
+          e.preventDefault();
+        }
+      });
+    });
+
+    // ===== RESEND TIMER =====
+    function startResendTimer(timerId, btnId) {
+      let secs = 30;
+      const btn   = document.getElementById(btnId);
+      const timer = document.getElementById(timerId);
+      btn.disabled = true;
+      const interval = setInterval(() => {
+        secs--;
+        timer.textContent = secs + 's';
+        if (secs <= 0) {
+          clearInterval(interval);
+          btn.disabled = false;
+          btn.innerHTML = 'Resend code';
+        }
+      }, 1000);
+    }
+    window.startResendTimer = startResendTimer;
+
+    // ===== ENTER KEY SUPPORT =====
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      const loginPanel  = document.getElementById('loginPanel');
+      const signupPanel = document.getElementById('signupPanel');
+      const forgotPanel = document.getElementById('forgotPanel');
+      if (loginPanel.style.display !== 'none') {
+        if (document.getElementById('loginEmailFields').style.display !== 'none') {
+          handleEmailLogin();
+        }
+      } else if (signupPanel.style.display !== 'none') {
+        if (document.getElementById('signupEmailFields').style.display !== 'none') {
+          handleEmailSignup();
+        }
+      } else if (forgotPanel.style.display !== 'none') {
+        handleForgotPassword();
+      }
+    });
+  </script>
+</body>
+</html>
