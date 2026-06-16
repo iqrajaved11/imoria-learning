@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCQ Practice — Chemistry Ch.3 · Imoria Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===================== TOKENS ===================== */
+    :root {
+      --navy-900: #0A1628;
+      --navy-800: #0D1B2A;
+      --navy-700: #112240;
+      --navy-600: #1A3358;
+      --gold-light: #F0D080;
+      --gold-main:  #C9A84C;
+      --gold-dark:  #A07830;
+      --gold-gradient: linear-gradient(135deg, #F0D080 0%, #C9A84C 50%, #A07830 100%);
+      --gold-glow: 0 0 24px rgba(201,168,76,0.35);
+      --white: #FFFFFF;
+      --success: #22C55E;
+      --error:   #EF4444;
+      --warning: #F59E0B;
+      --bg:         #F9FAFB;
+      --surface:    #FFFFFF;
+      --surface2:   #F3F4F6;
+      --text:       #0A1628;
+      --text-muted: #6B7280;
+      --border:     #E5E7EB;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
+      --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+    }
+    [data-theme="dark"] {
+      --bg:         #080E1A;
+      --surface:    #0D1B2A;
+      --surface2:   #112240;
+      --text:       #F0F4FF;
+      --text-muted: #94A3B8;
+      --border:     #1E3050;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--font-body); border: none; background: none; }
+    ul { list-style: none; }
+
+    /* ===================== SCREENS ===================== */
+    /* Three screens: #setup-screen, #practice-screen, #results-screen */
+    .screen { display: none; }
+    .screen.active { display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* ===================== TOP BAR (shared) ===================== */
+    .top-bar {
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+      background: var(--navy-800);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      flex-shrink: 0;
+    }
+    [data-theme="light"] .top-bar { background: var(--navy-700); }
+    .top-bar-logo {
+      display: flex; align-items: center; gap: 9px;
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: white;
+    }
+    .logo-mark {
+      width: 30px; height: 30px; border-radius: 6px;
+      background: var(--gold-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 900; color: var(--navy-900);
+    }
+    .top-bar-context {
+      font-size: 0.78rem; color: rgba(255,255,255,0.4);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .top-bar-context strong { color: var(--gold-main); font-weight: 600; }
+    .top-bar-context .sep { color: rgba(255,255,255,0.15); }
+    .top-bar-actions { display: flex; align-items: center; gap: 10px; }
+    .tb-btn {
+      padding: 7px 14px; border-radius: var(--radius-sm);
+      font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all var(--transition);
+    }
+    .tb-btn:hover { border-color: rgba(201,168,76,0.4); color: var(--gold-main); }
+    .theme-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; color: rgba(255,255,255,0.6);
+      transition: all var(--transition);
+    }
+    .theme-btn:hover { border-color: var(--gold-main); color: var(--gold-main); }
+
+    /* ===================== SETUP SCREEN ===================== */
+    #setup-screen {
+      background: var(--bg);
+    }
+    .setup-body {
+      flex: 1; display: flex; align-items: flex-start; justify-content: center;
+      padding: 48px 20px 60px;
+    }
+    .setup-card {
+      width: 100%; max-width: 720px;
+    }
+    .setup-eyebrow {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold-main); margin-bottom: 10px; display: block;
+    }
+    .setup-title {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 900;
+      color: var(--text); margin-bottom: 6px; line-height: 1.2;
+    }
+    .setup-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 36px; }
+
+    .setup-section { margin-bottom: 28px; }
+    .setup-section-title {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 12px;
+    }
+    /* Subject/Chapter selectors */
+    .select-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .select-chip {
+      padding: 10px 18px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); font-size: 0.85rem; font-weight: 600;
+      color: var(--text-muted); background: var(--surface);
+      transition: all var(--transition); display: flex; align-items: center; gap: 8px;
+    }
+    .select-chip:hover { border-color: rgba(201,168,76,0.4); color: var(--text); }
+    .select-chip.active { border-color: var(--gold-main); background: rgba(201,168,76,0.07); color: var(--gold-main); }
+
+    /* Count selector */
+    .count-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .count-chip {
+      width: 56px; height: 48px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); font-size: 0.9rem; font-weight: 700;
+      color: var(--text-muted); background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition);
+    }
+    .count-chip:hover { border-color: rgba(201,168,76,0.4); color: var(--text); }
+    .count-chip.active { border-color: var(--gold-main); background: rgba(201,168,76,0.07); color: var(--gold-main); }
+
+    /* Difficulty */
+    .diff-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .diff-chip {
+      padding: 9px 20px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); font-size: 0.82rem; font-weight: 700;
+      color: var(--text-muted); background: var(--surface);
+      transition: all var(--transition);
+    }
+    .diff-chip:hover { border-color: rgba(201,168,76,0.3); }
+    .diff-chip.active { border-color: var(--gold-main); background: rgba(201,168,76,0.07); color: var(--gold-main); }
+    .diff-chip.easy.active { border-color: var(--success); background: rgba(34,197,94,0.07); color: var(--success); }
+    .diff-chip.medium.active { border-color: var(--warning); background: rgba(245,158,11,0.07); color: var(--warning); }
+    .diff-chip.hard.active { border-color: var(--error); background: rgba(239,68,68,0.07); color: var(--error); }
+
+    /* Timer toggle */
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; }
+    .toggle-label { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+    .toggle-label small { display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 400; margin-top: 2px; }
+    .toggle-switch {
+      width: 44px; height: 24px; border-radius: 99px;
+      background: var(--border); border: none; position: relative;
+      transition: background 0.25s ease; flex-shrink: 0;
+    }
+    .toggle-switch::after {
+      content: ''; position: absolute; left: 3px; top: 3px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: white; transition: transform 0.25s ease;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .toggle-switch.on { background: var(--gold-main); }
+    .toggle-switch.on::after { transform: translateX(20px); }
+
+    /* Summary card */
+    .setup-summary {
+      background: var(--navy-800); border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius-md); padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      flex-wrap: wrap; margin-bottom: 24px;
+    }
+    [data-theme="light"] .setup-summary { background: var(--navy-700); }
+    .summary-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .summary-pill {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.6);
+    }
+    .summary-pill strong { color: var(--gold-light); }
+    .summary-pill .dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+
+    .btn-start {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 36px; border-radius: var(--radius-sm);
+      font-size: 1rem; font-weight: 800; letter-spacing: 0.02em;
+      background: var(--gold-gradient); color: var(--navy-900);
+      box-shadow: 0 4px 20px rgba(201,168,76,0.35);
+      transition: all var(--transition); width: 100%; justify-content: center;
+    }
+    .btn-start:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: var(--gold-glow); }
+
+    /* ===================== PRACTICE SCREEN ===================== */
+    #practice-screen {
+      background: var(--bg);
+    }
+
+    /* ---- PRACTICE HEADER ---- */
+    .practice-header {
+      background: var(--navy-800);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      padding: 14px 24px;
+      display: flex; align-items: center; gap: 16px;
+      flex-shrink: 0; flex-wrap: wrap;
+    }
+    [data-theme="light"] .practice-header { background: var(--navy-700); }
+
+    /* Progress bar */
+    .ph-progress { flex: 1; min-width: 160px; }
+    .ph-prog-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-bottom: 6px;
+    }
+    .ph-prog-label strong { color: var(--gold-main); }
+    .ph-prog-track {
+      height: 5px; background: rgba(255,255,255,0.07); border-radius: 99px; overflow: hidden;
+    }
+    .ph-prog-fill {
+      height: 100%; background: var(--gold-gradient); border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+
+    /* Question counter bubbles */
+    .ph-bubbles {
+      display: flex; gap: 4px; flex-wrap: wrap; max-width: 320px;
+    }
+    .q-bubble {
+      width: 26px; height: 26px; border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.62rem; font-weight: 700; border: 1.5px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.35); transition: all var(--transition); cursor: pointer;
+    }
+    .q-bubble.current { border-color: var(--gold-main); color: var(--gold-light); background: rgba(201,168,76,0.12); }
+    .q-bubble.answered { border-color: rgba(34,197,94,0.5); background: rgba(34,197,94,0.12); color: #86efac; }
+    .q-bubble.wrong { border-color: rgba(239,68,68,0.5); background: rgba(239,68,68,0.1); color: #fca5a5; }
+    .q-bubble.skipped { border-color: rgba(245,158,11,0.4); background: rgba(245,158,11,0.07); color: #fde68a; }
+    .q-bubble.bookmarked { border-color: rgba(201,168,76,0.5); }
+
+    /* Timer block */
+    .ph-timer {
+      display: flex; flex-direction: column; align-items: center;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius-sm); padding: 8px 16px; min-width: 90px;
+    }
+    .ph-timer-num {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 900;
+      color: var(--gold-light); line-height: 1;
+    }
+    .ph-timer-num.warning { color: var(--error); animation: blink 1s ease infinite; }
+    .ph-timer-label { font-size: 0.6rem; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+    /* Header controls */
+    .ph-controls { display: flex; gap: 8px; }
+    .ph-ctrl-btn {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5);
+      display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+      transition: all var(--transition);
+    }
+    .ph-ctrl-btn:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .ph-ctrl-btn.active { border-color: var(--gold-main); color: var(--gold-main); background: rgba(201,168,76,0.1); }
+
+    /* ---- PRACTICE BODY ---- */
+    .practice-body {
+      flex: 1; display: flex; align-items: stretch;
+      max-width: 880px; width: 100%; margin: 0 auto;
+      padding: 32px 20px 24px;
+    }
+
+    .question-area { flex: 1; display: flex; flex-direction: column; }
+
+    /* Q metadata row */
+    .q-meta-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
+    }
+    .q-counter-badge {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .q-counter-badge strong { color: var(--gold-main); font-size: 0.85rem; }
+    .q-tags { display: flex; gap: 6px; }
+    .q-tag {
+      font-size: 0.62rem; font-weight: 800; padding: 3px 9px; border-radius: 100px;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .tag-easy   { background: rgba(34,197,94,0.1);   color: #22c55e; border: 1px solid rgba(34,197,94,0.2); }
+    .tag-medium { background: rgba(245,158,11,0.1);  color: #f59e0b; border: 1px solid rgba(245,158,11,0.2); }
+    .tag-hard   { background: rgba(239,68,68,0.1);   color: #ef4444; border: 1px solid rgba(239,68,68,0.2); }
+    .tag-pp     { background: rgba(201,168,76,0.1);  color: var(--gold-main); border: 1px solid rgba(201,168,76,0.2); }
+
+    /* Question card */
+    .q-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 32px 36px;
+      flex: 1; display: flex; flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: border-color var(--transition);
+    }
+    .q-card.answered-correct { border-color: rgba(34,197,94,0.3); }
+    .q-card.answered-wrong   { border-color: rgba(239,68,68,0.25); }
+
+    .q-text {
+      font-size: 1.05rem; font-weight: 600; color: var(--text);
+      line-height: 1.65; margin-bottom: 28px; flex-shrink: 0;
+    }
+
+    /* Options */
+    .options-grid {
+      display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;
+    }
+    .opt-btn {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px; border-radius: var(--radius-md);
+      border: 2px solid var(--border); background: var(--bg);
+      font-size: 0.9rem; color: var(--text-muted); text-align: left;
+      transition: all var(--transition); width: 100%;
+    }
+    .opt-btn:hover:not(:disabled) { border-color: rgba(201,168,76,0.45); color: var(--text); background: rgba(201,168,76,0.03); transform: translateX(3px); }
+    .opt-btn:disabled { cursor: default; }
+    .opt-btn.selected { border-color: var(--gold-main); background: rgba(201,168,76,0.06); color: var(--text); }
+    .opt-btn.correct  { border-color: var(--success); background: rgba(34,197,94,0.07); color: var(--text); }
+    .opt-btn.wrong    { border-color: var(--error);   background: rgba(239,68,68,0.07);  color: var(--text); }
+    .opt-lbl {
+      width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 800; color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .opt-btn:hover:not(:disabled) .opt-lbl { border-color: var(--gold-main); color: var(--gold-main); }
+    .opt-btn.selected .opt-lbl { border-color: var(--gold-main); background: var(--gold-main); color: var(--navy-900); }
+    .opt-btn.correct  .opt-lbl { border-color: var(--success); background: var(--success); color: white; }
+    .opt-btn.wrong    .opt-lbl { border-color: var(--error);   background: var(--error);   color: white; }
+    .opt-text { flex: 1; line-height: 1.5; }
+
+    /* Explanation */
+    .explanation-box {
+      background: rgba(34,197,94,0.05); border: 1px solid rgba(34,197,94,0.2);
+      border-radius: var(--radius-md); padding: 16px 20px;
+      margin-bottom: 20px; display: none;
+    }
+    .explanation-box.visible { display: block; animation: slideIn 0.3s ease; }
+    .explanation-box.wrong-expl { background: rgba(239,68,68,0.04); border-color: rgba(239,68,68,0.2); }
+    @keyframes slideIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    .expl-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .expl-icon { font-size: 1rem; }
+    .expl-title { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+    .expl-title.correct-title { color: var(--success); }
+    .expl-title.wrong-title   { color: var(--error); }
+    .expl-text { font-size: 0.84rem; color: var(--text-muted); line-height: 1.7; }
+    [data-theme="dark"] .expl-text { color: rgba(240,244,255,0.65); }
+
+    /* Q footer */
+    .q-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border);
+      flex-wrap: wrap; gap: 10px;
+    }
+    .q-footer-left { display: flex; gap: 8px; }
+    .q-action-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border); font-size: 0.78rem; font-weight: 600;
+      color: var(--text-muted); background: var(--surface2);
+      transition: all var(--transition);
+    }
+    .q-action-btn:hover { border-color: var(--gold-main); color: var(--gold-main); background: rgba(201,168,76,0.05); }
+    .q-action-btn.active { border-color: var(--gold-main); color: var(--gold-main); background: rgba(201,168,76,0.08); }
+    .q-action-btn.skip-btn:hover { border-color: var(--warning); color: var(--warning); background: rgba(245,158,11,0.05); }
+
+    /* Navigation buttons */
+    .q-nav { display: flex; gap: 10px; }
+    .btn-prev, .btn-next {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 22px; border-radius: var(--radius-sm);
+      font-size: 0.875rem; font-weight: 700;
+      transition: all var(--transition);
+    }
+    .btn-prev { border: 1.5px solid var(--border); color: var(--text-muted); background: var(--surface); }
+    .btn-prev:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .btn-next { background: var(--gold-gradient); color: var(--navy-900); box-shadow: 0 2px 10px rgba(201,168,76,0.3); }
+    .btn-next:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn-next:disabled { opacity: 0.5; filter: none; transform: none; cursor: default; }
+    .btn-submit-now {
+      padding: 10px 22px; border-radius: var(--radius-sm);
+      font-size: 0.875rem; font-weight: 700;
+      background: var(--navy-800); border: 1.5px solid rgba(201,168,76,0.3);
+      color: var(--gold-light); transition: all var(--transition);
+    }
+    [data-theme="light"] .btn-submit-now { background: var(--navy-700); }
+    .btn-submit-now:hover { background: var(--navy-700); box-shadow: var(--gold-glow); }
+
+    /* ---- PAUSE OVERLAY ---- */
+    .pause-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(8,14,26,0.92); backdrop-filter: blur(12px);
+      display: none; align-items: center; justify-content: center;
+    }
+    .pause-overlay.active { display: flex; }
+    .pause-card {
+      background: var(--navy-700); border: 1px solid rgba(201,168,76,0.25);
+      border-radius: var(--radius-lg); padding: 40px 48px; text-align: center;
+      max-width: 380px; width: 90%;
+    }
+    .pause-icon { font-size: 3rem; margin-bottom: 14px; }
+    .pause-card h2 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: white; margin-bottom: 8px; }
+    .pause-card p { font-size: 0.85rem; color: rgba(255,255,255,0.45); margin-bottom: 28px; }
+    .pause-btns { display: flex; flex-direction: column; gap: 10px; }
+    .btn-resume {
+      padding: 13px; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 800;
+      background: var(--gold-gradient); color: var(--navy-900);
+    }
+    .btn-quit {
+      padding: 11px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.4);
+    }
+    .btn-quit:hover { border-color: var(--error); color: var(--error); }
+
+    /* ===================== RESULTS SCREEN ===================== */
+    #results-screen { background: var(--bg); }
+
+    .results-body {
+      flex: 1; max-width: 860px; width: 100%; margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    /* Hero score */
+    .score-hero {
+      background: var(--navy-800); border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius-lg); padding: 36px 40px;
+      display: flex; align-items: center; gap: 36px;
+      margin-bottom: 28px; flex-wrap: wrap;
+      position: relative; overflow: hidden;
+    }
+    [data-theme="light"] .score-hero { background: var(--navy-700); }
+    .score-hero::before {
+      content: ''; position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .score-donut { position: relative; width: 110px; height: 110px; flex-shrink: 0; }
+    .score-donut svg { width: 110px; height: 110px; transform: rotate(-90deg); }
+    .score-donut-bg { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 8; }
+    .score-donut-fill { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1); }
+    .score-donut-label {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .score-donut-pct {
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 900;
+      color: var(--gold-light); line-height: 1;
+    }
+    .score-donut-sub { font-size: 0.6rem; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+    .score-info { flex: 1; position: relative; z-index: 1; }
+    .score-grade {
+      font-family: var(--font-display); font-size: 2.2rem; font-weight: 900;
+      line-height: 1; margin-bottom: 6px;
+    }
+    .score-grade.grade-a  { color: var(--gold-light); }
+    .score-grade.grade-b  { color: #86efac; }
+    .score-grade.grade-c  { color: var(--warning); }
+    .score-grade.grade-f  { color: var(--error); }
+    .score-message { font-size: 0.88rem; color: rgba(255,255,255,0.5); margin-bottom: 18px; line-height: 1.5; }
+    .score-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+    .score-stat { text-align: center; }
+    .score-stat-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; line-height: 1; }
+    .score-stat-num.green { color: #86efac; }
+    .score-stat-num.red   { color: #fca5a5; }
+    .score-stat-num.amber { color: #fde68a; }
+    .score-stat-label { font-size: 0.65rem; color: rgba(255,255,255,0.35); margin-top: 3px; }
+
+    /* Time taken */
+    .time-taken { margin-left: auto; text-align: right; position: relative; z-index: 1; }
+    .time-taken-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: var(--gold-light); }
+    .time-taken-label { font-size: 0.65rem; color: rgba(255,255,255,0.35); }
+
+    /* Results tabs */
+    .results-tabs { display: flex; gap: 2px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 4px; margin-bottom: 24px; }
+    .rtab {
+      flex: 1; padding: 9px; border-radius: 9px; font-size: 0.82rem; font-weight: 600;
+      color: var(--text-muted); transition: all var(--transition); text-align: center;
+    }
+    .rtab:hover { color: var(--text); background: var(--surface2); }
+    .rtab.active { background: var(--navy-800); color: var(--gold-light); }
+    [data-theme="light"] .rtab.active { background: var(--navy-700); }
+
+    .rtab-panel { display: none; }
+    .rtab-panel.active { display: block; }
+
+    /* Accuracy breakdown */
+    .breakdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+    .bd-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 16px 14px; text-align: center;
+    }
+    .bd-icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .bd-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: var(--text); line-height: 1; margin-bottom: 3px; }
+    .bd-label { font-size: 0.72rem; color: var(--text-muted); }
+    .bd-card.correct .bd-num { color: var(--success); }
+    .bd-card.wrong   .bd-num { color: var(--error); }
+    .bd-card.skip    .bd-num { color: var(--warning); }
+    .bd-card.time    .bd-num { color: var(--gold-main); }
+
+    /* Topic performance */
+    .topic-row {
+      display: flex; align-items: center; gap: 12px; padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .topic-row:last-child { border-bottom: none; }
+    .topic-name { font-size: 0.85rem; font-weight: 600; color: var(--text); min-width: 160px; flex-shrink: 0; }
+    .topic-bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
+    .topic-bar-fill { height: 100%; border-radius: 99px; transition: width 1s ease; }
+    .fill-green  { background: var(--success); }
+    .fill-amber  { background: var(--warning); }
+    .fill-red    { background: var(--error); }
+    .topic-pct { font-size: 0.78rem; font-weight: 700; min-width: 38px; text-align: right; }
+    .pct-green { color: var(--success); }
+    .pct-amber { color: var(--warning); }
+    .pct-red   { color: var(--error); }
+    .topic-count { font-size: 0.7rem; color: var(--text-muted); min-width: 36px; text-align: right; }
+
+    /* Review list */
+    .review-filters { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .rv-chip {
+      padding: 6px 14px; border-radius: 100px; font-size: 0.75rem; font-weight: 600;
+      border: 1px solid var(--border); color: var(--text-muted); background: var(--surface);
+      transition: all var(--transition);
+    }
+    .rv-chip:hover, .rv-chip.active { border-color: var(--gold-main); color: var(--gold-main); background: rgba(201,168,76,0.06); }
+
+    .review-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 12px;
+      transition: border-color var(--transition);
+    }
+    .review-card.was-correct { border-left: 3px solid var(--success); }
+    .review-card.was-wrong   { border-left: 3px solid var(--error); }
+    .review-card.was-skip    { border-left: 3px solid var(--warning); }
+    .rv-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .rv-q-num { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+    .rv-status-badge {
+      font-size: 0.62rem; font-weight: 800; padding: 2px 9px; border-radius: 100px;
+      letter-spacing: 0.05em; text-transform: uppercase; flex-shrink: 0;
+    }
+    .badge-correct { background: rgba(34,197,94,0.1); color: var(--success); border: 1px solid rgba(34,197,94,0.2); }
+    .badge-wrong   { background: rgba(239,68,68,0.1);  color: var(--error);   border: 1px solid rgba(239,68,68,0.2); }
+    .badge-skip    { background: rgba(245,158,11,0.1); color: var(--warning); border: 1px solid rgba(245,158,11,0.2); }
+    .rv-q-text { font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 10px; line-height: 1.5; }
+    .rv-answers { display: flex; flex-direction: column; gap: 5px; }
+    .rv-answer { font-size: 0.8rem; padding: 7px 12px; border-radius: var(--radius-sm); }
+    .rv-answer.correct-ans { background: rgba(34,197,94,0.08); color: #22c55e; border: 1px solid rgba(34,197,94,0.2); }
+    .rv-answer.wrong-ans   { background: rgba(239,68,68,0.08);  color: var(--error); border: 1px solid rgba(239,68,68,0.2); }
+    .rv-answer-label { font-weight: 700; margin-right: 6px; }
+    .rv-expl { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+
+    /* Results actions */
+    .results-actions {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px;
+    }
+    .btn-retake {
+      flex: 1; min-width: 180px; padding: 13px 24px; border-radius: var(--radius-sm);
+      font-size: 0.9rem; font-weight: 800;
+      background: var(--gold-gradient); color: var(--navy-900);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      box-shadow: 0 2px 12px rgba(201,168,76,0.3);
+      transition: all var(--transition);
+    }
+    .btn-retake:hover { filter: brightness(1.08); }
+    .btn-retake-wrong {
+      flex: 1; min-width: 180px; padding: 13px 24px; border-radius: var(--radius-sm);
+      font-size: 0.9rem; font-weight: 700;
+      background: var(--surface); border: 1.5px solid var(--border);
+      color: var(--text); display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all var(--transition);
+    }
+    .btn-retake-wrong:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .btn-back-chapter {
+      padding: 13px 24px; border-radius: var(--radius-sm);
+      font-size: 0.9rem; font-weight: 600;
+      border: 1.5px solid var(--border); color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .btn-back-chapter:hover { color: var(--text); border-color: rgba(201,168,76,0.3); }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 768px) {
+      .practice-header { padding: 10px 14px; gap: 10px; }
+      .ph-bubbles { display: none; }
+      .q-card { padding: 22px 18px; }
+      .q-text { font-size: 0.95rem; }
+      .breakdown-grid { grid-template-columns: repeat(2, 1fr); }
+      .setup-body { padding: 28px 16px 48px; }
+      .score-hero { padding: 24px 20px; gap: 20px; }
+      .time-taken { display: none; }
+    }
+    @media (max-width: 480px) {
+      .q-nav { width: 100%; }
+      .btn-prev, .btn-next, .btn-submit-now { flex: 1; justify-content: center; padding: 10px 12px; font-size: 0.8rem; }
+      .results-body { padding: 24px 14px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ======================== SETUP SCREEN ======================== -->
+<div class="screen active" id="setup-screen">
+  <div class="top-bar">
+    <a href="index.html" class="top-bar-logo">
+      <div class="logo-mark">IL</div>
+      Imoria Learning
+    </a>
+    <div class="top-bar-context">
+      <span>MCQ Practice</span>
+    </div>
+    <div class="top-bar-actions">
+      <button class="theme-btn" id="themeBtn1">🌙</button>
+      <a href="dashboard.html" class="tb-btn">← Dashboard</a>
+    </div>
+  </div>
+
+  <div class="setup-body">
+    <div class="setup-card">
+      <span class="setup-eyebrow">MCQ Practice Mode</span>
+      <h1 class="setup-title">Configure Your<br>Practice Session</h1>
+      <p class="setup-sub">Set your subject, chapter, question count, and difficulty — then start whenever you're ready.</p>
+
+      <!-- Subject -->
+      <div class="setup-section">
+        <div class="setup-section-title">Subject</div>
+        <div class="select-row">
+          <button class="select-chip active" data-group="subject" data-val="chemistry">🧪 Chemistry</button>
+          <button class="select-chip" data-group="subject" data-val="physics">⚡ Physics</button>
+          <button class="select-chip" data-group="subject" data-val="biology">🧬 Biology</button>
+          <button class="select-chip" data-group="subject" data-val="english">📖 English</button>
+        </div>
+      </div>
+
+      <!-- Chapter -->
+      <div class="setup-section">
+        <div class="setup-section-title">Chapter</div>
+        <div class="select-row" id="chapterRow">
+          <button class="select-chip" data-group="chapter" data-val="all">📚 All Chapters</button>
+          <button class="select-chip active" data-group="chapter" data-val="ch3">Ch. 3 — Gases &amp; Gas Laws</button>
+          <button class="select-chip" data-group="chapter" data-val="ch4">Ch. 4 — Liquids &amp; Solids</button>
+          <button class="select-chip" data-group="chapter" data-val="ch5">Ch. 5 — Atomic Structure</button>
+        </div>
+      </div>
+
+      <!-- Question Count -->
+      <div class="setup-section">
+        <div class="setup-section-title">Number of Questions</div>
+        <div class="count-row">
+          <button class="count-chip" data-group="count" data-val="10">10</button>
+          <button class="count-chip" data-group="count" data-val="20">20</button>
+          <button class="count-chip active" data-group="count" data-val="30">30</button>
+          <button class="count-chip" data-group="count" data-val="42">42</button>
+          <button class="count-chip" data-group="count" data-val="50">50</button>
+        </div>
+      </div>
+
+      <!-- Difficulty -->
+      <div class="setup-section">
+        <div class="setup-section-title">Difficulty</div>
+        <div class="diff-row">
+          <button class="diff-chip active" data-group="diff" data-val="all">All</button>
+          <button class="diff-chip easy" data-group="diff" data-val="easy">🟢 Easy</button>
+          <button class="diff-chip medium" data-group="diff" data-val="medium">🟡 Medium</button>
+          <button class="diff-chip hard" data-group="diff" data-val="hard">🔴 Hard</button>
+          <button class="diff-chip" data-group="diff" data-val="pastpaper">📋 Past Paper Only</button>
+        </div>
+      </div>
+
+      <!-- Timer toggle -->
+      <div class="setup-section">
+        <div class="toggle-row">
+          <div class="toggle-label">
+            Timed Mode
+            <small>90 seconds per question · auto-moves on timeout</small>
+          </div>
+          <button class="toggle-switch on" id="timerToggle"></button>
+        </div>
+      </div>
+
+      <!-- Show Explanations -->
+      <div class="setup-section">
+        <div class="toggle-row">
+          <div class="toggle-label">
+            Show Explanation After Each Answer
+            <small>Instant feedback while practicing</small>
+          </div>
+          <button class="toggle-switch on" id="explToggle"></button>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="setup-summary">
+        <div class="summary-pills">
+          <div class="summary-pill"><strong id="sum-subject">Chemistry</strong><div class="dot"></div></div>
+          <div class="summary-pill"><strong id="sum-chapter">Ch. 3</strong><div class="dot"></div></div>
+          <div class="summary-pill"><strong id="sum-count">30</strong> Questions<div class="dot"></div></div>
+          <div class="summary-pill">Difficulty: <strong id="sum-diff">All</strong><div class="dot"></div></div>
+          <div class="summary-pill">Time: <strong id="sum-time">45 min</strong></div>
+        </div>
+      </div>
+
+      <button class="btn-start" id="startBtn">
+        ▶ Start Practice Session
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== PRACTICE SCREEN ======================== -->
+<div class="screen" id="practice-screen">
+  <div class="top-bar">
+    <a href="index.html" class="top-bar-logo">
+      <div class="logo-mark">IL</div>
+      Imoria
+    </a>
+    <div class="top-bar-context">
+      <span>🧪 Chemistry</span>
+      <span class="sep">›</span>
+      <strong>Ch. 3 — Gases &amp; Gas Laws</strong>
+    </div>
+    <div class="top-bar-actions">
+      <button class="theme-btn" id="themeBtn2">🌙</button>
+      <button class="tb-btn" id="pauseBtn">⏸ Pause</button>
+      <button class="tb-btn" id="endSessionBtn">End Session</button>
+    </div>
+  </div>
+
+  <!-- Practice Header -->
+  <div class="practice-header">
+    <div class="ph-progress">
+      <div class="ph-prog-label">
+        <span>Question <strong id="qNumLabel">1</strong> of <strong>5</strong></span>
+        <span id="answeredLabel">0 answered</span>
+      </div>
+      <div class="ph-prog-track">
+        <div class="ph-prog-fill" id="phProgFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="ph-bubbles" id="phBubbles"></div>
+
+    <div class="ph-timer" id="phTimer">
+      <div class="ph-timer-num" id="phTimerNum">01:30</div>
+      <div class="ph-timer-label">per question</div>
+    </div>
+
+    <div class="ph-controls">
+      <button class="ph-ctrl-btn" id="bmHeaderBtn" title="Bookmark">🔖</button>
+    </div>
+  </div>
+
+  <!-- Practice Body -->
+  <div class="practice-body">
+    <div class="question-area">
+      <!-- Q Meta -->
+      <div class="q-meta-row">
+        <div class="q-counter-badge">Question <strong id="qNum">01</strong></div>
+        <div class="q-tags" id="qTags"></div>
+      </div>
+
+      <!-- Q Card -->
+      <div class="q-card" id="qCard">
+        <div class="q-text" id="qText"></div>
+        <div class="options-grid" id="optionsGrid"></div>
+        <div class="explanation-box" id="explanationBox">
+          <div class="expl-header">
+            <span class="expl-icon" id="explIcon"></span>
+            <span class="expl-title" id="explTitle"></span>
+          </div>
+          <div class="expl-text" id="explText"></div>
+        </div>
+        <div class="q-footer">
+          <div class="q-footer-left">
+            <button class="q-action-btn" id="bmBtn">🔖 Bookmark</button>
+            <button class="q-action-btn skip-btn" id="skipBtn">⏩ Skip</button>
+          </div>
+          <div class="q-nav">
+            <button class="btn-prev" id="prevBtn">← Prev</button>
+            <button class="btn-next" id="nextBtn">Next →</button>
+            <button class="btn-submit-now" id="submitNowBtn" style="display:none">Submit →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pause Overlay -->
+<div class="pause-overlay" id="pauseOverlay">
+  <div class="pause-card">
+    <div class="pause-icon">⏸</div>
+    <h2>Session Paused</h2>
+    <p>Your timer has been paused. Take a breath, then resume whenever you're ready.</p>
+    <div class="pause-btns">
+      <button class="btn-resume" id="resumeBtn">▶ Resume Session</button>
+      <button class="btn-quit" id="quitBtn">✕ Quit &amp; See Results</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== RESULTS SCREEN ======================== -->
+<div class="screen" id="results-screen">
+  <div class="top-bar">
+    <a href="index.html" class="top-bar-logo">
+      <div class="logo-mark">IL</div>
+      Imoria Learning
+    </a>
+    <div class="top-bar-context">
+      <span>Session Results</span>
+    </div>
+    <div class="top-bar-actions">
+      <button class="theme-btn" id="themeBtn3">🌙</button>
+      <a href="dashboard.html" class="tb-btn">Dashboard</a>
+    </div>
+  </div>
+
+  <div class="results-body">
+
+    <!-- Score Hero -->
+    <div class="score-hero">
+      <div class="score-donut">
+        <svg viewBox="0 0 110 110">
+          <circle class="score-donut-bg" cx="55" cy="55" r="46"/>
+          <circle class="score-donut-fill" id="donutFill" cx="55" cy="55" r="46"
+            stroke="url(#donutGrad)"
+            stroke-dasharray="289" stroke-dashoffset="289"/>
+          <defs>
+            <linearGradient id="donutGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#F0D080"/>
+              <stop offset="100%" stop-color="#A07830"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="score-donut-label">
+          <div class="score-donut-pct" id="donutPct">0%</div>
+          <div class="score-donut-sub">score</div>
+        </div>
+      </div>
+
+      <div class="score-info">
+        <div class="score-grade" id="scoreGrade">A+</div>
+        <div class="score-message" id="scoreMessage">Excellent! Keep this up for MDCAT.</div>
+        <div class="score-stats">
+          <div class="score-stat">
+            <div class="score-stat-num green" id="resCorrect">0</div>
+            <div class="score-stat-label">Correct</div>
+          </div>
+          <div class="score-stat">
+            <div class="score-stat-num red" id="resWrong">0</div>
+            <div class="score-stat-label">Wrong</div>
+          </div>
+          <div class="score-stat">
+            <div class="score-stat-num amber" id="resSkip">0</div>
+            <div class="score-stat-label">Skipped</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-taken">
+        <div class="time-taken-num" id="timeTakenNum">--:--</div>
+        <div class="time-taken-label">Time Taken</div>
+      </div>
+    </div>
+
+    <!-- Results Tabs -->
+    <div class="results-tabs">
+      <button class="rtab active" data-rtab="breakdown">📊 Breakdown</button>
+      <button class="rtab" data-rtab="topics">📌 Topics</button>
+      <button class="rtab" data-rtab="review">🔍 Review All</button>
+    </div>
+
+    <!-- Breakdown Tab -->
+    <div class="rtab-panel active" id="rtab-breakdown">
+      <div class="breakdown-grid">
+        <div class="bd-card correct">
+          <div class="bd-icon">✅</div>
+          <div class="bd-num" id="bdCorrect">0</div>
+          <div class="bd-label">Correct</div>
+        </div>
+        <div class="bd-card wrong">
+          <div class="bd-icon">❌</div>
+          <div class="bd-num" id="bdWrong">0</div>
+          <div class="bd-label">Wrong</div>
+        </div>
+        <div class="bd-card skip">
+          <div class="bd-icon">⏩</div>
+          <div class="bd-num" id="bdSkip">0</div>
+          <div class="bd-label">Skipped</div>
+        </div>
+        <div class="bd-card time">
+          <div class="bd-icon">⏱</div>
+          <div class="bd-num" id="bdAvgTime">0s</div>
+          <div class="bd-label">Avg / Question</div>
+        </div>
+      </div>
+
+      <div class="results-actions">
+        <button class="btn-retake" onclick="restartSession()">🔄 Retake Full Session</button>
+        <button class="btn-retake-wrong" onclick="retakeWrong()">❌ Retry Wrong Only</button>
+        <a href="chapter.html" class="btn-back-chapter">← Back to Chapter</a>
+      </div>
+    </div>
+
+    <!-- Topics Tab -->
+    <div class="rtab-panel" id="rtab-topics">
+      <div id="topicBreakdown"></div>
+    </div>
+
+    <!-- Review Tab -->
+    <div class="rtab-panel" id="rtab-review">
+      <div class="review-filters">
+        <button class="rv-chip active" data-rv="all">All (5)</button>
+        <button class="rv-chip" data-rv="correct">✅ Correct</button>
+        <button class="rv-chip" data-rv="wrong">❌ Wrong</button>
+        <button class="rv-chip" data-rv="skip">⏩ Skipped</button>
+        <button class="rv-chip" data-rv="bookmarked">🔖 Bookmarked</button>
+      </div>
+      <div id="reviewList"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======================== SCRIPT ======================== -->
+<script>
+/* ====================================================
+   DATA
+   ==================================================== */
+const QUESTIONS = [
+  {
+    id: 1,
+    text: "Which of the following equations represents the Ideal Gas Law?",
+    opts: ["PV = nR", "PV = nRT", "PV = RT", "P = nRT/n"],
+    correct: 1,
+    difficulty: "easy",
+    pastPaper: true,
+    topic: "Ideal Gas Law",
+    explanation: "The ideal gas equation PV = nRT combines Boyle's, Charles', and Avogadro's laws. n is moles of gas, R is the universal gas constant (0.0821 L·atm/mol·K), and T must always be in Kelvin. Forgetting to convert Celsius to Kelvin is the most common board-exam mistake."
+  },
+  {
+    id: 2,
+    text: "Boyle's Law states that at constant temperature, the pressure of a fixed amount of gas is:",
+    opts: ["Directly proportional to its volume", "Inversely proportional to its volume", "Independent of its volume", "Equal to its volume"],
+    correct: 1,
+    difficulty: "easy",
+    pastPaper: false,
+    topic: "Boyle's Law",
+    explanation: "Boyle's Law: P ∝ 1/V at constant T and n. As volume decreases, the same number of gas particles collide with a smaller surface area, increasing pressure proportionally."
+  },
+  {
+    id: 3,
+    text: "The value of the universal gas constant R in SI units (J/mol·K) is:",
+    opts: ["0.0821", "1.987", "8.314", "22.4"],
+    correct: 2,
+    difficulty: "medium",
+    pastPaper: true,
+    topic: "Gas Constant",
+    explanation: "R = 8.314 J/mol·K in SI units. Other common values: 0.0821 L·atm/mol·K (most used in board exams) and 1.987 cal/mol·K. 22.4 is the molar volume at STP in litres — not R."
+  },
+  {
+    id: 4,
+    text: "According to Dalton's Law of Partial Pressures, the partial pressure of a gas in a mixture equals:",
+    opts: [
+      "Total pressure divided by number of components",
+      "Mole fraction minus total pressure",
+      "Mole fraction multiplied by total pressure",
+      "Volume fraction multiplied by molar mass"
+    ],
+    correct: 2,
+    difficulty: "medium",
+    pastPaper: false,
+    topic: "Dalton's Law",
+    explanation: "P₁ = X₁ × P_total, where X₁ = n₁/n_total is the mole fraction of component 1. This is a frequently tested calculation in both MCQs and short questions."
+  },
+  {
+    id: 5,
+    text: "At which conditions do real gases deviate most from ideal gas behaviour?",
+    opts: [
+      "High temperature and low pressure",
+      "Low temperature and high volume",
+      "Low temperature and high pressure",
+      "High temperature and high pressure"
+    ],
+    correct: 2,
+    difficulty: "hard",
+    pastPaper: false,
+    topic: "Real Gases",
+    explanation: "At low temperature, slow-moving molecules are more affected by intermolecular attractive forces. At high pressure, molecules are close together and their finite volume becomes significant. Both effects cause deviation from PV = nRT."
+  }
+];
+
+/* ====================================================
+   STATE
+   ==================================================== */
+let state = {
+  currentQ: 0,
+  answers: {},      // index → chosen option index (or -1 for skip)
+  bookmarks: new Set(),
+  timerEnabled: true,
+  explEnabled: true,
+  sessionStartTime: null,
+  qStartTime: null,
+  qTimes: {},       // index → seconds taken
+  paused: false,
+  timerInterval: null,
+  qTimer: null,
+  qTimerRemaining: 90,
+  totalElapsed: 0,
+  elapsedInterval: null,
+};
+
+/* ====================================================
+   THEME
+   ==================================================== */
+const applyTheme = () => {
+  const t = localStorage.getItem('imoria-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  const icon = t === 'dark' ? '☀️' : '🌙';
+  ['themeBtn1','themeBtn2','themeBtn3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = icon;
+  });
+};
+const toggleTheme = () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const nxt = cur === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('imoria-theme', nxt);
+  applyTheme();
+};
+['themeBtn1','themeBtn2','themeBtn3'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('click', toggleTheme);
+});
+applyTheme();
+
+/* ====================================================
+   SCREEN SWITCHING
+   ==================================================== */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ====================================================
+   SETUP SCREEN LOGIC
+   ==================================================== */
+// Chip selectors
+document.querySelectorAll('[data-group]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const group = chip.dataset.group;
+    document.querySelectorAll(`[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    updateSummary();
+  });
+});
+
+// Toggles
+const timerToggle = document.getElementById('timerToggle');
+const explToggle = document.getElementById('explToggle');
+timerToggle.addEventListener('click', () => timerToggle.classList.toggle('on'));
+explToggle.addEventListener('click', () => explToggle.classList.toggle('on'));
+
+function updateSummary() {
+  const subject = document.querySelector('[data-group="subject"].active')?.dataset.val || 'chemistry';
+  const chapter = document.querySelector('[data-group="chapter"].active')?.dataset.val || 'ch3';
+  const count = parseInt(document.querySelector('[data-group="count"].active')?.dataset.val || '30');
+  const diff = document.querySelector('[data-group="diff"].active')?.dataset.val || 'all';
+  const mins = count * 1.5;
+  const chapterLabels = { all:'All Chapters', ch3:'Ch. 3', ch4:'Ch. 4', ch5:'Ch. 5' };
+  document.getElementById('sum-subject').textContent = subject.charAt(0).toUpperCase()+subject.slice(1);
+  document.getElementById('sum-chapter').textContent = chapterLabels[chapter] || chapter;
+  document.getElementById('sum-count').textContent = count;
+  document.getElementById('sum-diff').textContent = diff === 'all' ? 'All' : diff.charAt(0).toUpperCase()+diff.slice(1);
+  document.getElementById('sum-time').textContent = mins >= 60 ? Math.floor(mins/60)+'h '+(mins%60)+'m' : mins+' min';
+}
+updateSummary();
+
+document.getElementById('startBtn').addEventListener('click', startSession);
+
+/* ====================================================
+   SESSION START
+   ==================================================== */
+function startSession() {
+  state.timerEnabled = timerToggle.classList.contains('on');
+  state.explEnabled  = explToggle.classList.contains('on');
+  state.currentQ = 0;
+  state.answers = {};
+  state.bookmarks = new Set();
+  state.qTimes = {};
+  state.totalElapsed = 0;
+  state.paused = false;
+
+  buildBubbles();
+  showScreen('practice-screen');
+  renderQuestion(0);
+
+  // Session elapsed timer
+  state.sessionStartTime = Date.now();
+  state.elapsedInterval = setInterval(() => {
+    if (!state.paused) state.totalElapsed++;
+  }, 1000);
+
+  if (!state.timerEnabled) {
+    document.getElementById('phTimer').style.display = 'none';
+  } else {
+    document.getElementById('phTimer').style.display = 'flex';
+  }
+}
+
+/* ====================================================
+   BUILD QUESTION BUBBLES
+   ==================================================== */
+function buildBubbles() {
+  const container = document.getElementById('phBubbles');
+  container.innerHTML = '';
+  QUESTIONS.forEach((q, i) => {
+    const b = document.createElement('button');
+    b.className = 'q-bubble';
+    b.textContent = i + 1;
+    b.dataset.index = i;
+    b.addEventListener('click', () => { stopQTimer(); goToQuestion(i); });
+    container.appendChild(b);
+  });
+  updateBubbles();
+}
+
+function updateBubbles() {
+  document.querySelectorAll('.q-bubble').forEach((b, i) => {
+    b.classList.remove('current','answered','wrong','skipped','bookmarked');
+    if (i === state.currentQ) b.classList.add('current');
+    if (state.answers[i] !== undefined) {
+      if (state.answers[i] === -1) b.classList.add('skipped');
+      else if (state.answers[i] === QUESTIONS[i].correct) b.classList.add('answered');
+      else b.classList.add('wrong');
+    }
+    if (state.bookmarks.has(i)) b.classList.add('bookmarked');
+  });
+}
+
+/* ====================================================
+   RENDER QUESTION
+   ==================================================== */
+function renderQuestion(index) {
+  const q = QUESTIONS[index];
+  state.currentQ = index;
+  state.qStartTime = Date.now();
+
+  const total = QUESTIONS.length;
+  const answered = Object.keys(state.answers).length;
+
+  // Header update
+  document.getElementById('qNumLabel').textContent = index + 1;
+  document.getElementById('answeredLabel').textContent = answered + ' answered';
+  document.getElementById('phProgFill').style.width = ((index / total) * 100) + '%';
+
+  // Q number
+  document.getElementById('qNum').textContent = String(index + 1).padStart(2, '0');
+
+  // Tags
+  const tagsEl = document.getElementById('qTags');
+  tagsEl.innerHTML = '';
+  const diffClass = { easy: 'tag-easy', medium: 'tag-medium', hard: 'tag-hard' };
+  const diffLabel = { easy: 'Easy', medium: 'Medium', hard: 'Hard' };
+  const dTag = document.createElement('span');
+  dTag.className = 'q-tag ' + (diffClass[q.difficulty] || '');
+  dTag.textContent = diffLabel[q.difficulty] || q.difficulty;
+  tagsEl.appendChild(dTag);
+  if (q.pastPaper) {
+    const ppTag = document.createElement('span');
+    ppTag.className = 'q-tag tag-pp';
+    ppTag.textContent = '📋 Past Paper';
+    tagsEl.appendChild(ppTag);
+  }
+
+  // Question text
+  document.getElementById('qText').textContent = q.text;
+
+  // Options
+  const grid = document.getElementById('optionsGrid');
+  grid.innerHTML = '';
+  const labels = ['A', 'B', 'C', 'D'];
+  const alreadyAnswered = state.answers[index] !== undefined;
+  const chosenOpt = state.answers[index];
+
+  q.opts.forEach((opt, oi) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    if (alreadyAnswered) {
+      btn.disabled = true;
+      if (oi === q.correct) btn.classList.add('correct');
+      else if (oi === chosenOpt && chosenOpt !== q.correct) btn.classList.add('wrong');
+    }
+    btn.innerHTML = `<div class="opt-lbl">${labels[oi]}</div><div class="opt-text">${opt}</div>`;
+    if (!alreadyAnswered) {
+      btn.addEventListener('click', () => selectAnswer(index, oi));
+    }
+    grid.appendChild(btn);
+  });
+
+  // Card state
+  const card = document.getElementById('qCard');
+  card.classList.remove('answered-correct','answered-wrong');
+  if (alreadyAnswered && chosenOpt !== -1) {
+    card.classList.add(chosenOpt === q.correct ? 'answered-correct' : 'answered-wrong');
+  }
+
+  // Explanation
+  const explBox = document.getElementById('explanationBox');
+  explBox.classList.remove('visible','wrong-expl');
+  if (alreadyAnswered && state.explEnabled && chosenOpt !== -1) {
+    const correct = chosenOpt === q.correct;
+    explBox.classList.add('visible');
+    if (!correct) explBox.classList.add('wrong-expl');
+    document.getElementById('explIcon').textContent = correct ? '✅' : '❌';
+    document.getElementById('explTitle').className = 'expl-title ' + (correct ? 'correct-title' : 'wrong-title');
+    document.getElementById('explTitle').textContent = correct ? 'Correct!' : 'Incorrect';
+    document.getElementById('explText').textContent = q.explanation;
+  }
+
+  // Bookmark btn
+  const bmBtn = document.getElementById('bmBtn');
+  bmBtn.classList.toggle('active', state.bookmarks.has(index));
+  bmBtn.textContent = state.bookmarks.has(index) ? '🔖 Bookmarked' : '🔖 Bookmark';
+  document.getElementById('bmHeaderBtn').classList.toggle('active', state.bookmarks.has(index));
+
+  // Nav buttons
+  document.getElementById('prevBtn').style.visibility = index === 0 ? 'hidden' : 'visible';
+  const isLast = index === total - 1;
+  document.getElementById('nextBtn').style.display = isLast ? 'none' : '';
+  document.getElementById('submitNowBtn').style.display = isLast ? '' : 'none';
+
+  // Skip btn
+  document.getElementById('skipBtn').style.display = alreadyAnswered ? 'none' : '';
+
+  updateBubbles();
+
+  // Start per-Q timer
+  if (state.timerEnabled) startQTimer();
+}
+
+/* ====================================================
+   ANSWER SELECTION
+   ==================================================== */
+function selectAnswer(qIndex, optIndex) {
+  if (state.answers[qIndex] !== undefined) return;
+  state.answers[qIndex] = optIndex;
+  state.qTimes[qIndex] = Math.round((Date.now() - state.qStartTime) / 1000);
+  stopQTimer();
+  renderQuestion(qIndex);
+}
+
+/* ====================================================
+   Q-LEVEL TIMER
+   ==================================================== */
+function startQTimer() {
+  stopQTimer();
+  state.qTimerRemaining = 90;
+  updateTimerDisplay(90);
+  state.qTimer = setInterval(() => {
+    if (state.paused) return;
+    state.qTimerRemaining--;
+    updateTimerDisplay(state.qTimerRemaining);
+    if (state.qTimerRemaining <= 0) {
+      stopQTimer();
+      // Auto skip
+      if (state.answers[state.currentQ] === undefined) {
+        state.answers[state.currentQ] = -1; // skip
+        state.qTimes[state.currentQ] = 90;
+        const next = state.currentQ + 1;
+        if (next < QUESTIONS.length) goToQuestion(next);
+        else showResults();
+      }
+    }
+  }, 1000);
+}
+
+function stopQTimer() {
+  if (state.qTimer) { clearInterval(state.qTimer); state.qTimer = null; }
+}
+
+function updateTimerDisplay(secs) {
+  const m = Math.floor(secs / 60).toString().padStart(2, '0');
+  const s = (secs % 60).toString().padStart(2, '0');
+  const el = document.getElementById('phTimerNum');
+  el.textContent = m + ':' + s;
+  el.classList.toggle('warning', secs <= 15);
+}
+
+/* ====================================================
+   NAVIGATION
+   ==================================================== */
+function goToQuestion(index) {
+  if (index < 0 || index >= QUESTIONS.length) return;
+  stopQTimer();
+  renderQuestion(index);
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => {
+  stopQTimer();
+  if (state.currentQ > 0) goToQuestion(state.currentQ - 1);
+});
+document.getElementById('nextBtn').addEventListener('click', () => {
+  stopQTimer();
+  if (state.currentQ < QUESTIONS.length - 1) goToQuestion(state.currentQ + 1);
+});
+document.getElementById('submitNowBtn').addEventListener('click', showResults);
+document.getElementById('endSessionBtn').addEventListener('click', showResults);
+
+document.getElementById('skipBtn').addEventListener('click', () => {
+  state.answers[state.currentQ] = -1;
+  state.qTimes[state.currentQ] = Math.round((Date.now() - state.qStartTime) / 1000);
+  stopQTimer();
+  const next = state.currentQ + 1;
+  if (next < QUESTIONS.length) goToQuestion(next);
+  else showResults();
+});
+
+// Bookmark
+document.getElementById('bmBtn').addEventListener('click', () => {
+  const i = state.currentQ;
+  if (state.bookmarks.has(i)) state.bookmarks.delete(i);
+  else state.bookmarks.add(i);
+  updateBubbles();
+  const bmBtn = document.getElementById('bmBtn');
+  bmBtn.classList.toggle('active', state.bookmarks.has(i));
+  bmBtn.textContent = state.bookmarks.has(i) ? '🔖 Bookmarked' : '🔖 Bookmark';
+  document.getElementById('bmHeaderBtn').classList.toggle('active', state.bookmarks.has(i));
+});
+document.getElementById('bmHeaderBtn').addEventListener('click', () => {
+  document.getElementById('bmBtn').click();
+});
+
+/* ====================================================
+   PAUSE / RESUME
+   ==================================================== */
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  state.paused = true;
+  document.getElementById('pauseOverlay').classList.add('active');
+});
+document.getElementById('resumeBtn').addEventListener('click', () => {
+  state.paused = false;
+  document.getElementById('pauseOverlay').classList.remove('active');
+});
+document.getElementById('quitBtn').addEventListener('click', () => {
+  document.getElementById('pauseOverlay').classList.remove('active');
+  showResults();
+});
+
+/* ====================================================
+   KEYBOARD SHORTCUTS
+   ==================================================== */
+document.addEventListener('keydown', e => {
+  if (document.getElementById('practice-screen').classList.contains('active')) {
+    if (e.key === 'ArrowRight') document.getElementById('nextBtn').click();
+    if (e.key === 'ArrowLeft')  document.getElementById('prevBtn').click();
+    if (e.key === 'Escape')    document.getElementById('pauseBtn').click();
+    if (['1','2','3','4'].includes(e.key)) {
+      const opts = document.querySelectorAll('.opt-btn:not(:disabled)');
+      const idx = parseInt(e.key) - 1;
+      if (opts[idx]) opts[idx].click();
+    }
+  }
+});
+
+/* ====================================================
+   RESULTS
+   ==================================================== */
+function showResults() {
+  stopQTimer();
+  clearInterval(state.elapsedInterval);
+
+  const total = QUESTIONS.length;
+  let correct = 0, wrong = 0, skip = 0;
+  QUESTIONS.forEach((q, i) => {
+    const ans = state.answers[i];
+    if (ans === undefined || ans === -1) skip++;
+    else if (ans === q.correct) correct++;
+    else wrong++;
+  });
+
+  const pct = Math.round((correct / total) * 100);
+
+  // Donut
+  const circumference = 2 * Math.PI * 46;
+  const offset = circumference - (pct / 100) * circumference;
+  setTimeout(() => {
+    document.getElementById('donutFill').style.strokeDashoffset = offset;
+  }, 200);
+  document.getElementById('donutPct').textContent = pct + '%';
+
+  // Grade
+  let grade, gradeClass, message;
+  if (pct >= 90) { grade = 'A+'; gradeClass = 'grade-a'; message = 'Outstanding! You are MDCAT ready for this chapter.'; }
+  else if (pct >= 75) { grade = 'A'; gradeClass = 'grade-a'; message = 'Excellent work! Review the wrong ones and you\'re set.'; }
+  else if (pct >= 60) { grade = 'B'; gradeClass = 'grade-b'; message = 'Good effort. Focus on your weak topics to push higher.'; }
+  else if (pct >= 45) { grade = 'C'; gradeClass = 'grade-c'; message = 'Keep practising — revision of notes will help.'; }
+  else { grade = 'D'; gradeClass = 'grade-f'; message = 'Re-read the chapter notes before retrying.'; }
+
+  document.getElementById('scoreGrade').textContent = grade;
+  document.getElementById('scoreGrade').className = 'score-grade ' + gradeClass;
+  document.getElementById('scoreMessage').textContent = message;
+  document.getElementById('resCorrect').textContent = correct;
+  document.getElementById('resWrong').textContent = wrong;
+  document.getElementById('resSkip').textContent = skip;
+  document.getElementById('bdCorrect').textContent = correct;
+  document.getElementById('bdWrong').textContent = wrong;
+  document.getElementById('bdSkip').textContent = skip;
+
+  // Avg time
+  const times = Object.values(state.qTimes);
+  const avgTime = times.length ? Math.round(times.reduce((a,b) => a+b, 0) / times.length) : 0;
+  document.getElementById('bdAvgTime').textContent = avgTime + 's';
+
+  // Total time
+  const elapsed = state.totalElapsed;
+  const em = Math.floor(elapsed / 60).toString().padStart(2, '0');
+  const es = (elapsed % 60).toString().padStart(2, '0');
+  document.getElementById('timeTakenNum').textContent = em + ':' + es;
+
+  // Topic breakdown
+  const topicMap = {};
+  QUESTIONS.forEach((q, i) => {
+    if (!topicMap[q.topic]) topicMap[q.topic] = { correct: 0, total: 0 };
+    topicMap[q.topic].total++;
+    if (state.answers[i] === q.correct) topicMap[q.topic].correct++;
+  });
+  const topicEl = document.getElementById('topicBreakdown');
+  topicEl.innerHTML = '';
+  Object.entries(topicMap).forEach(([topic, data]) => {
+    const pct = Math.round((data.correct / data.total) * 100);
+    const fillClass = pct >= 70 ? 'fill-green' : pct >= 45 ? 'fill-amber' : 'fill-red';
+    const pctClass = pct >= 70 ? 'pct-green' : pct >= 45 ? 'pct-amber' : 'pct-red';
+    topicEl.innerHTML += `
+      <div class="topic-row">
+        <div class="topic-name">${topic}</div>
+        <div class="topic-bar-track">
+          <div class="topic-bar-fill ${fillClass}" style="width:${pct}%"></div>
+        </div>
+        <div class="topic-pct ${pctClass}">${pct}%</div>
+        <div class="topic-count">${data.correct}/${data.total}</div>
+      </div>`;
+  });
+
+  // Review list
+  buildReviewList('all');
+
+  showScreen('results-screen');
+}
+
+function buildReviewList(filter) {
+  const el = document.getElementById('reviewList');
+  el.innerHTML = '';
+  const labels = ['A','B','C','D'];
+  QUESTIONS.forEach((q, i) => {
+    const ans = state.answers[i];
+    let status = 'skip';
+    if (ans !== undefined && ans !== -1) {
+      status = ans === q.correct ? 'correct' : 'wrong';
+    }
+    if (filter !== 'all') {
+      if (filter === 'bookmarked' && !state.bookmarks.has(i)) return;
+      else if (filter !== 'bookmarked' && status !== filter) return;
+    }
+    const badgeClass = { correct: 'badge-correct', wrong: 'badge-wrong', skip: 'badge-skip' }[status];
+    const badgeLabel = { correct: '✅ Correct', wrong: '❌ Wrong', skip: '⏩ Skipped' }[status];
+    const cardClass = { correct: 'was-correct', wrong: 'was-wrong', skip: 'was-skip' }[status];
+
+    let answersHTML = '';
+    if (status !== 'skip') {
+      if (status === 'wrong') {
+        answersHTML += `<div class="rv-answer wrong-ans"><span class="rv-answer-label">Your answer:</span>${labels[ans]}. ${q.opts[ans]}</div>`;
+      }
+      answersHTML += `<div class="rv-answer correct-ans"><span class="rv-answer-label">Correct:</span>${labels[q.correct]}. ${q.opts[q.correct]}</div>`;
+    }
+
+    el.innerHTML += `
+      <div class="review-card ${cardClass}">
+        <div class="rv-card-top">
+          <div class="rv-q-num">Q.${String(i+1).padStart(2,'0')}</div>
+          <span class="rv-status-badge ${badgeClass}">${badgeLabel}</span>
+        </div>
+        <div class="rv-q-text">${q.text}</div>
+        <div class="rv-answers">${answersHTML}</div>
+        ${status !== 'skip' ? `<div class="rv-expl">${q.explanation}</div>` : ''}
+      </div>`;
+  });
+}
+
+// Review filter chips
+document.querySelectorAll('.rv-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.rv-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    buildReviewList(chip.dataset.rv);
+  });
+});
+
+// Results tabs
+document.querySelectorAll('.rtab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.rtab-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('rtab-' + tab.dataset.rtab).classList.add('active');
+  });
+});
+
+/* ====================================================
+   RESTART / RETRY WRONG
+   ==================================================== */
+function restartSession() {
+  showScreen('setup-screen');
+}
+function retakeWrong() {
+  // In a real app, filter to wrong questions. Here just restart.
+  restartSession();
+}
+</script>
+</body>
+</html>
