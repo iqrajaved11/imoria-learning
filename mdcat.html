@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDCAT Preparation 2025 | Imoria Learning — Complete PMC MDCAT Prep</title>
+  <meta name="description" content="Complete MDCAT 2025 preparation on Imoria Learning. Chapter-wise MCQs, full 200-question mock tests in real PMC format, score analytics, past paper questions. Pakistan's most structured MDCAT prep." />
+  <meta name="keywords" content="MDCAT preparation 2025, MDCAT mock test Pakistan, PMC MDCAT, MDCAT MCQs, MDCAT biology chemistry physics English, medical college admission Pakistan" />
+  <meta property="og:title" content="MDCAT 2025 Complete Preparation | Imoria Learning" />
+  <meta property="og:description" content="Chapter-wise MCQs + Full Mock Tests for MDCAT 2025. Real PMC format, 200 MCQs, 210-minute timer, detailed analytics." />
+  <meta property="og:image" content="/assets/og-image.jpg" />
+  <meta property="og:url" content="https://imorialearning.github.io/mdcat.html" />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://imorialearning.github.io/mdcat.html" />
+
+  <!-- Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "MDCAT 2025 Complete Preparation",
+    "provider": { "@type": "EducationalOrganization", "name": "Imoria Learning", "url": "https://imorialearning.github.io" },
+    "description": "Full MDCAT preparation with chapter-wise MCQs and mock tests in PMC format",
+    "courseMode": "online",
+    "inLanguage": "ur",
+    "offers": { "@type": "Offer", "price": "499", "priceCurrency": "PKR" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===================== TOKENS ===================== */
+    :root {
+      --navy-900: #0A1628;
+      --navy-800: #0D1B2A;
+      --navy-700: #112240;
+      --navy-600: #1A3358;
+      --navy-500: #1E3D6B;
+
+      --gold-light: #F0D080;
+      --gold-main:  #C9A84C;
+      --gold-dark:  #A07830;
+      --gold-gradient: linear-gradient(135deg, #F0D080 0%, #C9A84C 50%, #A07830 100%);
+      --gold-glow: 0 0 28px rgba(201,168,76,0.4);
+
+      --white: #FFFFFF;
+      --gray-50:  #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-400: #9CA3AF;
+      --gray-500: #6B7280;
+
+      --success: #22C55E;
+      --error:   #EF4444;
+      --info:    #3B82F6;
+      --warning: #F59E0B;
+
+      /* Light */
+      --bg:         #F9FAFB;
+      --surface:    #FFFFFF;
+      --surface2:   #F3F4F6;
+      --surface3:   #E9EBF0;
+      --text:       #0A1628;
+      --text-muted: #6B7280;
+      --text-soft:  #9CA3AF;
+      --border:     #E5E7EB;
+      --border2:    #D1D5DB;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 32px;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.07);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.10);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,0.16);
+
+      --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+      --nav-height: 64px;
+    }
+
+    [data-theme="dark"] {
+      --bg:         #080E1A;
+      --surface:    #0D1B2A;
+      --surface2:   #112240;
+      --surface3:   #1A3358;
+      --text:       #EDF2FF;
+      --text-muted: #94A3B8;
+      --text-soft:  #64748B;
+      --border:     #1E3050;
+      --border2:    #243858;
+    }
+
+    /* ===================== RESET ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; font-family: var(--font-body); border: none; background: none; }
+    ul { list-style: none; }
+
+    /* ===================== UTILITIES ===================== */
+    .container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .gold-text { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .sr-only { position: absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+
+    /* ===================== NAVBAR ===================== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: var(--nav-height);
+      display: flex; align-items: center;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(8,14,26,0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: rgba(201,168,76,0.15);
+    }
+    [data-theme="light"] .navbar.scrolled {
+      background: rgba(249,250,251,0.94);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 20px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 700;
+      color: var(--white);
+    }
+    [data-theme="light"] .nav-logo { color: var(--navy-800); }
+    .nav-logo-mark {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: var(--gold-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; font-weight: 900; color: var(--navy-900); flex-shrink: 0;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2px; }
+    .nav-links a {
+      padding: 7px 13px; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500;
+      color: rgba(255,255,255,0.75); transition: all var(--transition);
+    }
+    [data-theme="light"] .nav-links a { color: var(--gray-500); }
+    .nav-links a:hover { color: var(--gold-light); background: rgba(201,168,76,0.08); }
+    [data-theme="light"] .nav-links a:hover { color: var(--navy-800); }
+    .nav-links a.active-link { color: var(--gold-main); }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .theme-toggle {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.65); font-size: 0.9rem; transition: all var(--transition);
+    }
+    [data-theme="light"] .theme-toggle { background: var(--gray-100); border-color: var(--border); color: var(--gray-500); }
+    .theme-toggle:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .btn-nav-login {
+      padding: 8px 18px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); transition: all var(--transition);
+    }
+    [data-theme="light"] .btn-nav-login { border-color: var(--border); color: var(--navy-800); }
+    .btn-nav-login:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .btn-nav-cta {
+      padding: 8px 20px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 700;
+      background: var(--gold-gradient); color: var(--navy-900);
+      box-shadow: 0 2px 8px rgba(201,168,76,0.28); transition: all var(--transition);
+    }
+    .btn-nav-cta:hover { filter: brightness(1.08); box-shadow: var(--gold-glow); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: white; border-radius: 2px; transition: all 0.3s; }
+    [data-theme="light"] .hamburger span { background: var(--navy-800); }
+    .mobile-nav {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: var(--navy-800); padding: var(--nav-height) 0 40px;
+      flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    }
+    [data-theme="light"] .mobile-nav { background: var(--white); }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1.3rem; font-weight: 600; color: rgba(255,255,255,0.8); padding: 13px 40px; width: 100%; text-align: center; transition: color var(--transition); }
+    [data-theme="light"] .mobile-nav a { color: var(--gray-500); }
+    .mobile-nav a:hover { color: var(--gold-light); }
+    .mobile-nav-actions { display: flex; gap: 12px; margin-top: 24px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 700; transition: all var(--transition); white-space: nowrap; }
+    .btn-primary { background: var(--gold-gradient); color: var(--navy-900); box-shadow: 0 2px 10px rgba(201,168,76,0.28); }
+    .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: var(--gold-glow); }
+    .btn-secondary { border: 2px solid var(--gold-main); color: var(--gold-main); background: transparent; }
+    .btn-secondary:hover { background: rgba(201,168,76,0.08); transform: translateY(-1px); }
+
+    /* ===================== HERO ===================== */
+    .mdcat-hero {
+      min-height: 100vh;
+      background: var(--navy-800);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: calc(var(--nav-height) + 60px) 0 80px;
+    }
+    /* Ambient glow */
+    .mdcat-hero::before {
+      content: '';
+      position: absolute;
+      width: 800px; height: 800px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(201,168,76,0.10) 0%, rgba(201,168,76,0.03) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    /* Grid pattern */
+    .mdcat-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    /* MDCAT watermark text */
+    .hero-watermark {
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: clamp(8rem, 18vw, 22rem);
+      font-weight: 900;
+      color: rgba(201,168,76,0.035);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      z-index: 0;
+    }
+    .mdcat-hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1180px; margin: 0 auto; padding: 0 20px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.10);
+      border: 1px solid rgba(201,168,76,0.22);
+      color: var(--gold-light);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-main); animation: pulse-dot 2s ease infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+    .mdcat-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.12;
+      color: var(--white);
+      margin-bottom: 22px;
+      letter-spacing: -0.01em;
+    }
+    .mdcat-hero-sub {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      color: rgba(255,255,255,0.58);
+      max-width: 580px;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+    }
+    .hero-cta-row {
+      display: flex; justify-content: center; align-items: center; gap: 14px;
+      flex-wrap: wrap; margin-bottom: 52px;
+    }
+    .hero-trust-row {
+      display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; color: rgba(255,255,255,0.45); font-weight: 500;
+    }
+    .trust-item::before { content: '✦'; color: var(--gold-main); font-size: 0.55rem; }
+    .trust-item strong { color: var(--gold-light); font-weight: 700; }
+
+    /* Countdown Timer */
+    .countdown-wrap {
+      display: flex; justify-content: center; margin-bottom: 40px;
+    }
+    .countdown-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius-md);
+      padding: 20px 32px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .countdown-label-left {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold-main); margin-right: 8px; white-space: nowrap;
+    }
+    .countdown-units { display: flex; gap: 4px; align-items: center; }
+    .cd-unit { text-align: center; }
+    .cd-num {
+      font-family: var(--font-display);
+      font-size: 1.8rem; font-weight: 900;
+      color: var(--white); line-height: 1;
+      min-width: 54px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 8px 12px;
+    }
+    .cd-label { font-size: 0.6rem; color: rgba(255,255,255,0.35); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+    .cd-sep { font-size: 1.5rem; color: var(--gold-main); font-weight: 900; margin-bottom: 16px; }
+
+    /* Stats strip */
+    .mdcat-stats {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 0; margin-top: 56px;
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: var(--radius-md); overflow: hidden;
+    }
+    .ms-item {
+      padding: 20px 16px; text-align: center;
+      border-right: 1px solid rgba(201,168,76,0.10);
+      background: rgba(255,255,255,0.02);
+    }
+    .ms-item:last-child { border-right: none; }
+    .ms-num {
+      font-family: var(--font-display); font-size: 1.8rem; font-weight: 900;
+      background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1; margin-bottom: 4px;
+    }
+    .ms-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); font-weight: 500; }
+
+    /* ===================== SECTIONS SHARED ===================== */
+    section { padding: 88px 0; }
+    .section-eyebrow {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold-main); margin-bottom: 12px; display: block;
+    }
+    .section-title {
+      font-family: var(--font-display); font-size: clamp(1.7rem, 3vw, 2.6rem);
+      font-weight: 900; line-height: 1.18; color: var(--text); margin-bottom: 14px;
+    }
+    .section-sub { color: var(--text-muted); font-size: 1rem; max-width: 540px; line-height: 1.75; }
+    .section-header { margin-bottom: 52px; }
+    .section-header.center { text-align: center; }
+    .section-header.center .section-sub { margin: 0 auto; }
+
+    /* ===================== TWO MODES ===================== */
+    .modes-section { background: var(--bg); }
+    .modes-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .mode-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      transition: all var(--transition);
+      background: var(--surface);
+    }
+    .mode-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(201,168,76,0.3); }
+    .mode-card-top {
+      padding: 36px 32px 28px;
+      position: relative;
+    }
+    .mode-card.full-mock .mode-card-top {
+      background: linear-gradient(135deg, var(--navy-700) 0%, var(--navy-600) 100%);
+    }
+    .mode-card.chapter-wise .mode-card-top {
+      background: linear-gradient(135deg, #0f1f3d 0%, #1a2f50 100%);
+    }
+    .mode-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold-light);
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 18px;
+    }
+    .mode-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 18px;
+    }
+    .mode-title {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 900;
+      color: var(--white); margin-bottom: 10px; line-height: 1.2;
+    }
+    .mode-desc { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 22px; }
+    .mode-specs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .mode-spec {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px; padding: 10px 12px;
+    }
+    .mode-spec-val {
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 900;
+      color: var(--gold-light); line-height: 1; margin-bottom: 2px;
+    }
+    .mode-spec-label { font-size: 0.65rem; color: rgba(255,255,255,0.35); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+    .mode-card-bottom { padding: 24px 32px; background: var(--surface); }
+    .mode-features { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
+    .mode-feat {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.84rem; color: var(--text-muted);
+    }
+    .mode-feat-check { color: var(--success); font-size: 0.8rem; flex-shrink: 0; }
+    .mode-cta {
+      display: flex; gap: 10px;
+    }
+    .mode-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem; font-weight: 700;
+      transition: all var(--transition);
+    }
+    .mode-btn.primary {
+      background: var(--gold-gradient);
+      color: var(--navy-900);
+      box-shadow: 0 2px 10px rgba(201,168,76,0.25);
+    }
+    .mode-btn.primary:hover { filter: brightness(1.08); box-shadow: var(--gold-glow); }
+    .mode-btn.secondary {
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+    }
+    .mode-btn.secondary:hover { border-color: var(--border2); color: var(--text); }
+
+    /* ===================== SUBJECT BREAKDOWN ===================== */
+    .subjects-section { background: var(--surface2); }
+    [data-theme="dark"] .subjects-section { background: var(--navy-900); }
+
+    .subject-tabs {
+      display: flex; gap: 4px;
+      background: var(--surface3);
+      border-radius: var(--radius-sm);
+      padding: 4px;
+      margin-bottom: 36px;
+      width: fit-content;
+    }
+    .sub-tab {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 0.84rem; font-weight: 600;
+      color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .sub-tab.active {
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+    }
+    .sub-tab:hover:not(.active) { color: var(--text); }
+    .sub-tab-icon { font-size: 1rem; }
+    .sub-tab-count {
+      font-size: 0.68rem; font-weight: 700;
+      background: rgba(201,168,76,0.12);
+      color: var(--gold-main);
+      padding: 1px 6px; border-radius: 100px;
+    }
+    .sub-tab.active .sub-tab-count { background: rgba(201,168,76,0.15); }
+
+    .subject-panel { display: none; }
+    .subject-panel.active { display: block; }
+
+    .subject-panel-header {
+      display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;
+      margin-bottom: 28px;
+    }
+    .subject-panel-title {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 900;
+      color: var(--text); display: flex; align-items: center; gap: 12px;
+    }
+    .subject-panel-meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+    .subject-panel-actions { display: flex; gap: 8px; }
+    .spanel-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem; font-weight: 600;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .spanel-btn:hover { color: var(--text); border-color: var(--border2); }
+    .spanel-btn.gold {
+      background: var(--gold-gradient);
+      color: var(--navy-900); border: none;
+      box-shadow: 0 2px 8px rgba(201,168,76,0.2);
+    }
+    .spanel-btn.gold:hover { filter: brightness(1.08); }
+
+    .chapter-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .chapter-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .chapter-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--border);
+      transition: background var(--transition);
+    }
+    .chapter-card:hover { border-color: rgba(201,168,76,0.25); box-shadow: var(--shadow-md); }
+    .chapter-card:hover::before { background: var(--gold-gradient); }
+    .chapter-card-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .chapter-card-num {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold-main);
+    }
+    .chapter-card-difficulty {
+      font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 100px;
+    }
+    .diff-easy { background: rgba(34,197,94,0.1); color: #22c55e; }
+    .diff-medium { background: rgba(245,158,11,0.1); color: #f59e0b; }
+    .diff-hard { background: rgba(239,68,68,0.1); color: #ef4444; }
+    .chapter-card-name {
+      font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 12px; line-height: 1.35;
+    }
+    .chapter-card-meta {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    }
+    .chapter-card-meta-item {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 0.72rem; color: var(--text-muted);
+    }
+    .chapter-card-progress { margin-bottom: 14px; }
+    .chapter-card-progress-track {
+      height: 4px; background: var(--surface2); border-radius: 99px; overflow: hidden;
+    }
+    .chapter-card-progress-fill {
+      height: 100%; border-radius: 99px;
+      background: var(--gold-gradient);
+    }
+    .chapter-card-progress-label {
+      font-size: 0.65rem; color: var(--text-soft); margin-top: 4px;
+    }
+    .chapter-card-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      width: 100%; padding: 9px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem; font-weight: 700;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.18);
+      color: var(--gold-main);
+      transition: all var(--transition);
+    }
+    .chapter-card-btn:hover { background: rgba(201,168,76,0.16); border-color: rgba(201,168,76,0.35); }
+    .chapter-card.locked { opacity: 0.7; }
+    .chapter-card.locked .chapter-card-btn {
+      background: var(--surface2); border-color: var(--border); color: var(--text-muted);
+    }
+
+    /* ===================== MOCK TEST SECTION ===================== */
+    .mock-section { background: var(--bg); }
+    .mock-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: center; }
+    .mock-content h2 {
+      font-family: var(--font-display); font-size: clamp(1.7rem, 2.5vw, 2.4rem);
+      font-weight: 900; color: var(--text); margin-bottom: 16px; line-height: 1.2;
+    }
+    .mock-content p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 28px; }
+    .mock-detail-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .mock-detail-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .mock-detail-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .mock-detail-text { flex: 1; }
+    .mock-detail-label { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .mock-detail-desc { font-size: 0.78rem; color: var(--text-muted); }
+    .mock-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Mock test visual preview */
+    .mock-preview {
+      background: var(--navy-800);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(201,168,76,0.2);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg), 0 0 40px rgba(201,168,76,0.08);
+    }
+    .mock-preview-header {
+      background: var(--navy-700);
+      padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .mock-preview-title { font-size: 0.82rem; font-weight: 700; color: white; }
+    .mock-preview-timer {
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 900;
+      color: var(--gold-light);
+    }
+    .timer-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: blink 1s ease infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+    .mock-preview-body { padding: 20px; }
+    .mock-q-progress-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px; font-size: 0.72rem; color: rgba(255,255,255,0.4);
+    }
+    .mock-q-num { color: var(--gold-main); font-weight: 700; }
+    .mock-progress-strip {
+      height: 3px; background: rgba(255,255,255,0.06); border-radius: 99px; margin-bottom: 18px; overflow: hidden;
+    }
+    .mock-progress-fill { height: 100%; width: 23%; background: var(--gold-gradient); border-radius: 99px; }
+    .mock-question-text {
+      font-size: 0.9rem; font-weight: 600; color: white; line-height: 1.55; margin-bottom: 16px;
+    }
+    .mock-opts { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+    .mock-opt {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 13px;
+      border-radius: 7px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.82rem; color: rgba(255,255,255,0.55);
+    }
+    .mock-opt.selected { background: rgba(201,168,76,0.12); border-color: rgba(201,168,76,0.3); color: var(--gold-light); }
+    .mock-opt-letter {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 800; color: rgba(255,255,255,0.4);
+      flex-shrink: 0;
+    }
+    .mock-opt.selected .mock-opt-letter { background: rgba(201,168,76,0.3); border-color: var(--gold-main); color: var(--gold-light); }
+    .mock-nav-row {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .mock-nav-btn {
+      padding: 8px 16px; border-radius: 6px;
+      font-size: 0.78rem; font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5);
+      transition: all var(--transition);
+    }
+    .mock-nav-btn.next-btn {
+      background: var(--gold-gradient); color: var(--navy-900); border: none;
+    }
+    .mock-palette-row {
+      display: flex; gap: 5px; flex-wrap: wrap; padding: 14px 20px; border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .palette-q {
+      width: 26px; height: 26px; border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.3);
+    }
+    .palette-q.answered { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.3); color: #22c55e; }
+    .palette-q.skipped { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.25); color: #ef4444; }
+    .palette-q.current { background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.35); color: var(--gold-main); }
+
+    /* ===================== SCORE ANALYTICS ===================== */
+    .analytics-section { background: var(--surface2); }
+    [data-theme="dark"] .analytics-section { background: var(--navy-900); }
+    .analytics-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: start; }
+    .analytics-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .analytics-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+    .analytics-card.wide { grid-column: 1 / -1; }
+    .analytics-card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+    .analytics-card-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 6px;
+    }
+    .analytics-card-val {
+      font-family: var(--font-display); font-size: 1.8rem; font-weight: 900;
+      line-height: 1; color: var(--text); margin-bottom: 4px;
+    }
+    .analytics-card-sub { font-size: 0.72rem; color: var(--text-muted); }
+    .analytics-chart {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+    .chart-title { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+    .bar-chart { display: flex; flex-direction: column; gap: 10px; }
+    .bar-row {
+      display: grid; grid-template-columns: 90px 1fr 40px;
+      align-items: center; gap: 10px;
+    }
+    .bar-subject { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); }
+    .bar-track { height: 10px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 99px; }
+    .bar-bio { background: linear-gradient(90deg, #22c55e, #16a34a); }
+    .bar-chem { background: linear-gradient(90deg, var(--gold-main), var(--gold-dark)); }
+    .bar-phys { background: linear-gradient(90deg, #3b82f6, #1d4ed8); }
+    .bar-eng { background: linear-gradient(90deg, #a855f7, #7c3aed); }
+    .bar-pct { font-size: 0.72rem; font-weight: 700; color: var(--text); }
+    .weak-areas { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .weak-areas-title { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .weak-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 100px; margin: 3px;
+      font-size: 0.72rem; font-weight: 600;
+      background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
+      color: #ef4444;
+    }
+
+    /* ===================== PAST PAPERS ===================== */
+    .past-papers { background: var(--bg); }
+    .papers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .paper-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      transition: all var(--transition);
+      position: relative;
+    }
+    .paper-card:hover { border-color: rgba(201,168,76,0.3); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .paper-year {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 900;
+      color: var(--text); line-height: 1; margin-bottom: 8px;
+    }
+    .paper-org {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold-main); margin-bottom: 14px;
+    }
+    .paper-stats { display: flex; gap: 12px; margin-bottom: 16px; }
+    .paper-stat { font-size: 0.75rem; color: var(--text-muted); }
+    .paper-stat strong { color: var(--text); display: block; font-size: 1rem; font-weight: 700; }
+    .paper-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      width: 100%; padding: 9px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem; font-weight: 700;
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--gold-main);
+      background: rgba(201,168,76,0.06);
+      transition: all var(--transition);
+    }
+    .paper-btn:hover { background: rgba(201,168,76,0.14); }
+    .paper-card .new-badge {
+      position: absolute; top: 14px; right: 14px;
+      background: var(--gold-gradient);
+      color: var(--navy-900);
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 100px;
+    }
+
+    /* ===================== TESTIMONIALS ===================== */
+    .mdcat-testimonials { background: var(--surface2); }
+    [data-theme="dark"] .mdcat-testimonials { background: var(--navy-900); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .tcard {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      transition: all var(--transition);
+    }
+    .tcard:hover { border-color: rgba(201,168,76,0.28); box-shadow: var(--shadow-md); }
+    .tcard-score {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(201,168,76,0.10);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--gold-main);
+      font-size: 0.75rem; font-weight: 800;
+      padding: 4px 12px; border-radius: 100px;
+      margin-bottom: 14px;
+    }
+    .tcard-text {
+      font-size: 0.875rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 18px;
+      font-style: italic;
+    }
+    .tcard-text::before { content: '\201C'; color: var(--gold-light); font-family: var(--font-display); font-size: 2rem; line-height: 0; vertical-align: -14px; margin-right: 4px; }
+    .tcard-author { display: flex; align-items: center; gap: 10px; }
+    .tcard-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--gold-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.8rem; color: var(--navy-900); flex-shrink: 0;
+    }
+    .tcard-name { font-size: 0.85rem; font-weight: 700; color: var(--text); }
+    .tcard-meta { font-size: 0.72rem; color: var(--text-muted); }
+
+    /* ===================== PREMIUM CTA ===================== */
+    .premium-cta {
+      background: var(--navy-800); padding: 80px 0;
+      position: relative; overflow: hidden;
+    }
+    .premium-cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 60%);
+    }
+    .premium-cta-inner {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center;
+      max-width: 1180px; margin: 0 auto; padding: 0 20px;
+    }
+    .premium-cta h2 {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+      font-weight: 900; color: white; margin-bottom: 14px; line-height: 1.2;
+    }
+    .premium-cta p { color: rgba(255,255,255,0.5); font-size: 0.95rem; margin-bottom: 24px; }
+    .premium-perks { display: flex; flex-wrap: wrap; gap: 10px; }
+    .perk {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; color: rgba(255,255,255,0.6); font-weight: 500;
+    }
+    .perk::before { content: '✓'; color: var(--gold-main); font-weight: 800; }
+    .cta-price-box {
+      text-align: center; flex-shrink: 0;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      min-width: 220px;
+    }
+    .cta-price-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-main); margin-bottom: 6px; }
+    .cta-price-val {
+      font-family: var(--font-display); font-size: 2.6rem; font-weight: 900;
+      color: var(--gold-light); line-height: 1; margin-bottom: 4px;
+    }
+    .cta-price-sub { font-size: 0.75rem; color: rgba(255,255,255,0.35); margin-bottom: 20px; }
+    .cta-upgrade-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 13px 24px;
+      background: var(--gold-gradient);
+      color: var(--navy-900);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem; font-weight: 800;
+      box-shadow: 0 4px 16px rgba(201,168,76,0.35);
+      transition: all var(--transition);
+    }
+    .cta-upgrade-btn:hover { filter: brightness(1.08); box-shadow: var(--gold-glow); }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: var(--navy-900); padding: 52px 0 28px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand p { font-size: 0.82rem; color: rgba(255,255,255,0.3); line-height: 1.7; margin-top: 10px; max-width: 250px; }
+    .footer-col-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 14px; }
+    .footer-links { display: flex; flex-direction: column; gap: 9px; }
+    .footer-links a { font-size: 0.83rem; color: rgba(255,255,255,0.4); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05); padding-top: 22px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+    .footer-bottom p { font-size: 0.76rem; color: rgba(255,255,255,0.22); }
+    .footer-bottom-links { display: flex; gap: 18px; }
+    .footer-bottom-links a { font-size: 0.76rem; color: rgba(255,255,255,0.28); transition: color var(--transition); }
+    .footer-bottom-links a:hover { color: var(--gold-main); }
+
+    /* ===================== WHATSAPP ===================== */
+    .whatsapp-float {
+      position: fixed; bottom: 24px; right: 24px; z-index: 900;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: #25D366; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      display: flex; align-items: center; justify-content: center;
+      color: white; transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.55); }
+
+    /* ===================== SCROLL REVEAL ===================== */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 1024px) {
+      .analytics-grid { grid-template-columns: 1fr; }
+      .mock-grid { grid-template-columns: 1fr; }
+      .mock-preview { max-width: 480px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      :root { --nav-height: 58px; }
+      section { padding: 60px 0; }
+      .nav-links, .btn-nav-login { display: none; }
+      .hamburger { display: flex; }
+      .mdcat-hero h1 { font-size: 2rem; }
+      .modes-grid { grid-template-columns: 1fr; }
+      .subject-tabs { width: 100%; overflow-x: auto; }
+      .chapter-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .premium-cta-inner { grid-template-columns: 1fr; }
+      .cta-price-box { min-width: auto; }
+      .mdcat-stats { grid-template-columns: repeat(2,1fr); }
+      .ms-item:nth-child(1), .ms-item:nth-child(2) { border-bottom: 1px solid rgba(201,168,76,0.1); }
+      .ms-item:nth-child(odd) { border-right: 1px solid rgba(201,168,76,0.1); }
+      .ms-item:nth-child(even) { border-right: none; }
+      .papers-grid { grid-template-columns: repeat(2,1fr); }
+      .analytics-cards { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .countdown-card { flex-direction: column; gap: 12px; text-align: center; }
+      .hero-cta-row { flex-direction: column; align-items: center; }
+      .hero-cta-row .btn { width: 100%; max-width: 320px; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .papers-grid { grid-template-columns: 1fr; }
+      .subject-panel-header { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-mark">IL</div>
+        Imoria Learning
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#subjects">Subjects</a></li>
+        <li><a href="mdcat.html" class="active-link">MDCAT</a></li>
+        <li><a href="index.html#pricing">Pricing</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+        <a href="login.html" class="btn-nav-login">Login</a>
+        <a href="login.html?signup=1" class="btn-nav-cta">Start Free →</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html#subjects" onclick="closeMobileNav()">Subjects</a>
+    <a href="mdcat.html">MDCAT</a>
+    <a href="index.html#pricing" onclick="closeMobileNav()">Pricing</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-nav-actions">
+      <a href="login.html" class="btn btn-secondary">Login</a>
+      <a href="login.html?signup=1" class="btn btn-primary">Start Free →</a>
+    </div>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="mdcat-hero" id="home">
+    <div class="hero-watermark">MDCAT</div>
+    <div class="mdcat-hero-inner">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        PMC MDCAT 2025 — Complete Preparation
+      </div>
+      <h1>Crack MDCAT.<br>Get Into Your<br><em class="gold-text">Dream Medical College.</em></h1>
+      <p class="mdcat-hero-sub">Chapter-wise MCQs, full 200-question mock tests in real PMC format, past papers, and score analytics — everything in one place, structured to get you to the top.</p>
+
+      <!-- Countdown -->
+      <div class="countdown-wrap">
+        <div class="countdown-card">
+          <span class="countdown-label-left">MDCAT 2025 IN</span>
+          <div class="countdown-units">
+            <div class="cd-unit">
+              <div class="cd-num" id="cd-days">--</div>
+              <div class="cd-label">Days</div>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+              <div class="cd-num" id="cd-hours">--</div>
+              <div class="cd-label">Hours</div>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+              <div class="cd-num" id="cd-mins">--</div>
+              <div class="cd-label">Mins</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-cta-row">
+        <a href="mdcat-mock.html" class="btn btn-primary" style="font-size:1rem;padding:15px 32px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Start Full Mock Test
+        </a>
+        <a href="#chapter-practice" class="btn btn-secondary" style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.2);">Browse Chapter MCQs</a>
+      </div>
+      <div class="hero-trust-row">
+        <div class="trust-item"><strong>200</strong>&nbsp;MCQs per mock</div>
+        <div class="trust-item"><strong>210 min</strong>&nbsp;real timer</div>
+        <div class="trust-item"><strong>PMC Format</strong>&nbsp;2024/2025</div>
+        <div class="trust-item"><strong>Detailed</strong>&nbsp;analytics</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="mdcat-stats">
+        <div class="ms-item">
+          <div class="ms-num">5,000+</div>
+          <div class="ms-label">🎯 MDCAT MCQs</div>
+        </div>
+        <div class="ms-item">
+          <div class="ms-num">50+</div>
+          <div class="ms-label">📋 Mock Tests</div>
+        </div>
+        <div class="ms-item">
+          <div class="ms-num">8 yrs</div>
+          <div class="ms-label">📄 Past Papers</div>
+        </div>
+        <div class="ms-item">
+          <div class="ms-num">Top 5%</div>
+          <div class="ms-label">🏆 Student Results</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TWO MODES ===== -->
+  <section class="modes-section" id="modes">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-eyebrow">Practice Modes</span>
+        <h2 class="section-title">Choose How You Prepare</h2>
+        <p class="section-sub">Two modes built for two stages of your prep — targeted chapter practice and full timed simulation.</p>
+      </div>
+      <div class="modes-grid">
+
+        <!-- Chapter-wise -->
+        <div class="mode-card chapter-wise reveal">
+          <div class="mode-card-top">
+            <div class="mode-badge">⚡ Focused Practice</div>
+            <div class="mode-icon">📚</div>
+            <h3 class="mode-title">Chapter-wise<br>MCQ Practice</h3>
+            <p class="mode-desc">Go chapter by chapter across all four subjects. Identify your weak topics, track progress, and build subject mastery before attempting full mocks.</p>
+            <div class="mode-specs">
+              <div class="mode-spec">
+                <div class="mode-spec-val">4</div>
+                <div class="mode-spec-label">Subjects</div>
+              </div>
+              <div class="mode-spec">
+                <div class="mode-spec-val">70+</div>
+                <div class="mode-spec-label">Chapters</div>
+              </div>
+              <div class="mode-spec">
+                <div class="mode-spec-val">∞</div>
+                <div class="mode-spec-label">Attempts</div>
+              </div>
+              <div class="mode-spec">
+                <div class="mode-spec-val">Instant</div>
+                <div class="mode-spec-label">Feedback</div>
+              </div>
+            </div>
+          </div>
+          <div class="mode-card-bottom">
+            <div class="mode-features">
+              <div class="mode-feat"><span class="mode-feat-check">✓</span> 50–100 MCQs per chapter with explanations</div>
+              <div class="mode-feat"><span class="mode-feat-check">✓</span> Filter by difficulty: Easy / Medium / Hard</div>
+              <div class="mode-feat"><span class="mode-feat-check">✓</span> Bookmark questions for revision week</div>
+              <div class="mode-feat"><span class="mode-feat-check">✓</span> Chapter score history and trends</div>
+              <div class="mode-feat"><span class="mode-feat-check">✓</span> Past-paper questions flagged separately</div>
+            </div>
+            <div class="mode-cta">
+              <a href="#chapter-practice" class="mode-btn primary">Start Chapter Practice →</a>
+              <a href="dashboard.html" class="mode-btn secondary">My Progress</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Mock -->
+        <div class="mode-card full-mock reveal reveal-delay-1">
+          <div class="mode-card-top">
+            <div class="mode-badge" style="background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.25);color:#fca5a5;">🔥 Exam Simulation</div>
+            <div class="mode-icon">🏆</div>
+            <h3 class="mode-title">Full MDCAT<br>Mock Test</h3>
+            <p class="mode-desc">The real deal. 200 MCQs in the exact PMC section order, 210-minute timer, instant score report with percentile, subject-wise breakdown, and weak-topic list.</p>
+            <div class="mode-specs">
+              <div class="mode-spec">
+                <div class="mode-spec-val">200</div>
+                <div class="mode-spec-label">Questions</div>
+              </div>
+              <div class="mode-spec">
+                <div class="mode-spec-val">210</div>
+                <div class="mode-spec-label">Minutes</div>
+              </div>
+              <div class="mode-spec">
+                <div class="mode-spec-val">PMC</div>
+                <div class="mode-spec-label">Format 2025</div>
+              </div>
+              <div class="mode-spec">
+                <div class="mode-spec-val">50+</div>
+                <div class="mode-spec-label">Mock Tests</div>
+              </div>
+            </div>
+          </div>
+          <div class="mode-card-bottom">
+            <div class="mode-features">
+              <div class="mode-feat"><span class="mode-feat-check">✓</span> Bio (Q1–68) · Chem (Q69–116) · Physics (Q117–156) · English (Q157–200)</div>
+              <div class="mode-feat"><span class="mode-feat-check">✓</span> Auto-submit when timer ends — just like the real exam</div>
+              <div class="mode-feat"><span class="mode-feat-check">✓</span> Percentile estimate based on previous student scores</div>
+              <div class="mode-feat"><span class="mode-feat-check">✓</span> Download result PDF to share with your teacher</div>
+              <div class="mode-feat"><span class="mode-feat-check">✓</span> Full answer review after submission</div>
+            </div>
+            <div class="mode-cta">
+              <a href="mdcat-mock.html" class="mode-btn primary">Begin Mock Test →</a>
+              <a href="profile.html#mock-history" class="mode-btn secondary">Past Results</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER PRACTICE ===== -->
+  <section class="subjects-section" id="chapter-practice">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Chapter-wise Practice</span>
+        <h2 class="section-title">Practice by Subject<br>&amp; Chapter</h2>
+        <p class="section-sub">All MDCAT subjects organised chapter by chapter. Track your score in each one.</p>
+      </div>
+
+      <!-- Subject Tabs -->
+      <div class="subject-tabs" id="subjectTabs">
+        <button class="sub-tab active" data-subject="biology" onclick="switchSubject('biology', this)">
+          <span class="sub-tab-icon">🧬</span> Biology <span class="sub-tab-count">68 MCQs/mock</span>
+        </button>
+        <button class="sub-tab" data-subject="chemistry" onclick="switchSubject('chemistry', this)">
+          <span class="sub-tab-icon">🧪</span> Chemistry <span class="sub-tab-count">48 MCQs/mock</span>
+        </button>
+        <button class="sub-tab" data-subject="physics" onclick="switchSubject('physics', this)">
+          <span class="sub-tab-icon">⚡</span> Physics <span class="sub-tab-count">40 MCQs/mock</span>
+        </button>
+        <button class="sub-tab" data-subject="english" onclick="switchSubject('english', this)">
+          <span class="sub-tab-icon">📖</span> English <span class="sub-tab-count">44 MCQs/mock</span>
+        </button>
+      </div>
+
+      <!-- Subject Panels -->
+      <div id="panelBiology" class="subject-panel active">
+        <div class="subject-panel-header">
+          <div>
+            <div class="subject-panel-title">🧬 Biology</div>
+            <div class="subject-panel-meta">27 chapters · MDCAT Bio = 68 questions (Q1–68)</div>
+          </div>
+          <div class="subject-panel-actions">
+            <button class="spanel-btn">Filter: All</button>
+            <a href="mdcat-chapter.html?subject=biology" class="spanel-btn gold">Practice All Bio MCQs →</a>
+          </div>
+        </div>
+        <div class="chapter-grid" id="bioChapterGrid"></div>
+      </div>
+
+      <div id="panelChemistry" class="subject-panel">
+        <div class="subject-panel-header">
+          <div>
+            <div class="subject-panel-title">🧪 Chemistry</div>
+            <div class="subject-panel-meta">22 chapters · MDCAT Chemistry = 48 questions (Q69–116)</div>
+          </div>
+          <div class="subject-panel-actions">
+            <button class="spanel-btn">Filter: All</button>
+            <a href="mdcat-chapter.html?subject=chemistry" class="spanel-btn gold">Practice All Chem MCQs →</a>
+          </div>
+        </div>
+        <div class="chapter-grid" id="chemChapterGrid"></div>
+      </div>
+
+      <div id="panelPhysics" class="subject-panel">
+        <div class="subject-panel-header">
+          <div>
+            <div class="subject-panel-title">⚡ Physics</div>
+            <div class="subject-panel-meta">22 chapters · MDCAT Physics = 40 questions (Q117–156)</div>
+          </div>
+          <div class="subject-panel-actions">
+            <button class="spanel-btn">Filter: All</button>
+            <a href="mdcat-chapter.html?subject=physics" class="spanel-btn gold">Practice All Physics MCQs →</a>
+          </div>
+        </div>
+        <div class="chapter-grid" id="physChapterGrid"></div>
+      </div>
+
+      <div id="panelEnglish" class="subject-panel">
+        <div class="subject-panel-header">
+          <div>
+            <div class="subject-panel-title">📖 English</div>
+            <div class="subject-panel-meta">12 units · MDCAT English = 44 questions (Q157–200)</div>
+          </div>
+          <div class="subject-panel-actions">
+            <button class="spanel-btn">Filter: All</button>
+            <a href="mdcat-chapter.html?subject=english" class="spanel-btn gold">Practice All English MCQs →</a>
+          </div>
+        </div>
+        <div class="chapter-grid" id="engChapterGrid"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== MOCK TEST DEEP DIVE ===== -->
+  <section class="mock-section">
+    <div class="container">
+      <div class="mock-grid">
+        <div class="mock-content reveal">
+          <span class="section-eyebrow">Full Mock Test</span>
+          <h2 class="section-title">Exactly Like the<br>Real MDCAT</h2>
+          <p>Our mock tests replicate the PMC MDCAT interface — same question order, same timer, same stress. So on exam day, you're not seeing anything new.</p>
+          <div class="mock-detail-list">
+            <div class="mock-detail-item">
+              <div class="mock-detail-icon">⏱️</div>
+              <div class="mock-detail-text">
+                <div class="mock-detail-label">210-Minute Countdown Timer</div>
+                <div class="mock-detail-desc">Auto-submits when time runs out. Train yourself to manage time before it matters.</div>
+              </div>
+            </div>
+            <div class="mock-detail-item">
+              <div class="mock-detail-icon">📊</div>
+              <div class="mock-detail-text">
+                <div class="mock-detail-label">Instant Score Report</div>
+                <div class="mock-detail-desc">Subject-wise breakdown, percentile estimate, correct/wrong/skipped count, time per question.</div>
+              </div>
+            </div>
+            <div class="mock-detail-item">
+              <div class="mock-detail-icon">🎯</div>
+              <div class="mock-detail-text">
+                <div class="mock-detail-label">Weak Topic Identification</div>
+                <div class="mock-detail-desc">After every mock, see exactly which chapters pulled your score down — and fix them.</div>
+              </div>
+            </div>
+            <div class="mock-detail-item">
+              <div class="mock-detail-icon">📄</div>
+              <div class="mock-detail-text">
+                <div class="mock-detail-label">Downloadable Result PDF</div>
+                <div class="mock-detail-desc">Keep a record of every mock attempt and share with your teacher or tutor for feedback.</div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-cta-row">
+            <a href="mdcat-mock.html" class="btn btn-primary">Start Mock Test →</a>
+            <a href="profile.html#mock-history" class="btn btn-secondary">View My Results</a>
+          </div>
+        </div>
+
+        <!-- Mock Preview Visual -->
+        <div class="reveal reveal-delay-1">
+          <div class="mock-preview">
+            <div class="mock-preview-header">
+              <div class="mock-preview-title">🏆 MDCAT 2025 — Full Mock #7</div>
+              <div class="mock-preview-timer">
+                <span class="timer-dot"></span>
+                02:47:33
+              </div>
+            </div>
+            <div class="mock-preview-body">
+              <div class="mock-q-progress-row">
+                <span>Biology — Section 1</span>
+                <span class="mock-q-num">Q 46 of 200</span>
+              </div>
+              <div class="mock-progress-strip">
+                <div class="mock-progress-fill"></div>
+              </div>
+              <div class="mock-question-text">
+                Which of the following best describes the role of the mitochondrial cristae in cellular respiration?
+              </div>
+              <div class="mock-opts">
+                <div class="mock-opt">
+                  <span class="mock-opt-letter">A</span>
+                  They store ATP produced during glycolysis
+                </div>
+                <div class="mock-opt selected">
+                  <span class="mock-opt-letter">B</span>
+                  They increase surface area for oxidative phosphorylation
+                </div>
+                <div class="mock-opt">
+                  <span class="mock-opt-letter">C</span>
+                  They transport glucose into the mitochondria
+                </div>
+                <div class="mock-opt">
+                  <span class="mock-opt-letter">D</span>
+                  They synthesise ribosomal RNA for protein production
+                </div>
+              </div>
+              <div class="mock-nav-row">
+                <button class="mock-nav-btn">← Previous</button>
+                <button class="mock-nav-btn">Skip</button>
+                <button class="mock-nav-btn next-btn">Next →</button>
+              </div>
+            </div>
+            <div class="mock-palette-row">
+              <div class="palette-q answered">1</div>
+              <div class="palette-q answered">2</div>
+              <div class="palette-q answered">3</div>
+              <div class="palette-q skipped">4</div>
+              <div class="palette-q answered">5</div>
+              <div class="palette-q answered">6</div>
+              <div class="palette-q answered">7</div>
+              <div class="palette-q answered">8</div>
+              <div class="palette-q skipped">9</div>
+              <div class="palette-q answered">10</div>
+              <div class="palette-q answered">11</div>
+              <div class="palette-q answered">12</div>
+              <div class="palette-q answered">13</div>
+              <div class="palette-q answered">14</div>
+              <div class="palette-q answered">15</div>
+              <div class="palette-q current">46</div>
+              <div class="palette-q"></div>
+              <div class="palette-q"></div>
+              <div class="palette-q"></div>
+              <div class="palette-q"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SCORE ANALYTICS ===== -->
+  <section class="analytics-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Score Analytics</span>
+        <h2 class="section-title">Know Exactly Where<br>You Stand</h2>
+        <p class="section-sub">After every mock, get a complete performance report so you study smarter, not harder.</p>
+      </div>
+      <div class="analytics-grid">
+        <div class="reveal">
+          <div class="analytics-chart">
+            <div class="chart-title">📊 Subject-wise Score — Mock #7</div>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <span class="bar-subject">Biology</span>
+                <div class="bar-track"><div class="bar-fill bar-bio" style="width:82%"></div></div>
+                <span class="bar-pct">82%</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-subject">Chemistry</span>
+                <div class="bar-track"><div class="bar-fill bar-chem" style="width:68%"></div></div>
+                <span class="bar-pct">68%</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-subject">Physics</span>
+                <div class="bar-track"><div class="bar-fill bar-phys" style="width:54%"></div></div>
+                <span class="bar-pct">54%</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-subject">English</span>
+                <div class="bar-track"><div class="bar-fill bar-eng" style="width:90%"></div></div>
+                <span class="bar-pct">90%</span>
+              </div>
+            </div>
+            <div class="weak-areas">
+              <div class="weak-areas-title">⚠️ Weak Topics to Focus</div>
+              <span class="weak-tag">⚡ Circular Motion</span>
+              <span class="weak-tag">🧪 Electrochemistry</span>
+              <span class="weak-tag">⚡ Fluid Dynamics</span>
+              <span class="weak-tag">🧪 Reaction Kinetics</span>
+            </div>
+          </div>
+        </div>
+        <div class="analytics-cards reveal reveal-delay-1">
+          <div class="analytics-card">
+            <div class="analytics-card-icon">🎯</div>
+            <div class="analytics-card-label">Total Score</div>
+            <div class="analytics-card-val" style="background:var(--gold-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">148/200</div>
+            <div class="analytics-card-sub">+12 from previous mock</div>
+          </div>
+          <div class="analytics-card">
+            <div class="analytics-card-icon">📈</div>
+            <div class="analytics-card-label">Percentile</div>
+            <div class="analytics-card-val">87th</div>
+            <div class="analytics-card-sub">Top 13% of students</div>
+          </div>
+          <div class="analytics-card">
+            <div class="analytics-card-icon">⏱️</div>
+            <div class="analytics-card-label">Time per Question</div>
+            <div class="analytics-card-val">62s</div>
+            <div class="analytics-card-sub">Target: under 63 sec</div>
+          </div>
+          <div class="analytics-card">
+            <div class="analytics-card-icon">✅</div>
+            <div class="analytics-card-label">Accuracy</div>
+            <div class="analytics-card-val">74%</div>
+            <div class="analytics-card-sub">148 correct · 52 wrong</div>
+          </div>
+          <div class="analytics-card wide">
+            <div class="analytics-card-icon">🔥</div>
+            <div class="analytics-card-label">Mock Test Trend</div>
+            <div style="display:flex;align-items:flex-end;gap:8px;height:50px;margin-top:8px;">
+              <div style="flex:1;background:rgba(201,168,76,0.2);border-radius:4px 4px 0 0;" title="Mock 1" data-pct="55" class="trend-bar"></div>
+              <div style="flex:1;background:rgba(201,168,76,0.3);border-radius:4px 4px 0 0;" title="Mock 2" data-pct="60" class="trend-bar"></div>
+              <div style="flex:1;background:rgba(201,168,76,0.35);border-radius:4px 4px 0 0;" title="Mock 3" data-pct="63" class="trend-bar"></div>
+              <div style="flex:1;background:rgba(201,168,76,0.4);border-radius:4px 4px 0 0;" title="Mock 4" data-pct="65" class="trend-bar"></div>
+              <div style="flex:1;background:rgba(201,168,76,0.5);border-radius:4px 4px 0 0;" title="Mock 5" data-pct="68" class="trend-bar"></div>
+              <div style="flex:1;background:rgba(201,168,76,0.6);border-radius:4px 4px 0 0;" title="Mock 6" data-pct="70" class="trend-bar"></div>
+              <div style="flex:1;background:var(--gold-gradient);border-radius:4px 4px 0 0;border:1px solid var(--gold-main);" title="Mock 7" data-pct="74" class="trend-bar"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:4px;">
+              <span style="font-size:0.65rem;color:var(--text-soft);">Mock 1</span>
+              <span style="font-size:0.65rem;color:var(--gold-main);font-weight:700;">Now ↑</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAST PAPERS ===== -->
+  <section class="past-papers">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Past Papers</span>
+        <h2 class="section-title">8 Years of MDCAT<br>Past Papers</h2>
+        <p class="section-sub">Practice with real past-paper MCQs. Questions from previous MDCAT and NUMS exams, organised by year and subject.</p>
+      </div>
+      <div class="papers-grid" id="papersGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="mdcat-testimonials">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-eyebrow">Student Stories</span>
+        <h2 class="section-title">They Cracked MDCAT.<br>Now It's Your Turn.</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="tcard reveal">
+          <div class="tcard-score">🏆 MDCAT Score: 187/200</div>
+          <p class="tcard-text">The mock tests on Imoria Learning genuinely felt harder than the actual MDCAT. So when exam day came, I was completely calm. The analytics showed me Physics was my weakness — I fixed it in the last month. 187 was beyond what I hoped for.</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">AK</div>
+            <div>
+              <div class="tcard-name">Ayesha Khan</div>
+              <div class="tcard-meta">KEMU Lahore · MDCAT 2024</div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard reveal reveal-delay-1">
+          <div class="tcard-score">🏆 MDCAT Score: 179/200</div>
+          <p class="tcard-text">I failed MDCAT in 2023. Came back with Imoria Learning — did 12 full mocks. The weak topic analysis every time told me exactly what to study next. Chemistry went from 52% to 84% in two months. Got into Dow Medical this time.</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">UQ</div>
+            <div>
+              <div class="tcard-name">Usman Qureshi</div>
+              <div class="tcard-meta">Dow Medical, Karachi · MDCAT 2024</div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard reveal reveal-delay-2">
+          <div class="tcard-score">🏆 Percentile: Top 3%</div>
+          <p class="tcard-text">What sets Imoria Learning apart is the explanations. Every wrong MCQ tells you why the correct answer is correct AND why your answer is wrong. That's how you actually learn. After 8 mocks, my percentile went from 60th to 97th.</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">ZF</div>
+            <div>
+              <div class="tcard-name">Zainab Fatima</div>
+              <div class="tcard-meta">Islamabad · MDCAT 2024</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PREMIUM CTA ===== -->
+  <section class="premium-cta">
+    <div class="premium-cta-inner">
+      <div>
+        <span class="section-eyebrow" style="color:var(--gold-main);">Premium Plan</span>
+        <h2>Unlock Every Mock Test,<br>Every MCQ, Every Edge.</h2>
+        <p>Free plan gives you 2 mock tests and limited chapter MCQs. Premium gives you everything — unlimited mocks, past papers, analytics, and priority WhatsApp support.</p>
+        <div class="premium-perks">
+          <div class="perk">50+ Full Mock Tests</div>
+          <div class="perk">5,000+ MDCAT MCQs</div>
+          <div class="perk">8 Years Past Papers</div>
+          <div class="perk">Score Analytics</div>
+          <div class="perk">Downloadable Results</div>
+          <div class="perk">WhatsApp Support</div>
+          <div class="perk">Chapter-wise Progress</div>
+          <div class="perk">Weak Topic Analysis</div>
+        </div>
+      </div>
+      <div>
+        <div class="cta-price-box">
+          <div class="cta-price-label">Premium Plan</div>
+          <div class="cta-price-val">Rs. 499</div>
+          <div class="cta-price-sub">per month · or Rs. 3,999/year</div>
+          <a href="login.html?signup=1&plan=premium" class="cta-upgrade-btn">
+            Upgrade Now →
+          </a>
+          <div style="margin-top:12px;font-size:0.72rem;color:rgba(255,255,255,0.28);">Annual plan saves Rs. 1,989</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" style="color:rgba(255,255,255,0.75);">
+            <div class="nav-logo-mark">IL</div>
+            Imoria Learning
+          </a>
+          <p>Pakistan's most structured FSc &amp; MDCAT prep platform. Built for students who mean business.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">MDCAT</div>
+          <ul class="footer-links">
+            <li><a href="mdcat-mock.html">Full Mock Test</a></li>
+            <li><a href="mdcat-chapter.html?subject=biology">Biology MCQs</a></li>
+            <li><a href="mdcat-chapter.html?subject=chemistry">Chemistry MCQs</a></li>
+            <li><a href="mdcat-chapter.html?subject=physics">Physics MCQs</a></li>
+            <li><a href="#past-papers">Past Papers</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Platform</div>
+          <ul class="footer-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+            <li><a href="profile.html">My Progress</a></li>
+            <li><a href="index.html#pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Support</div>
+          <ul class="footer-links">
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="https://wa.me/923001234567" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Imoria Learning. Made with ❤️ in Pakistan.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/923001234567?text=Hi%20Imoria%20Learning!%20I%20need%20help%20with%20MDCAT%20prep..." class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp Support">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ===================== JAVASCRIPT ===================== -->
+  <script>
+    // ===== DATA =====
+    const subjects = {
+      biology: {
+        panelId: 'panelBiology',
+        gridId: 'bioChapterGrid',
+        chapters: [
+          { n:1, name:'Introduction to Biology', mcqs:55, score:88, difficulty:'easy', progress:100 },
+          { n:2, name:'Biological Molecules', mcqs:80, score:74, difficulty:'medium', progress:85 },
+          { n:3, name:'Enzymes', mcqs:60, score:66, difficulty:'medium', progress:70 },
+          { n:4, name:'The Cell', mcqs:90, score:82, difficulty:'medium', progress:90 },
+          { n:5, name:'Variety of Life', mcqs:45, score:0, difficulty:'easy', progress:0, locked:true },
+          { n:6, name:'Kingdom Prokaryotae', mcqs:40, score:0, difficulty:'easy', progress:0, locked:true },
+          { n:7, name:'Kingdom Protista', mcqs:38, score:0, difficulty:'medium', progress:0, locked:true },
+          { n:8, name:'Kingdom Fungi', mcqs:35, score:0, difficulty:'easy', progress:0, locked:true },
+          { n:9, name:'Kingdom Plantae', mcqs:65, score:0, difficulty:'hard', progress:0, locked:true },
+          { n:10, name:'Kingdom Animalia', mcqs:70, score:0, difficulty:'hard', progress:0, locked:true },
+          { n:11, name:'Bioenergetics', mcqs:75, score:0, difficulty:'hard', progress:0, locked:true },
+          { n:12, name:'Nutrition', mcqs:60, score:0, difficulty:'medium', progress:0, locked:true },
+          { n:13, name:'Transport', mcqs:65, score:0, difficulty:'medium', progress:0, locked:true },
+        ]
+      },
+      chemistry: {
+        panelId: 'panelChemistry',
+        gridId: 'chemChapterGrid',
+        chapters: [
+          { n:1, name:'Stoichiometry', mcqs:70, score:90, difficulty:'medium', progress:100 },
+          { n:2, name:'Atomic Structure', mcqs:65, score:78, difficulty:'medium', progress:88 },
+          { n:3, name:'Gases & Gas Laws', mcqs:60, score:72, difficulty:'medium', progress:75 },
+          { n:4, name:'Liquids & Solids', mcqs:55, score:0, difficulty:'easy', progress:0, locked:true },
+          { n:5, name:'Thermochemistry', mcqs:65, score:0, difficulty:'hard', progress:0, locked:true },
+          { n:6, name:'Electrochemistry', mcqs:70, score:0, difficulty:'hard', progress:0, locked:true },
+          { n:7, name:'Chemical Equilibrium', mcqs:80, score:0, difficulty:'hard', progress:0, locked:true },
+          { n:8, name:'Reaction Kinetics', mcqs:60, score:0, difficulty:'hard', progress:0, locked:true },
+          { n:9, name:'Solutions', mcqs:55, score:0, difficulty:'medium', progress:0, locked:true },
+        ]
+      },
+      physics: {
+        panelId: 'panelPhysics',
+        gridId: 'physChapterGrid',
+        chapters: [
+          { n:1, name:'Measurements', mcqs:45, score:95, difficulty:'easy', progress:100 },
+          { n:2, name:'Vectors & Scalars', mcqs:50, score:85, difficulty:'easy', progress:100 },
+          { n:3, name:'Motion & Force', mcqs:70, score:68, difficulty:'medium', progress:80 },
+          { n:4, name:'Work & Energy', mcqs:60, score:0, difficulty:'medium', progress:0, locked:true },
+          { n:5, name:'Circular Motion', mcqs:55, score:0, difficulty:'hard', progress:0, locked:true },
+          { n:6, name:'Fluid Dynamics', mcqs:50, score:0, difficulty:'hard', progress:0, locked:true },
+          { n:7, name:'Oscillations', mcqs:60, score:0, difficulty:'medium', progress:0, locked:true },
+          { n:8, name:'Waves', mcqs:55, score:0, difficulty:'medium', progress:0, locked:true },
+        ]
+      },
+      english: {
+        panelId: 'panelEnglish',
+        gridId: 'engChapterGrid',
+        chapters: [
+          { n:1, name:'Reading Comprehension', mcqs:60, score:92, difficulty:'easy', progress:100 },
+          { n:2, name:'Vocabulary in Context', mcqs:55, score:88, difficulty:'easy', progress:100 },
+          { n:3, name:'Grammar — Tenses', mcqs:50, score:82, difficulty:'medium', progress:90 },
+          { n:4, name:'Grammar — Articles & Prepositions', mcqs:45, score:0, difficulty:'medium', progress:0, locked:true },
+          { n:5, name:'Sentence Correction', mcqs:55, score:0, difficulty:'medium', progress:0, locked:true },
+          { n:6, name:'Fill in the Blanks', mcqs:50, score:0, difficulty:'easy', progress:0, locked:true },
+          { n:7, name:'One-word Substitution', mcqs:40, score:0, difficulty:'easy', progress:0, locked:true },
+        ]
+      }
+    };
+
+    const pastPapers = [
+      { year:2024, org:'PMC MDCAT', mcqs:200, solved:200, isNew:true },
+      { year:2023, org:'PMC MDCAT', mcqs:200, solved:200 },
+      { year:2022, org:'PMC MDCAT', mcqs:200, solved:200 },
+      { year:2021, org:'PMC MDCAT', mcqs:200, solved:200 },
+      { year:2020, org:'PMDC MDCAT', mcqs:220, solved:220 },
+      { year:2019, org:'PMDC MDCAT', mcqs:220, solved:220 },
+      { year:2023, org:'NUMS', mcqs:200, solved:200 },
+      { year:2022, org:'NUMS', mcqs:200, solved:200 },
+    ];
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      initNavbar();
+      initCountdown();
+      renderAllChapters();
+      renderPapers();
+      initReveal();
+      initTrendBars();
+    });
+
+    // ===== THEME =====
+    function initTheme() {
+      const saved = localStorage.getItem('imoria-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      document.getElementById('themeToggle').textContent = saved === 'dark' ? '☀️' : '🌙';
+    }
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('imoria-theme', next);
+      document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+
+    // ===== NAVBAR =====
+    function initNavbar() {
+      const nav = document.getElementById('navbar');
+      window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20), { passive:true });
+      document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileNav').classList.toggle('open'));
+    }
+    function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+    // ===== COUNTDOWN =====
+    function initCountdown() {
+      // MDCAT 2025 — approximate date: September 14, 2025
+      const target = new Date('2025-09-14T09:00:00+05:00');
+      function update() {
+        const now = new Date();
+        const diff = target - now;
+        if (diff <= 0) {
+          document.getElementById('cd-days').textContent = '00';
+          document.getElementById('cd-hours').textContent = '00';
+          document.getElementById('cd-mins').textContent = '00';
+          return;
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+        document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+        document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+      }
+      update();
+      setInterval(update, 60000);
+    }
+
+    // ===== CHAPTER RENDERING =====
+    function renderAllChapters() {
+      Object.keys(subjects).forEach(key => {
+        const subj = subjects[key];
+        const grid = document.getElementById(subj.gridId);
+        if (!grid) return;
+        grid.innerHTML = subj.chapters.map(ch => {
+          const diffClass = `diff-${ch.difficulty}`;
+          const diffLabel = ch.difficulty.charAt(0).toUpperCase() + ch.difficulty.slice(1);
+          const isLocked = ch.locked;
+          return `
+            <div class="chapter-card ${isLocked ? 'locked' : ''}">
+              <div class="chapter-card-top">
+                <div class="chapter-card-num">Chapter ${ch.n}</div>
+                <div class="chapter-card-difficulty ${diffClass}">${diffLabel}</div>
+              </div>
+              <div class="chapter-card-name">${ch.name}</div>
+              <div class="chapter-card-meta">
+                <div class="chapter-card-meta-item">🎯 ${ch.mcqs} MCQs</div>
+                ${ch.score > 0 ? `<div class="chapter-card-meta-item">📊 Best: ${ch.score}%</div>` : ''}
+              </div>
+              ${ch.progress > 0 ? `
+              <div class="chapter-card-progress">
+                <div class="chapter-card-progress-track">
+                  <div class="chapter-card-progress-fill" style="width:${ch.progress}%"></div>
+                </div>
+                <div class="chapter-card-progress-label">${ch.progress}% completed</div>
+              </div>` : ''}
+              <button class="chapter-card-btn" onclick="${isLocked ? 'showPremiumGate()' : `startChapter('${key}', ${ch.n})`}">
+                ${isLocked ? '🔒 Premium — Unlock' : '▶ Practice MCQs →'}
+              </button>
+            </div>
+          `;
+        }).join('');
+      });
+    }
+
+    // ===== SUBJECT TABS =====
+    function switchSubject(key, btn) {
+      document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      Object.values(subjects).forEach(s => {
+        const panel = document.getElementById(s.panelId);
+        if (panel) panel.classList.remove('active');
+      });
+      const target = document.getElementById(subjects[key].panelId);
+      if (target) target.classList.add('active');
+    }
+
+    // ===== PAST PAPERS RENDERING =====
+    function renderPapers() {
+      const grid = document.getElementById('papersGrid');
+      grid.innerHTML = pastPapers.map(p => `
+        <div class="paper-card">
+          ${p.isNew ? '<span class="new-badge">NEW</span>' : ''}
+          <div class="paper-year">${p.year}</div>
+          <div class="paper-org">${p.org}</div>
+          <div class="paper-stats">
+            <div class="paper-stat"><strong>${p.mcqs}</strong>MCQs</div>
+            <div class="paper-stat"><strong>${p.solved}</strong>Solved</div>
+          </div>
+          <button class="paper-btn" onclick="startPaper(${p.year}, '${p.org}')">
+            ▶ Attempt Paper →
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // ===== TREND BARS =====
+    function initTrendBars() {
+      document.querySelectorAll('.trend-bar').forEach(bar => {
+        const pct = parseInt(bar.dataset.pct) || 50;
+        bar.style.height = pct + 'px';
+        bar.title = pct + '%';
+      });
+    }
+
+    // ===== SCROLL REVEAL =====
+    function initReveal() {
+      const els = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(el => obs.observe(el));
+    }
+
+    // ===== ACTIONS =====
+    function startChapter(subject, chNum) {
+      window.location.href = `mdcat-chapter.html?subject=${subject}&chapter=${chNum}`;
+    }
+
+    function startPaper(year, org) {
+      const slug = org.toLowerCase().replace(/\s+/g,'-');
+      window.location.href = `mdcat-mock.html?type=past-paper&year=${year}&org=${slug}`;
+    }
+
+    function showPremiumGate() {
+      const modal = document.createElement('div');
+      modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+      modal.innerHTML = `
+        <div style="background:var(--surface);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:36px;max-width:400px;width:100%;text-align:center;position:relative;">
+          <div style="font-size:2.2rem;margin-bottom:14px;">🔒</div>
+          <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:900;color:var(--text);margin-bottom:10px;">Premium Content</h3>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:8px;">This chapter is unlocked with the Premium plan.</p>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:24px;">Unlock <strong style="color:var(--gold-main);">5,000+ MDCAT MCQs</strong>, all past papers, and unlimited mock tests for just <strong style="color:var(--gold-main);">Rs. 499/month</strong>.</p>
+          <a href="login.html?signup=1&plan=premium" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;background:linear-gradient(135deg,#F0D080,#C9A84C,#A07830);color:#0A1628;border-radius:10px;font-weight:800;font-size:0.9rem;text-decoration:none;margin-bottom:12px;">Upgrade to Premium →</a>
+          <button onclick="this.closest('div[style]').remove()" style="font-size:0.82rem;color:var(--text-muted);cursor:pointer;background:none;border:none;font-family:inherit;">Maybe later</button>
+        </div>
+      `;
+      modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+      document.body.appendChild(modal);
+    }
+  </script>
+</body>
+</html>
