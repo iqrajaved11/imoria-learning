@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Imoria Learning — Learn Smart. Rise Beyond.</title>
+  <meta name="description" content="Chapter-wise Notes, MCQs, Short & Long Questions for FSc Pre-Medical students in Pakistan. Score A+ in board exams and crack MDCAT with Imoria Learning." />
+  <meta name="keywords" content="FSc notes Pakistan, chemistry notes, physics notes, biology notes, MDCAT preparation, board exam preparation, FSc Pre-Medical, Pakistan edtech" />
+  <meta property="og:title" content="Imoria Learning — Learn Smart. Rise Beyond." />
+  <meta property="og:description" content="Chapter-wise Notes, MCQs, and Questions for FSc Pre-Medical students. Board-focused. MDCAT-ready." />
+  <meta property="og:image" content="/assets/og-image.jpg" />
+  <meta property="og:url" content="https://imorialearning.github.io/" />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://imorialearning.github.io/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Imoria Learning",
+    "url": "https://imorialearning.github.io",
+    "description": "Pakistani edtech platform for FSc Pre-Medical students",
+    "areaServed": "PK",
+    "teaches": ["FSc Pre-Medical", "MDCAT Preparation"]
+  }
+  </script>
+
+  <style>
+    /* ===================== DESIGN TOKENS ===================== */
+    :root {
+      --navy-900: #0A1628;
+      --navy-800: #0D1B2A;
+      --navy-700: #112240;
+      --navy-600: #1A3358;
+      --navy-500: #1E3D6B;
+
+      --gold-light: #F0D080;
+      --gold-main:  #C9A84C;
+      --gold-dark:  #A07830;
+      --gold-gradient: linear-gradient(135deg, #F0D080 0%, #C9A84C 50%, #A07830 100%);
+      --gold-glow: 0 0 24px rgba(201,168,76,0.35);
+
+      --white: #FFFFFF;
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-400: #9CA3AF;
+      --gray-600: #6B7280;
+      --gray-900: #111827;
+
+      --success: #22C55E;
+      --error:   #EF4444;
+      --warning: #F59E0B;
+
+      /* Light mode surfaces */
+      --bg:       #F9FAFB;
+      --surface:  #FFFFFF;
+      --surface2: #F3F4F6;
+      --text:     #0A1628;
+      --text-muted: #6B7280;
+      --border:   #E5E7EB;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 32px;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
+
+      --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+      --nav-height: 68px;
+    }
+
+    [data-theme="dark"] {
+      --bg:       #080E1A;
+      --surface:  #0D1B2A;
+      --surface2: #112240;
+      --text:     #F0F4FF;
+      --text-muted: #94A3B8;
+      --border:   #1E3050;
+    }
+
+    /* ===================== RESET ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; font-family: var(--font-body); border: none; background: none; }
+    ul { list-style: none; }
+
+    /* ===================== UTILITIES ===================== */
+    .container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .gold-text { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    /* ===================== BUTTONS ===================== */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 700; letter-spacing: 0.01em;
+      transition: all var(--transition); white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--gold-gradient);
+      color: var(--navy-900);
+      box-shadow: 0 2px 12px rgba(201,168,76,0.30);
+    }
+    .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: var(--gold-glow); }
+    .btn-secondary {
+      border: 2px solid var(--gold-main);
+      color: var(--gold-main);
+      background: transparent;
+    }
+    .btn-secondary:hover { background: rgba(201,168,76,0.08); transform: translateY(-1px); }
+    .btn-ghost { color: var(--text-muted); background: transparent; padding: 13px 18px; }
+    .btn-ghost:hover { color: var(--text); }
+
+    /* ===================== NAVBAR ===================== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: var(--nav-height);
+      display: flex; align-items: center;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom-color: rgba(201,168,76,0.15);
+    }
+    [data-theme="light"] .navbar.scrolled {
+      background: rgba(249,250,251,0.92);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 20px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; font-family: var(--font-display);
+      font-size: 1.25rem; font-weight: 700; color: var(--white);
+    }
+    [data-theme="light"] .nav-logo { color: var(--navy-800); }
+    .nav-logo-mark {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--gold-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 900; color: var(--navy-900); flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-links a {
+      padding: 8px 14px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500;
+      color: rgba(255,255,255,0.8); transition: color var(--transition), background var(--transition);
+    }
+    [data-theme="light"] .nav-links a { color: var(--gray-600); }
+    .nav-links a:hover { color: var(--gold-light); background: rgba(201,168,76,0.08); }
+    [data-theme="light"] .nav-links a:hover { color: var(--navy-800); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .theme-toggle {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.7); font-size: 1rem; transition: all var(--transition);
+    }
+    [data-theme="light"] .theme-toggle {
+      background: var(--gray-100); border-color: var(--border); color: var(--gray-600);
+    }
+    .theme-toggle:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .btn-nav-login {
+      padding: 9px 20px; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.85);
+      transition: all var(--transition);
+    }
+    [data-theme="light"] .btn-nav-login { border-color: var(--border); color: var(--navy-800); }
+    .btn-nav-login:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .btn-nav-cta {
+      padding: 9px 22px; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 700;
+      background: var(--gold-gradient); color: var(--navy-900);
+      box-shadow: 0 2px 8px rgba(201,168,76,0.3);
+      transition: all var(--transition);
+    }
+    .btn-nav-cta:hover { filter: brightness(1.1); box-shadow: var(--gold-glow); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; transition: all 0.3s; }
+    [data-theme="light"] .hamburger span { background: var(--navy-800); }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: var(--navy-800); padding: var(--nav-height) 0 40px;
+      flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    }
+    [data-theme="light"] .mobile-nav { background: var(--white); }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 1.4rem; font-weight: 600; color: rgba(255,255,255,0.8);
+      padding: 14px 40px; width: 100%; text-align: center;
+      transition: color var(--transition);
+    }
+    [data-theme="light"] .mobile-nav a { color: var(--gray-700, #374151); }
+    .mobile-nav a:hover { color: var(--gold-light); }
+    .mobile-nav-actions { display: flex; gap: 12px; margin-top: 24px; }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background: var(--navy-800); position: relative; overflow: hidden;
+      padding: calc(var(--nav-height) + 60px) 0 80px;
+    }
+    /* Signature element: radial gold glow from center-right, like a rising sun */
+    .hero::before {
+      content: ''; position: absolute;
+      width: 700px; height: 700px;
+      right: -100px; top: 50%; transform: translateY(-50%);
+      background: radial-gradient(circle, rgba(201,168,76,0.18) 0%, rgba(201,168,76,0.05) 40%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none; opacity: 0.5;
+    }
+    .hero-inner {
+      position: relative; z-index: 1; display: grid;
+      grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      max-width: 1180px; margin: 0 auto; padding: 0 20px;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold-light); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 100px; margin-bottom: 24px;
+    }
+    .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-main); display: block; }
+    .hero h1 {
+      font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900; line-height: 1.15; color: var(--white);
+      margin-bottom: 22px; letter-spacing: -0.01em;
+    }
+    .hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.65); line-height: 1.7;
+      margin-bottom: 36px; max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
+    .hero-trust {
+      display: flex; gap: 24px; flex-wrap: wrap;
+    }
+    .trust-badge {
+      display: flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.5); font-size: 0.82rem; font-weight: 500;
+    }
+    .trust-badge strong { color: var(--gold-light); font-weight: 700; }
+    .trust-badge::before { content: '✦'; color: var(--gold-main); font-size: 0.6rem; }
+
+    /* Hero illustration */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center; position: relative;
+    }
+    .hero-card-stack { position: relative; width: 360px; height: 380px; }
+    .hero-card {
+      position: absolute; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.15); border-radius: var(--radius-lg);
+      backdrop-filter: blur(8px); padding: 20px 24px;
+      transition: transform 0.4s ease;
+    }
+    .hero-card-main {
+      width: 320px; left: 20px; top: 20px; z-index: 3;
+      background: rgba(26,51,88,0.5); border-color: rgba(201,168,76,0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), var(--gold-glow);
+    }
+    .hero-card-back1 { width: 300px; left: 30px; top: 8px; z-index: 2; opacity: 0.5; }
+    .hero-card-back2 { width: 280px; left: 40px; top: 0; z-index: 1; opacity: 0.25; }
+    .card-subject-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold-main); margin-bottom: 10px;
+    }
+    .card-chapter-title {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+      color: white; margin-bottom: 16px; line-height: 1.3;
+    }
+    .card-stats { display: flex; gap: 16px; margin-bottom: 16px; }
+    .card-stat { text-align: center; }
+    .card-stat-num { font-size: 1.3rem; font-weight: 800; color: var(--gold-light); line-height: 1; }
+    .card-stat-label { font-size: 0.68rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
+    .card-progress-bar {
+      height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; margin-bottom: 6px;
+    }
+    .card-progress-fill {
+      height: 100%; width: 68%; border-radius: 99px;
+      background: var(--gold-gradient);
+    }
+    .card-progress-label { font-size: 0.68rem; color: rgba(255,255,255,0.4); }
+    .card-mcq-preview { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .card-mcq-q { font-size: 0.72rem; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+    .card-mcq-opts { display: flex; flex-direction: column; gap: 5px; }
+    .card-opt {
+      padding: 6px 10px; border-radius: 5px; font-size: 0.68rem;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.5);
+    }
+    .card-opt.correct {
+      background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.3);
+      color: #86efac;
+    }
+    /* Floating badges */
+    .hero-badge {
+      position: absolute; background: var(--navy-700); border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 8px;
+      box-shadow: var(--shadow-md); z-index: 10; animation: float 3s ease-in-out infinite;
+    }
+    .hero-badge-1 { bottom: 30px; left: -30px; animation-delay: 0s; }
+    .hero-badge-2 { top: 10px; right: -20px; animation-delay: 1.5s; }
+    .hero-badge-icon { font-size: 1.2rem; }
+    .hero-badge-text { font-size: 0.72rem; font-weight: 600; color: white; line-height: 1.3; }
+    .hero-badge-text small { display: block; color: rgba(255,255,255,0.45); font-weight: 400; font-size: 0.65rem; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+    /* ===================== STATS BAR ===================== */
+    .stats-bar {
+      background: var(--navy-900); padding: 28px 0;
+      border-top: 1px solid rgba(201,168,76,0.12);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+    [data-theme="light"] .stats-bar { background: var(--navy-800); }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; max-width: 1180px; margin: 0 auto; padding: 0 20px;
+    }
+    .stat-item {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 0 20px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--font-display); font-size: 1.9rem; font-weight: 900;
+      background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.45); font-weight: 500; text-align: center; }
+
+    /* ===================== SECTIONS SHARED ===================== */
+    section { padding: 96px 0; }
+    .section-eyebrow {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold-main); margin-bottom: 12px; display: block;
+    }
+    .section-title {
+      font-family: var(--font-display); font-size: clamp(1.7rem, 3vw, 2.5rem);
+      font-weight: 900; line-height: 1.2; color: var(--text); margin-bottom: 16px;
+    }
+    .section-sub { color: var(--text-muted); font-size: 1rem; max-width: 520px; line-height: 1.7; }
+    .section-header { margin-bottom: 56px; }
+    .section-header.center { text-align: center; }
+    .section-header.center .section-sub { margin: 0 auto; }
+
+    /* ===================== SUBJECTS ===================== */
+    .subjects { background: var(--bg); }
+    .subjects-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .subject-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 28px 24px;
+      transition: all var(--transition); position: relative; overflow: hidden;
+      cursor: pointer;
+    }
+    .subject-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--gold-gradient); opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .subject-card:hover { border-color: var(--gold-main); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(201,168,76,0.2); }
+    .subject-card:hover::before { opacity: 0.03; }
+    .subject-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: var(--surface2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 18px; transition: all var(--transition);
+    }
+    .subject-card:hover .subject-icon {
+      background: rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.3);
+    }
+    .subject-name {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+      color: var(--text); margin-bottom: 6px;
+    }
+    .subject-desc { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
+    .subject-meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 20px; }
+    .subject-meta strong { color: var(--text); }
+    .subject-link {
+      font-size: 0.82rem; font-weight: 700; color: var(--gold-main);
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: gap var(--transition);
+    }
+    .subject-card:hover .subject-link { gap: 10px; }
+
+    /* ===================== FEATURES ===================== */
+    .features { background: var(--surface2); }
+    [data-theme="dark"] .features { background: var(--navy-900); }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .feature-tile {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 28px;
+      transition: all var(--transition);
+    }
+    .feature-tile:hover { border-color: rgba(201,168,76,0.35); box-shadow: var(--shadow-md); }
+    .feature-icon-wrap {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; margin-bottom: 16px;
+    }
+    .feature-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .feature-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ===================== HOW IT WORKS ===================== */
+    .how { background: var(--bg); }
+    .how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; position: relative; }
+    .how-steps::before {
+      content: ''; position: absolute;
+      top: 28px; left: calc(16.66% + 16px); right: calc(16.66% + 16px);
+      height: 1px; background: linear-gradient(to right, var(--gold-main), transparent, var(--gold-main));
+      opacity: 0.3;
+    }
+    .how-step { text-align: center; padding: 0 16px; }
+    .how-step-num {
+      width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 20px;
+      background: var(--navy-800); border: 2px solid rgba(201,168,76,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 900;
+      color: var(--gold-light); position: relative; z-index: 1;
+    }
+    [data-theme="light"] .how-step-num { background: var(--navy-700); }
+    .how-step-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .how-step-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ===================== MDCAT BANNER ===================== */
+    .mdcat-banner {
+      background: var(--navy-800); padding: 80px 0;
+      position: relative; overflow: hidden;
+    }
+    .mdcat-banner::before {
+      content: 'MDCAT'; position: absolute;
+      font-family: var(--font-display); font-size: 14rem; font-weight: 900;
+      color: rgba(201,168,76,0.03); right: -40px; top: 50%;
+      transform: translateY(-50%); pointer-events: none; white-space: nowrap; line-height: 1;
+    }
+    .mdcat-inner {
+      display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center;
+      max-width: 1180px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1;
+    }
+    .mdcat-banner h2 {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 900; color: white; margin-bottom: 16px; line-height: 1.2;
+    }
+    .mdcat-features { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 0; }
+    .mdcat-feat {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; color: rgba(255,255,255,0.65); font-weight: 500;
+    }
+    .mdcat-feat::before { content: '✓'; color: var(--gold-main); font-weight: 700; }
+
+    /* ===================== TESTIMONIALS ===================== */
+    .testimonials { background: var(--bg); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .testimonial-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 28px;
+      transition: all var(--transition);
+    }
+    .testimonial-card:hover { border-color: rgba(201,168,76,0.3); box-shadow: var(--shadow-md); }
+    .stars { display: flex; gap: 3px; margin-bottom: 16px; }
+    .star { color: var(--gold-main); font-size: 0.85rem; }
+    .testimonial-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+    .testimonial-text::before { content: '\201C'; color: var(--gold-light); font-family: var(--font-display); font-size: 2rem; line-height: 0; vertical-align: -12px; margin-right: 4px; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--gold-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; color: var(--navy-900); flex-shrink: 0;
+    }
+    .author-name { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+    .author-meta { font-size: 0.75rem; color: var(--text-muted); }
+    .author-achievement {
+      font-size: 0.72rem; font-weight: 700;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
+      color: var(--gold-main); padding: 2px 8px; border-radius: 100px; margin-left: auto;
+    }
+
+    /* ===================== PRICING ===================== */
+    .pricing { background: var(--surface2); }
+    [data-theme="dark"] .pricing { background: var(--navy-900); }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 820px; margin: 0 auto; }
+    .pricing-card {
+      border-radius: var(--radius-lg); padding: 36px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      position: relative; overflow: hidden;
+    }
+    .pricing-card.premium {
+      background: var(--navy-800); border-color: rgba(201,168,76,0.35);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25), var(--gold-glow);
+    }
+    .pricing-badge {
+      position: absolute; top: 20px; right: 20px;
+      background: var(--gold-gradient); color: var(--navy-900);
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px;
+    }
+    .pricing-plan { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .pricing-card.premium .pricing-plan { color: var(--gold-main); }
+    .pricing-price {
+      font-family: var(--font-display); font-size: 2.4rem; font-weight: 900;
+      color: var(--text); line-height: 1; margin-bottom: 4px;
+    }
+    .pricing-card.premium .pricing-price { color: white; }
+    .pricing-price-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 28px; }
+    .pricing-card.premium .pricing-price-sub { color: rgba(255,255,255,0.4); }
+    .pricing-features { margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .pricing-feat {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.84rem; color: var(--text-muted);
+    }
+    .pricing-card.premium .pricing-feat { color: rgba(255,255,255,0.7); }
+    .pricing-feat-icon { flex-shrink: 0; margin-top: 1px; font-size: 0.75rem; color: var(--gray-400); }
+    .pricing-card.premium .pricing-feat-icon { color: var(--gold-main); }
+    .pricing-feat.included .pricing-feat-icon { color: var(--success); }
+    .yearly-note {
+      text-align: center; margin-top: 20px; font-size: 0.8rem; color: var(--text-muted);
+    }
+    .yearly-note strong { color: var(--gold-main); }
+
+    /* ===================== FAQ ===================== */
+    .faq { background: var(--bg); }
+    .faq-list { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 4px; }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+    .faq-question {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 22px; background: var(--surface); text-align: left;
+      font-size: 0.92rem; font-weight: 600; color: var(--text); gap: 16px;
+      transition: color var(--transition);
+    }
+    .faq-question:hover { color: var(--gold-main); }
+    .faq-question.open { color: var(--gold-main); }
+    .faq-chevron { flex-shrink: 0; color: var(--text-muted); transition: transform 0.25s ease; font-size: 0.7rem; }
+    .faq-question.open .faq-chevron { transform: rotate(180deg); color: var(--gold-main); }
+    .faq-answer {
+      max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.25s ease;
+      font-size: 0.87rem; color: var(--text-muted); line-height: 1.7;
+      padding: 0 22px; background: var(--surface);
+    }
+    .faq-answer.open { max-height: 200px; padding: 0 22px 18px; }
+
+    /* ===================== CTA BANNER ===================== */
+    .cta-banner {
+      background: var(--navy-800); padding: 80px 0; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.12) 0%, transparent 70%);
+    }
+    .cta-banner h2 {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 900; color: white; margin-bottom: 14px; position: relative; z-index: 1;
+    }
+    .cta-banner p { color: rgba(255,255,255,0.55); margin-bottom: 36px; position: relative; z-index: 1; }
+    .cta-banner .hero-actions { justify-content: center; position: relative; z-index: 1; }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: var(--navy-900); padding: 60px 0 32px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand p { font-size: 0.83rem; color: rgba(255,255,255,0.35); line-height: 1.7; margin-top: 12px; max-width: 260px; }
+    .footer-col-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 0.85rem; color: rgba(255,255,255,0.45); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { font-size: 0.78rem; color: rgba(255,255,255,0.3); transition: color var(--transition); }
+    .footer-bottom-links a:hover { color: var(--gold-main); }
+
+    /* ===================== WHATSAPP BUTTON ===================== */
+    .whatsapp-float {
+      position: fixed; bottom: 24px; right: 24px; z-index: 900;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25D366; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; color: white; text-decoration: none;
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: pulse-green 2s ease infinite;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+    @keyframes pulse-green {
+      0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+      50% { box-shadow: 0 4px 30px rgba(37,211,102,0.6); }
+    }
+
+    /* ===================== SCROLL ANIMATIONS ===================== */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 1024px) {
+      .subjects-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      :root { --nav-height: 60px; }
+      section { padding: 64px 0; }
+      .nav-links, .btn-nav-login { display: none; }
+      .hamburger { display: flex; }
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { display: none; }
+      .hero h1 { font-size: 2rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .stat-item { border-right: none; padding: 0; }
+      .stat-item:nth-child(1), .stat-item:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 20px; }
+      .subjects-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .how-steps { grid-template-columns: 1fr; }
+      .how-steps::before { display: none; }
+      .how-step { padding: 0; }
+      .mdcat-inner { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding-top: calc(var(--nav-height) + 40px); }
+      .hero h1 { font-size: 1.7rem; }
+      .btn-nav-cta span { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =================== NAVBAR =================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-mark">IL</div>
+        Imoria Learning
+      </a>
+      <ul class="nav-links">
+        <li><a href="#subjects">Subjects</a></li>
+        <li><a href="#mdcat">MDCAT</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+        <a href="login.html" class="btn-nav-login">Login</a>
+        <a href="login.html?signup=1" class="btn-nav-cta">Start Free <span>→</span></a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#subjects" onclick="closeMobileNav()">Subjects</a>
+    <a href="#mdcat" onclick="closeMobileNav()">MDCAT</a>
+    <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-nav-actions">
+      <a href="login.html" class="btn btn-secondary">Login</a>
+      <a href="login.html?signup=1" class="btn btn-primary">Start Free →</a>
+    </div>
+  </div>
+
+  <!-- =================== HERO =================== -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow"><span></span> Pakistan's #1 FSc Pre-Medical Platform</div>
+        <h1>Your A+ Grade &amp; MDCAT Success<br><em class="gold-text">Starts Here</em></h1>
+        <p class="hero-sub">Chapter-wise Notes, MCQs, Short &amp; Long Questions for FSc Pre-Medical students — completely structured for Pakistan board exams and MDCAT.</p>
+        <div class="hero-actions">
+          <a href="login.html?signup=1" class="btn btn-primary" style="font-size:1rem;padding:15px 32px;">Start Learning Free →</a>
+          <a href="#how-it-works" class="btn btn-secondary" style="color:rgba(255,255,255,0.75);border-color:rgba(255,255,255,0.2);">Watch How It Works</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-badge"><strong>2,000+</strong>&nbsp;Students</div>
+          <div class="trust-badge"><strong>4</strong>&nbsp;Subjects</div>
+          <div class="trust-badge"><strong>Board-Focused</strong>&nbsp;Content</div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-stack">
+          <div class="hero-card hero-card-back2"></div>
+          <div class="hero-card hero-card-back1"></div>
+          <div class="hero-card hero-card-main">
+            <div class="card-subject-label">🧪 Chemistry — Part I</div>
+            <div class="card-chapter-title">Chapter 3: Gases &amp; Gas Laws</div>
+            <div class="card-stats">
+              <div class="card-stat"><div class="card-stat-num">42</div><div class="card-stat-label">MCQs</div></div>
+              <div class="card-stat"><div class="card-stat-num">18</div><div class="card-stat-label">Short Qs</div></div>
+              <div class="card-stat"><div class="card-stat-num">6</div><div class="card-stat-label">Long Qs</div></div>
+            </div>
+            <div class="card-progress-bar"><div class="card-progress-fill"></div></div>
+            <div class="card-progress-label">68% complete</div>
+            <div class="card-mcq-preview">
+              <div class="card-mcq-q">Which gas law states PV = nRT?</div>
+              <div class="card-mcq-opts">
+                <div class="card-opt">A. Boyle's Law</div>
+                <div class="card-opt correct">B. Ideal Gas Law ✓</div>
+                <div class="card-opt">C. Charles' Law</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-badge hero-badge-1">
+            <div class="hero-badge-icon">🏆</div>
+            <div class="hero-badge-text">MDCAT Ready<small>Mock Tests Available</small></div>
+          </div>
+          <div class="hero-badge hero-badge-2">
+            <div class="hero-badge-icon">📈</div>
+            <div class="hero-badge-text">Score Tracking<small>Know your rank</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== STATS BAR =================== -->
+  <div class="stats-bar">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="500">0</div>
+        <div class="stat-label">📚 Chapter Notes</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-num" data-target="10000">0</div>
+        <div class="stat-label">🎯 MCQs &amp; Counting</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-num" data-target="5000">0</div>
+        <div class="stat-label">📝 Practice Questions</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-num">A+</div>
+        <div class="stat-label">🏆 Student Success Rate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== SUBJECTS =================== -->
+  <section class="subjects" id="subjects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Subjects</span>
+        <h2 class="section-title">Master Every<br>Pre-Medical Subject</h2>
+        <p class="section-sub">Board-aligned, chapter-by-chapter study material for all four FSc Pre-Medical subjects.</p>
+      </div>
+      <div class="subjects-grid">
+        <div class="subject-card reveal">
+          <div class="subject-icon">🧪</div>
+          <div class="subject-name">Chemistry</div>
+          <div class="subject-desc">Organic, Inorganic &amp; Physical Chemistry with board-pattern MCQs and solved examples.</div>
+          <div class="subject-meta"><strong>22 Chapters</strong> · Part I &amp; II</div>
+          <a href="subject.html?s=chemistry" class="subject-link">Explore Chemistry →</a>
+        </div>
+        <div class="subject-card reveal reveal-delay-1">
+          <div class="subject-icon">⚡</div>
+          <div class="subject-name">Physics</div>
+          <div class="subject-desc">From Mechanics to Modern Physics — numericals, MCQs, and conceptual questions.</div>
+          <div class="subject-meta"><strong>22 Chapters</strong> · Part I &amp; II</div>
+          <a href="subject.html?s=physics" class="subject-link">Explore Physics →</a>
+        </div>
+        <div class="subject-card reveal reveal-delay-2">
+          <div class="subject-icon">🧬</div>
+          <div class="subject-name">Biology</div>
+          <div class="subject-desc">Cell Biology, Genetics, Plant &amp; Animal Physiology with diagrams and board questions.</div>
+          <div class="subject-meta"><strong>27 Chapters</strong> · Part I &amp; II</div>
+          <a href="subject.html?s=biology" class="subject-link">Explore Biology →</a>
+        </div>
+        <div class="subject-card reveal reveal-delay-3">
+          <div class="subject-icon">📖</div>
+          <div class="subject-name">English</div>
+          <div class="subject-desc">Grammar, Comprehension, Essay &amp; Translation — complete FSc English preparation.</div>
+          <div class="subject-meta"><strong>12 Units</strong> · Part I &amp; II</div>
+          <a href="subject.html?s=english" class="subject-link">Explore English →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== FEATURES =================== -->
+  <section class="features">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-eyebrow">Features</span>
+        <h2 class="section-title">Everything You Need<br>to Score A+</h2>
+        <p class="section-sub">From notes to MDCAT mock tests — one platform for your entire pre-medical journey.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-tile reveal">
+          <div class="feature-icon-wrap">📖</div>
+          <div class="feature-title">Chapter-wise Notes</div>
+          <div class="feature-desc">Structured online notes with PDF download. Written in board-exam language so you study exactly what's relevant.</div>
+        </div>
+        <div class="feature-tile reveal reveal-delay-1">
+          <div class="feature-icon-wrap">✅</div>
+          <div class="feature-title">MCQ Practice Bank</div>
+          <div class="feature-desc">Timed MCQ sessions with instant explanations. Filter by chapter, difficulty, or past-paper status.</div>
+        </div>
+        <div class="feature-tile reveal reveal-delay-2">
+          <div class="feature-icon-wrap">📝</div>
+          <div class="feature-title">Short &amp; Long Questions</div>
+          <div class="feature-desc">Model answers in board-exam format. Know exactly what examiners expect, nothing more, nothing less.</div>
+        </div>
+        <div class="feature-tile reveal">
+          <div class="feature-icon-wrap">🏆</div>
+          <div class="feature-title">MDCAT Preparation</div>
+          <div class="feature-desc">Dedicated MDCAT section with full 200-MCQ mock tests in real exam format, including score analytics.</div>
+        </div>
+        <div class="feature-tile reveal reveal-delay-1">
+          <div class="feature-icon-wrap">📊</div>
+          <div class="feature-title">Progress Tracking</div>
+          <div class="feature-desc">See your chapter completion, average MCQ score, study streak, and where you rank vs other students.</div>
+        </div>
+        <div class="feature-tile reveal reveal-delay-2">
+          <div class="feature-icon-wrap">🔖</div>
+          <div class="feature-title">Smart Bookmarks</div>
+          <div class="feature-desc">Bookmark any question — MCQ, short, or long — and revisit your saved list during revision week.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== HOW IT WORKS =================== -->
+  <section class="how" id="how-it-works">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-eyebrow">Getting Started</span>
+        <h2 class="section-title">Up and Studying<br>in 3 Steps</h2>
+      </div>
+      <div class="how-steps">
+        <div class="how-step reveal">
+          <div class="how-step-num">1</div>
+          <div class="how-step-title">Create Your Free Account</div>
+          <div class="how-step-desc">Sign up with Google, email, or your phone number. Free account is yours instantly — no card needed.</div>
+        </div>
+        <div class="how-step reveal reveal-delay-1">
+          <div class="how-step-num">2</div>
+          <div class="how-step-title">Choose Your Subject</div>
+          <div class="how-step-desc">Pick Chemistry, Physics, Biology, or English. Jump to any chapter — notes, MCQs, and questions are all organised and ready.</div>
+        </div>
+        <div class="how-step reveal reveal-delay-2">
+          <div class="how-step-num">3</div>
+          <div class="how-step-title">Practice &amp; Track Progress</div>
+          <div class="how-step-desc">Do MCQ sessions, attempt mock tests, and watch your progress update chapter by chapter. Rise up the leaderboard.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== MDCAT BANNER =================== -->
+  <section class="mdcat-banner" id="mdcat">
+    <div class="mdcat-inner">
+      <div>
+        <span class="section-eyebrow" style="color:var(--gold-main);">MDCAT Preparation</span>
+        <h2>Dream Medical College?<br>Start Your MDCAT Prep Now.</h2>
+        <div class="mdcat-features" style="margin-top:16px;">
+          <div class="mdcat-feat">Chapter-wise MCQs</div>
+          <div class="mdcat-feat">Full 200-MCQ Mock Tests</div>
+          <div class="mdcat-feat">Score Analytics</div>
+          <div class="mdcat-feat">Past Paper Questions</div>
+          <div class="mdcat-feat">Subject-wise Breakdown</div>
+        </div>
+      </div>
+      <div>
+        <a href="mdcat.html" class="btn btn-primary" style="font-size:1rem;padding:16px 36px;white-space:nowrap;">Go to MDCAT Section →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== TESTIMONIALS =================== -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-eyebrow">Student Stories</span>
+        <h2 class="section-title">Results Speak<br>for Themselves</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+          <p class="testimonial-text">The chapter-wise MCQs are exactly what the board exams ask. I went from struggling to getting A+ in Chemistry. The explanations after each wrong answer changed everything for me.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AK</div>
+            <div>
+              <div class="author-name">Ayesha Khan</div>
+              <div class="author-meta">Lahore · FSc Year 2</div>
+            </div>
+            <div class="author-achievement">MDCAT 187/200</div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-1">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+          <p class="testimonial-text">Biology notes on Imoria Learning are the most well-structured I've used — better than any guide book. I finished all 13 Part I chapters in two weeks and actually understood everything.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">HA</div>
+            <div>
+              <div class="author-name">Hassan Ahmed</div>
+              <div class="author-meta">Karachi · FSc Year 1</div>
+            </div>
+            <div class="author-achievement">A+ Biology</div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-2">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+          <p class="testimonial-text">The MDCAT mock tests feel just like the real thing. The 210-minute timer keeps you honest. My percentile went from 60th to 89th after six mock attempts. Worth every rupee of premium.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">ZM</div>
+            <div>
+              <div class="author-name">Zara Malik</div>
+              <div class="author-meta">Islamabad · MDCAT 2024</div>
+            </div>
+            <div class="author-achievement">Top 5% MDCAT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== PRICING =================== -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-eyebrow">Pricing</span>
+        <h2 class="section-title">Simple, Honest Pricing</h2>
+        <p class="section-sub">Start free. Upgrade when you're ready for the full package.</p>
+      </div>
+      <div class="pricing-grid">
+        <!-- Free -->
+        <div class="pricing-card reveal">
+          <div class="pricing-plan">Free Plan</div>
+          <div class="pricing-price">Rs. 0</div>
+          <div class="pricing-price-sub">Free forever · No card required</div>
+          <div class="pricing-features">
+            <div class="pricing-feat included">
+              <span class="pricing-feat-icon">✓</span> Chapter Notes (3 per chapter)
+            </div>
+            <div class="pricing-feat included">
+              <span class="pricing-feat-icon">✓</span> 50 MCQs per subject / month
+            </div>
+            <div class="pricing-feat included">
+              <span class="pricing-feat-icon">✓</span> Basic Short Questions
+            </div>
+            <div class="pricing-feat">
+              <span class="pricing-feat-icon">✗</span> MDCAT Mock Tests
+            </div>
+            <div class="pricing-feat">
+              <span class="pricing-feat-icon">✗</span> PDF Downloads
+            </div>
+            <div class="pricing-feat">
+              <span class="pricing-feat-icon">✗</span> Progress Analytics
+            </div>
+          </div>
+          <a href="login.html?signup=1" class="btn btn-secondary" style="width:100%;justify-content:center;">Start Free</a>
+        </div>
+        <!-- Premium -->
+        <div class="pricing-card premium reveal reveal-delay-1">
+          <div class="pricing-badge">Most Popular</div>
+          <div class="pricing-plan">Premium Plan</div>
+          <div class="pricing-price" style="color:var(--gold-light);">Rs. 499</div>
+          <div class="pricing-price-sub">per month · or Rs. 3,999/year (save 33%)</div>
+          <div class="pricing-features">
+            <div class="pricing-feat included">
+              <span class="pricing-feat-icon">✓</span> ALL Chapter Notes (PDF + Online)
+            </div>
+            <div class="pricing-feat included">
+              <span class="pricing-feat-icon">✓</span> Unlimited MCQs &amp; Practice Tests
+            </div>
+            <div class="pricing-feat included">
+              <span class="pricing-feat-icon">✓</span> Full Short &amp; Long Questions Bank
+            </div>
+            <div class="pricing-feat included">
+              <span class="pricing-feat-icon">✓</span> MDCAT Mock Tests (Full + Chapter-wise)
+            </div>
+            <div class="pricing-feat included">
+              <span class="pricing-feat-icon">✓</span> Progress Analytics &amp; Leaderboard
+            </div>
+            <div class="pricing-feat included">
+              <span class="pricing-feat-icon">✓</span> Priority WhatsApp Support
+            </div>
+          </div>
+          <a href="login.html?signup=1&plan=premium" class="btn btn-primary" style="width:100%;justify-content:center;font-size:0.95rem;">Upgrade to Premium →</a>
+        </div>
+      </div>
+      <p class="yearly-note">💡 Annual plan saves you <strong>Rs. 1,989</strong> — that's 4 months free.</p>
+    </div>
+  </section>
+
+  <!-- =================== FAQ =================== -->
+  <section class="faq">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-eyebrow">FAQ</span>
+        <h2 class="section-title">Questions? Answered.</h2>
+      </div>
+      <div class="faq-list" id="faqList">
+        <div class="faq-item">
+          <button class="faq-question">Is Imoria Learning really free? <span class="faq-chevron">▼</span></button>
+          <div class="faq-answer">Yes. The free plan gives you access to limited notes and MCQs with no time limit or card required. Premium unlocks everything — unlimited content, mock tests, and analytics.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Which board's syllabus is covered? <span class="faq-chevron">▼</span></button>
+          <div class="faq-answer">Our content covers the Federal Board (FBISE) and Punjab Board (BISE) syllabi for FSc Pre-Medical Part I and Part II. MDCAT content follows the PMC MDCAT syllabus.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Can I use Imoria Learning for MDCAT prep? <span class="faq-chevron">▼</span></button>
+          <div class="faq-answer">Absolutely. There's a dedicated MDCAT section with chapter-wise MCQ tests and full 200-question mock tests in the exact PMC format with a 210-minute timer. Analytics show your weak topics after every attempt.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How are the notes formatted? <span class="faq-chevron">▼</span></button>
+          <div class="faq-answer">Notes are structured chapter-by-chapter, written in clear readable language that matches what board examiners expect. You can read them online or download the PDF for offline study.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Is there a mobile app? <span class="faq-chevron">▼</span></button>
+          <div class="faq-answer">Not yet — but the website is fully optimised for mobile browsers. It works smoothly on any smartphone. A dedicated app is on our roadmap and coming soon.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How do I pay for Premium? <span class="faq-chevron">▼</span></button>
+          <div class="faq-answer">We accept JazzCash, EasyPaisa, and debit/credit cards. Payment is fully secure. Premium activates instantly after payment confirmation.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Can I get Premium for free? <span class="faq-chevron">▼</span></button>
+          <div class="faq-answer">Yes! Refer 3 friends using your unique referral link. When they sign up, you unlock 7 days of Premium free. Find your referral link on your profile page after signing up.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== CTA BANNER =================== -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2>You've Got This.<br><em class="gold-text">Let's Get to Work.</em></h2>
+      <p>Join 2,000+ FSc Pre-Medical students already studying smarter on Imoria Learning.</p>
+      <div class="hero-actions">
+        <a href="login.html?signup=1" class="btn btn-primary" style="font-size:1rem;padding:15px 36px;">Create Free Account →</a>
+        <a href="#subjects" class="btn btn-secondary" style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.2);">Browse Subjects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== FOOTER =================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo" style="color:rgba(255,255,255,0.8);">
+            <div class="nav-logo-mark">IL</div>
+            Imoria Learning
+          </a>
+          <p>A smarter way to prepare for FSc board exams and MDCAT. Built for Pakistani students who mean business.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Platform</div>
+          <ul class="footer-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="subject.html?s=chemistry">Chemistry</a></li>
+            <li><a href="subject.html?s=biology">Biology</a></li>
+            <li><a href="mdcat.html">MDCAT</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Support</div>
+          <ul class="footer-links">
+            <li><a href="#">Help Centre</a></li>
+            <li><a href="https://wa.me/923001234567" target="_blank" rel="noopener">WhatsApp Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Imoria Learning. Made with ❤️ in Pakistan.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923001234567?text=Hi%20Imoria%20Learning!%20I%20need%20help%20with..." class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <script>
+    // ===== NAVBAR SCROLL =====
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ===== THEME TOGGLE =====
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('imoria-theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('imoria-theme', next);
+      themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+
+    // ===== MOBILE NAV =====
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger.addEventListener('click', () => {
+      mobileNav.classList.toggle('open');
+    });
+    function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+    // ===== FAQ ACCORDION =====
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answer = btn.nextElementSibling;
+        const isOpen = btn.classList.contains('open');
+        document.querySelectorAll('.faq-question').forEach(b => {
+          b.classList.remove('open');
+          b.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+          btn.classList.add('open');
+          answer.classList.add('open');
+        }
+      });
+    });
+
+    // ===== SCROLL REVEAL =====
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ===== COUNTER ANIMATION =====
+    const counters = document.querySelectorAll('[data-target]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const target = parseInt(el.dataset.target);
+        const suffix = target >= 10000 ? 'K+' : '+';
+        const displayTarget = target >= 10000 ? target / 1000 : target;
+        let current = 0;
+        const step = displayTarget / 60;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= displayTarget) {
+            el.textContent = displayTarget + suffix;
+            clearInterval(timer);
+          } else {
+            el.textContent = Math.floor(current) + suffix;
+          }
+        }, 20);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => counterObserver.observe(c));
+
+    // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          closeMobileNav();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
