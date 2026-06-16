@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes Viewer | Imoria Learning</title>
+  <meta name="description" content="Read chapter-wise notes for FSc Pre-Medical subjects online. Board-focused, MDCAT-ready content for Pakistan students." />
+  <meta name="keywords" content="FSc notes online, chemistry notes Pakistan, biology notes FSc, physics notes MDCAT" />
+  <meta property="og:title" content="Notes Viewer | Imoria Learning" />
+  <meta property="og:description" content="Online chapter notes for FSc Pre-Medical — Chemistry, Physics, Biology, English." />
+  <meta property="og:image" content="/assets/og-image.jpg" />
+  <meta property="og:url" content="https://imorialearning.github.io/notes-viewer.html" />
+  <link rel="canonical" href="https://imorialearning.github.io/notes-viewer.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===================== DESIGN TOKENS ===================== */
+    :root {
+      --navy-900: #0A1628;
+      --navy-800: #0D1B2A;
+      --navy-700: #112240;
+      --navy-600: #1A3358;
+      --navy-500: #1E3D6B;
+
+      --gold-light: #F0D080;
+      --gold-main:  #C9A84C;
+      --gold-dark:  #A07830;
+      --gold-gradient: linear-gradient(135deg, #F0D080 0%, #C9A84C 50%, #A07830 100%);
+      --gold-glow: 0 0 24px rgba(201,168,76,0.35);
+
+      --white: #FFFFFF;
+      --gray-50:  #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-300: #D1D5DB;
+      --gray-400: #9CA3AF;
+      --gray-500: #6B7280;
+      --gray-600: #4B5563;
+      --gray-900: #111827;
+
+      --success: #22C55E;
+      --error:   #EF4444;
+      --info:    #3B82F6;
+      --warning: #F59E0B;
+
+      /* Light mode */
+      --bg:         #F9FAFB;
+      --surface:    #FFFFFF;
+      --surface2:   #F3F4F6;
+      --surface3:   #E9EBF0;
+      --text:       #0A1628;
+      --text-muted: #6B7280;
+      --text-soft:  #9CA3AF;
+      --border:     #E5E7EB;
+      --border2:    #D1D5DB;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+      --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+      --radius-xs: 4px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 28px;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.07);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
+
+      --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+
+      --sidebar-w: 280px;
+      --topbar-h: 60px;
+      --reader-max: 720px;
+    }
+
+    [data-theme="dark"] {
+      --bg:         #080E1A;
+      --surface:    #0D1B2A;
+      --surface2:   #112240;
+      --surface3:   #1A3358;
+      --text:       #EDF2FF;
+      --text-muted: #94A3B8;
+      --text-soft:  #64748B;
+      --border:     #1E3050;
+      --border2:    #243858;
+    }
+
+    /* ===================== RESET ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; font-family: var(--font-body); border: none; background: none; }
+    ul { list-style: none; }
+
+    /* ===================== UTILITIES ===================== */
+    .gold-text {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .sr-only { position: absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+
+    /* ===================== LAYOUT SHELL ===================== */
+    .app-shell {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      grid-template-rows: var(--topbar-h) 1fr;
+      min-height: 100vh;
+    }
+
+    /* ===================== TOPBAR ===================== */
+    .topbar {
+      grid-column: 1 / -1;
+      height: var(--topbar-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px 0 0;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+    .sidebar-toggle {
+      width: var(--topbar-h);
+      height: var(--topbar-h);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      border-right: 1px solid var(--border);
+      transition: color var(--transition), background var(--transition);
+      flex-shrink: 0;
+    }
+    .sidebar-toggle:hover { color: var(--gold-main); background: rgba(201,168,76,0.06); }
+    .sidebar-toggle svg { pointer-events: none; }
+
+    .topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 16px;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .topbar-logo-mark {
+      width: 32px; height: 32px;
+      border-radius: 7px;
+      background: var(--gold-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 900; color: var(--navy-900);
+      flex-shrink: 0;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 16px;
+      border-left: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--text-muted); transition: color var(--transition); }
+    .breadcrumb a:hover { color: var(--gold-main); }
+    .breadcrumb span { color: var(--text-soft); font-size: 0.7rem; }
+    .breadcrumb-current { color: var(--text); font-weight: 600; }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .tb-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 13px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .tb-btn:hover { color: var(--text); border-color: var(--border2); background: var(--surface2); }
+    .tb-btn.gold {
+      background: var(--gold-gradient);
+      color: var(--navy-900);
+      border: none;
+      box-shadow: 0 2px 8px rgba(201,168,76,0.25);
+    }
+    .tb-btn.gold:hover { filter: brightness(1.08); box-shadow: var(--gold-glow); }
+    .tb-btn svg { flex-shrink: 0; }
+
+    .theme-btn {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem;
+      transition: all var(--transition);
+    }
+    .theme-btn:hover { border-color: var(--gold-main); color: var(--gold-main); }
+
+    .user-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: var(--gold-gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.8rem;
+      color: var(--navy-900);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color var(--transition);
+    }
+    .user-avatar:hover { border-color: var(--gold-main); }
+
+    /* ===================== SIDEBAR ===================== */
+    .sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: calc(100vh - var(--topbar-h));
+      position: sticky;
+      top: var(--topbar-h);
+      transition: width var(--transition), transform var(--transition);
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+    .sidebar.collapsed { width: 0; overflow: hidden; border-right: none; }
+
+    .sidebar-inner { width: var(--sidebar-w); padding: 0; }
+
+    /* Subject header in sidebar */
+    .sidebar-subject {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+    .sidebar-subject-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold-main); margin-bottom: 4px;
+    }
+    .sidebar-subject-name {
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+      color: var(--text); display: flex; align-items: center; gap: 8px;
+    }
+    .sidebar-subject-icon { font-size: 1.1rem; }
+    .sidebar-subject-meta {
+      font-size: 0.72rem; color: var(--text-muted); margin-top: 6px;
+    }
+
+    /* Progress bar in sidebar */
+    .sidebar-progress {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.72rem; color: var(--text-muted); margin-bottom: 6px;
+    }
+    .sidebar-progress-label strong { color: var(--gold-main); }
+    .progress-bar-track {
+      height: 5px; background: var(--surface3); border-radius: 99px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; border-radius: 99px;
+      background: var(--gold-gradient);
+      transition: width 0.6s ease;
+    }
+
+    /* Part toggle in sidebar */
+    .sidebar-part-toggle {
+      display: flex; padding: 10px 16px; gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .part-tab {
+      flex: 1; padding: 6px 8px;
+      border-radius: var(--radius-xs);
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+      text-align: center;
+    }
+    .part-tab.active {
+      background: rgba(201,168,76,0.10);
+      border-color: rgba(201,168,76,0.35);
+      color: var(--gold-main);
+    }
+    .part-tab:hover:not(.active) { background: var(--surface2); color: var(--text); }
+
+    /* Chapter list */
+    .sidebar-chapters { padding: 8px 0; }
+    .chapter-item {
+      display: flex; align-items: center;
+      padding: 9px 16px; gap: 10px;
+      cursor: pointer;
+      transition: background var(--transition);
+      border-left: 3px solid transparent;
+      position: relative;
+    }
+    .chapter-item:hover { background: var(--surface2); }
+    .chapter-item.active {
+      background: rgba(201,168,76,0.07);
+      border-left-color: var(--gold-main);
+    }
+    .chapter-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--surface3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; font-weight: 700;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: all var(--transition);
+    }
+    .chapter-item.active .chapter-num {
+      background: var(--gold-gradient);
+      color: var(--navy-900);
+    }
+    .chapter-item.completed .chapter-num {
+      background: rgba(34,197,94,0.15);
+      color: #22c55e;
+    }
+    .chapter-info { flex: 1; min-width: 0; }
+    .chapter-name {
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .chapter-item.active .chapter-name { font-weight: 700; color: var(--gold-main); }
+    .chapter-item.completed .chapter-name { color: var(--text-muted); }
+    .chapter-tags {
+      display: flex; gap: 4px; margin-top: 2px;
+    }
+    .chapter-tag {
+      font-size: 0.6rem; font-weight: 600;
+      padding: 1px 5px; border-radius: 3px;
+      background: var(--surface3);
+      color: var(--text-soft);
+    }
+    .chapter-tag.premium {
+      background: rgba(201,168,76,0.12);
+      color: var(--gold-main);
+    }
+    .chapter-item .lock-icon {
+      color: var(--gold-main);
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+    .completed-check {
+      color: #22c55e;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    /* ===================== MAIN CONTENT AREA ===================== */
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - var(--topbar-h));
+      overflow: hidden;
+    }
+
+    /* ===================== CHAPTER HEADER BAR ===================== */
+    .chapter-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .chapter-header-left { flex: 1; }
+    .chapter-eyebrow {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold-main); margin-bottom: 6px;
+    }
+    .chapter-title-row {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .chapter-main-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem; font-weight: 900;
+      color: var(--text); line-height: 1.2;
+    }
+    .chapter-badge {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 100px;
+    }
+    .badge-part {
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold-main);
+    }
+    .chapter-meta-row {
+      display: flex; align-items: center; gap: 16px; margin-top: 10px; flex-wrap: wrap;
+    }
+    .chapter-meta-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.78rem; color: var(--text-muted);
+    }
+    .chapter-meta-item svg { opacity: 0.6; }
+    .chapter-meta-item strong { color: var(--text); }
+
+    .chapter-header-right {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex-shrink: 0;
+    }
+    .chapter-actions { display: flex; gap: 8px; }
+    .ch-action-btn {
+      display: flex; align-items: center; gap: 5px;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem; font-weight: 600;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .ch-action-btn:hover { color: var(--text); border-color: var(--border2); background: var(--surface2); }
+    .ch-action-btn.bookmarked { color: var(--gold-main); border-color: rgba(201,168,76,0.35); background: rgba(201,168,76,0.06); }
+    .ch-action-btn svg { flex-shrink: 0; }
+
+    /* ===================== CONTENT TABS ===================== */
+    .tabs-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-bar::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      display: flex; align-items: center; gap: 7px;
+      padding: 14px 16px;
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition);
+      white-space: nowrap;
+      margin-bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--gold-main); border-bottom-color: var(--gold-main); }
+    .tab-count {
+      background: var(--surface2);
+      color: var(--text-muted);
+      font-size: 0.65rem; font-weight: 700;
+      padding: 1px 6px; border-radius: 100px;
+    }
+    .tab-btn.active .tab-count { background: rgba(201,168,76,0.12); color: var(--gold-main); }
+
+    /* ===================== READER AREA ===================== */
+    .reader-wrap {
+      flex: 1;
+      display: flex;
+      gap: 0;
+      overflow: hidden;
+    }
+
+    /* Main reading column */
+    .reader-main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .reader-main::-webkit-scrollbar { width: 5px; }
+    .reader-main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+    /* Table of contents panel (right side) */
+    .toc-panel {
+      width: 220px;
+      flex-shrink: 0;
+      border-left: 1px solid var(--border);
+      padding: 24px 0;
+      overflow-y: auto;
+      position: sticky;
+      top: 0;
+      height: calc(100vh - var(--topbar-h) - 60px - 50px);
+      scrollbar-width: none;
+    }
+    .toc-panel::-webkit-scrollbar { display: none; }
+    .toc-title {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-soft); padding: 0 16px; margin-bottom: 12px;
+    }
+    .toc-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 16px;
+      font-size: 0.78rem; color: var(--text-muted);
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      transition: all var(--transition);
+    }
+    .toc-item:hover { color: var(--text); background: var(--surface2); }
+    .toc-item.active { color: var(--gold-main); border-left-color: var(--gold-main); }
+    .toc-item-sub {
+      padding-left: 28px;
+      font-size: 0.73rem;
+    }
+    .toc-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--text-soft);
+      flex-shrink: 0;
+      transition: background var(--transition);
+    }
+    .toc-item.active .toc-dot { background: var(--gold-main); }
+
+    /* ===================== NOTES CONTENT ===================== */
+    .notes-content {
+      max-width: var(--reader-max);
+      margin: 0 auto;
+    }
+
+    /* Font size controls */
+    .reader-controls {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 28px;
+    }
+    .reader-controls-label {
+      font-size: 0.72rem; color: var(--text-muted); font-weight: 600; white-space: nowrap;
+    }
+    .font-size-btns { display: flex; gap: 4px; }
+    .font-size-btn {
+      width: 28px; height: 28px;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .font-size-btn:hover { color: var(--text); border-color: var(--border2); }
+    .font-size-btn.active { background: rgba(201,168,76,0.10); border-color: rgba(201,168,76,0.3); color: var(--gold-main); }
+    .rc-divider { width: 1px; height: 20px; background: var(--border); }
+    .rc-font-label { font-size: 0.75rem; color: var(--text-muted); }
+    .rc-toggle {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; color: var(--text-muted);
+    }
+    .rc-toggle input[type=checkbox] { accent-color: var(--gold-main); cursor: pointer; }
+
+    /* Typography for notes */
+    .notes-body { font-size: 1rem; line-height: 1.8; color: var(--text); }
+    .notes-body.font-sm { font-size: 0.9rem; }
+    .notes-body.font-lg { font-size: 1.1rem; }
+    .notes-body.font-xl { font-size: 1.2rem; }
+    .notes-body.serif-mode { font-family: var(--font-display); font-size: 1rem; line-height: 1.9; }
+
+    .notes-body h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem; font-weight: 900;
+      color: var(--text);
+      margin: 36px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+      scroll-margin-top: 100px;
+    }
+    .notes-body h2::before {
+      content: '';
+      width: 4px; height: 24px;
+      border-radius: 2px;
+      background: var(--gold-gradient);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .notes-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--text);
+      margin: 28px 0 12px;
+      scroll-margin-top: 100px;
+    }
+    .notes-body h3::before {
+      content: '◆ ';
+      color: var(--gold-main);
+      font-size: 0.6rem;
+      vertical-align: middle;
+      margin-right: 2px;
+    }
+    .notes-body h4 {
+      font-size: 0.95rem; font-weight: 700;
+      color: var(--text); margin: 20px 0 8px;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .notes-body p { margin-bottom: 16px; }
+    .notes-body strong { font-weight: 700; color: var(--text); }
+    .notes-body em { color: var(--gold-main); font-style: normal; font-weight: 600; }
+
+    /* Key term highlighting */
+    .key-term {
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold-main);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9em;
+    }
+
+    /* Important callout */
+    .callout {
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+    .callout-important {
+      background: rgba(201,168,76,0.08);
+      border-color: var(--gold-main);
+    }
+    .callout-important .callout-label { color: var(--gold-main); }
+    .callout-tip {
+      background: rgba(34,197,94,0.07);
+      border-color: #22c55e;
+    }
+    .callout-tip .callout-label { color: #22c55e; }
+    .callout-warning {
+      background: rgba(239,68,68,0.07);
+      border-color: #ef4444;
+    }
+    .callout-warning .callout-label { color: #ef4444; }
+    .callout-label {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    /* Formula block */
+    .formula-block {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      margin: 20px 0;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      color: var(--text);
+      position: relative;
+      overflow: hidden;
+    }
+    .formula-block::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--gold-gradient);
+    }
+    .formula-label {
+      font-family: var(--font-body);
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold-main); margin-bottom: 8px; text-align: left;
+    }
+
+    /* Bullet/list styles */
+    .notes-body ul, .notes-body ol {
+      margin: 12px 0 16px 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    .notes-body ul li, .notes-body ol li {
+      padding: 5px 0 5px 22px;
+      position: relative;
+      font-size: 0.95em;
+      color: var(--text-muted);
+    }
+    .notes-body ul li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--gold-main);
+      font-weight: 700;
+      font-size: 0.85em;
+    }
+    .notes-body ol { counter-reset: item; }
+    .notes-body ol li { counter-increment: item; }
+    .notes-body ol li::before {
+      content: counter(item) ".";
+      position: absolute; left: 0;
+      color: var(--gold-main);
+      font-weight: 700;
+      font-size: 0.85em;
+    }
+
+    /* Table */
+    .notes-table-wrap { overflow-x: auto; margin: 20px 0; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+    .notes-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .notes-table th {
+      background: var(--surface2);
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .notes-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .notes-table tr:last-child td { border-bottom: none; }
+    .notes-table tr:hover td { background: var(--surface2); }
+    .notes-table td strong { color: var(--gold-main); }
+
+    /* Horizontal rule */
+    .notes-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+
+    /* Definition term */
+    .def-term {
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 12px; margin: 10px 0;
+      align-items: baseline;
+    }
+    .def-term dt {
+      font-weight: 700; color: var(--gold-main);
+      font-size: 0.88rem; white-space: nowrap;
+    }
+    .def-term dd {
+      color: var(--text-muted); font-size: 0.88rem;
+    }
+
+    /* ===================== MCQ TAB CONTENT ===================== */
+    .mcq-section {
+      max-width: var(--reader-max);
+      margin: 0 auto;
+      display: none;
+    }
+    .mcq-section.active { display: block; }
+
+    .mcq-top-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+    }
+    .mcq-info {
+      font-size: 0.82rem; color: var(--text-muted);
+    }
+    .mcq-info strong { color: var(--text); }
+    .start-practice-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      background: var(--gold-gradient);
+      color: var(--navy-900);
+      font-size: 0.85rem; font-weight: 700;
+      box-shadow: 0 2px 10px rgba(201,168,76,0.25);
+      transition: all var(--transition);
+    }
+    .start-practice-btn:hover { filter: brightness(1.08); box-shadow: var(--gold-glow); }
+
+    .mcq-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px 22px;
+      margin-bottom: 14px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .mcq-card:hover { border-color: var(--border2); box-shadow: var(--shadow-sm); }
+    .mcq-num-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .mcq-num {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold-main);
+    }
+    .mcq-actions { display: flex; gap: 6px; }
+    .mcq-action {
+      width: 28px; height: 28px;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      transition: all var(--transition);
+    }
+    .mcq-action:hover { color: var(--gold-main); border-color: rgba(201,168,76,0.3); }
+    .mcq-action.saved { color: var(--gold-main); border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.06); }
+    .mcq-question {
+      font-size: 0.9rem; font-weight: 600; color: var(--text);
+      line-height: 1.6; margin-bottom: 14px;
+    }
+    .mcq-options { display: flex; flex-direction: column; gap: 6px; }
+    .mcq-opt {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 14px;
+      border-radius: var(--radius-xs);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      font-size: 0.84rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      color: var(--text-muted);
+    }
+    .mcq-opt:hover { border-color: var(--border2); background: var(--surface3); color: var(--text); }
+    .mcq-opt.correct { background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.3); color: #22c55e; }
+    .mcq-opt.wrong { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.3); color: #ef4444; }
+    .mcq-opt-letter {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--surface3);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; font-weight: 800;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: all var(--transition);
+    }
+    .mcq-opt.correct .mcq-opt-letter { background: #22c55e; border-color: #22c55e; color: white; }
+    .mcq-opt.wrong .mcq-opt-letter { background: #ef4444; border-color: #ef4444; color: white; }
+    .mcq-reveal-btn {
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--text-muted);
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      margin-top: 10px;
+      transition: all var(--transition);
+    }
+    .mcq-reveal-btn:hover { color: var(--gold-main); border-color: rgba(201,168,76,0.3); }
+    .mcq-explanation {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: var(--radius-xs);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .mcq-explanation.show { display: block; }
+    .mcq-explanation strong { color: var(--gold-main); }
+
+    /* Premium lock overlay */
+    .premium-lock {
+      position: relative; overflow: hidden;
+    }
+    .premium-lock::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 20%, var(--bg) 80%);
+      pointer-events: none;
+    }
+    .premium-gate {
+      text-align: center;
+      padding: 32px 24px;
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: var(--radius-md);
+      margin-top: 16px;
+    }
+    .premium-gate-icon { font-size: 2rem; margin-bottom: 12px; }
+    .premium-gate h3 {
+      font-family: var(--font-display); font-size: 1.15rem; font-weight: 900;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .premium-gate p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; }
+    .premium-gate .upgrade-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 24px;
+      background: var(--gold-gradient);
+      color: var(--navy-900);
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem; font-weight: 700;
+      box-shadow: 0 2px 10px rgba(201,168,76,0.25);
+      transition: all var(--transition);
+    }
+    .premium-gate .upgrade-btn:hover { filter: brightness(1.08); }
+
+    /* ===================== SHORT/LONG Q TAB ===================== */
+    .qa-section {
+      max-width: var(--reader-max);
+      margin: 0 auto;
+      display: none;
+    }
+    .qa-section.active { display: block; }
+
+    .qa-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .qa-card:hover { border-color: var(--border2); }
+    .qa-question-row {
+      display: flex; align-items: flex-start;
+      padding: 16px 18px; gap: 12px; cursor: pointer;
+    }
+    .qa-q-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.10);
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 800;
+      color: var(--gold-main);
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .qa-q-text {
+      flex: 1; font-size: 0.88rem; font-weight: 600;
+      color: var(--text); line-height: 1.5;
+    }
+    .qa-q-marks {
+      font-size: 0.68rem; color: var(--text-muted); margin-top: 3px; font-weight: 400;
+    }
+    .qa-toggle {
+      color: var(--text-muted); flex-shrink: 0; font-size: 0.75rem;
+      transition: transform 0.25s ease;
+      margin-top: 4px;
+    }
+    .qa-card.open .qa-toggle { transform: rotate(180deg); color: var(--gold-main); }
+    .qa-answer {
+      display: none;
+      padding: 0 18px 16px 56px;
+      font-size: 0.85rem; color: var(--text-muted); line-height: 1.75;
+      border-top: 1px solid var(--border);
+    }
+    .qa-card.open .qa-answer { display: block; padding-top: 14px; }
+    .qa-answer strong { color: var(--gold-main); font-weight: 700; }
+    .qa-answer ol { list-style: decimal; padding-left: 16px; color: var(--text-muted); }
+    .qa-answer ol li { margin-bottom: 8px; font-size: 0.85rem; }
+    .qa-action-row {
+      display: flex; gap: 6px; padding: 0 18px 14px 56px;
+    }
+    .qa-action-btn {
+      display: flex; align-items: center; gap: 5px;
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .qa-action-btn:hover { color: var(--gold-main); border-color: rgba(201,168,76,0.3); }
+
+    /* ===================== BOTTOM NAV BAR ===================== */
+    .bottom-nav-bar {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .bnb-left, .bnb-right { display: flex; align-items: center; gap: 10px; }
+    .bnb-nav-btn {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .bnb-nav-btn:hover { color: var(--text); border-color: var(--border2); }
+    .bnb-nav-btn.prev svg { order: -1; }
+    .bnb-chapter-info {
+      text-align: center;
+    }
+    .bnb-chapter-num {
+      font-size: 0.68rem; color: var(--text-muted); font-weight: 600;
+    }
+    .bnb-chapter-name {
+      font-size: 0.8rem; color: var(--text); font-weight: 700;
+    }
+    .mark-complete-btn {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      background: rgba(34,197,94,0.10);
+      border: 1px solid rgba(34,197,94,0.25);
+      color: #22c55e;
+      font-size: 0.82rem; font-weight: 700;
+      transition: all var(--transition);
+    }
+    .mark-complete-btn:hover { background: rgba(34,197,94,0.18); }
+    .mark-complete-btn.done { background: #22c55e; color: white; border-color: #22c55e; }
+
+    /* ===================== MOBILE SIDEBAR OVERLAY ===================== */
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 150;
+      background: rgba(0,0,0,0.5);
+    }
+    .sidebar-overlay.show { display: block; }
+
+    /* ===================== SEARCH BAR (SIDEBAR) ===================== */
+    .sidebar-search {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-search-input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 7px 12px 7px 32px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-family: var(--font-body);
+      transition: border-color var(--transition);
+      position: relative;
+    }
+    .sidebar-search-wrap { position: relative; }
+    .sidebar-search-icon {
+      position: absolute; left: 10px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      pointer-events: none;
+    }
+    .sidebar-search-input:focus {
+      outline: none;
+      border-color: rgba(201,168,76,0.4);
+      background: var(--surface);
+    }
+
+    /* ===================== READING PROGRESS INDICATOR ===================== */
+    .reading-progress {
+      position: fixed;
+      top: var(--topbar-h);
+      left: 0; right: 0;
+      height: 3px;
+      background: transparent;
+      z-index: 300;
+      pointer-events: none;
+    }
+    .reading-progress-fill {
+      height: 100%;
+      background: var(--gold-gradient);
+      width: 0%;
+      transition: width 0.1s ease;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ===================== WHATSAPP FLOAT ===================== */
+    .whatsapp-float {
+      position: fixed; bottom: 24px; right: 24px; z-index: 900;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: #25D366; box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.3rem;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 1024px) {
+      .toc-panel { display: none; }
+    }
+    @media (max-width: 768px) {
+      :root {
+        --sidebar-w: 100%;
+        --topbar-h: 56px;
+      }
+      .app-shell {
+        grid-template-columns: 1fr;
+        grid-template-rows: var(--topbar-h) 1fr;
+      }
+      .sidebar {
+        position: fixed;
+        top: var(--topbar-h);
+        left: 0;
+        height: calc(100vh - var(--topbar-h));
+        z-index: 160;
+        width: 280px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      .sidebar.mobile-open { transform: translateX(0); }
+      .sidebar.collapsed { transform: translateX(-100%); width: 280px; }
+      .main-content { grid-column: 1; }
+      .chapter-header { padding: 16px 16px; flex-direction: column; }
+      .chapter-header-right { align-items: flex-start; }
+      .tabs-bar { padding: 0 16px; }
+      .reader-main { padding: 20px 16px; }
+      .bottom-nav-bar { padding: 12px 16px; }
+      .breadcrumb { display: none; }
+      .topbar-logo span { display: none; }
+      .tb-btn span { display: none; }
+    }
+    @media (max-width: 480px) {
+      .chapter-actions { flex-wrap: wrap; }
+      .chapter-meta-row { gap: 10px; }
+    }
+
+    /* ===================== HIDDEN STATES ===================== */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- Reading Progress Bar -->
+<div class="reading-progress" id="readingProgress">
+  <div class="reading-progress-fill" id="readingProgressFill"></div>
+</div>
+
+<!-- Mobile Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ===================== APP SHELL ===================== -->
+<div class="app-shell">
+
+  <!-- ===== TOPBAR ===== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <a href="dashboard.html" class="topbar-logo">
+        <div class="topbar-logo-mark">IL</div>
+        <span>Imoria Learning</span>
+      </a>
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="dashboard.html">Dashboard</a>
+        <span>›</span>
+        <a href="subject.html?s=chemistry" id="bc-subject">Chemistry</a>
+        <span>›</span>
+        <span class="breadcrumb-current" id="bc-chapter">Chapter 3 — Gases</span>
+      </nav>
+    </div>
+    <div class="topbar-right">
+      <a href="mcq-practice.html" class="tb-btn" id="topbar-mcq-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9 9a3 3 0 1 1 4.74 2.45L12 13.5"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3" stroke-linecap="round"/></svg>
+        <span>Practice MCQs</span>
+      </a>
+      <a href="#" class="tb-btn gold" id="topbar-pdf-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>Download PDF</span>
+      </a>
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <div class="user-avatar" title="View Profile">AK</div>
+    </div>
+  </header>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar" aria-label="Chapter navigation">
+    <div class="sidebar-inner">
+
+      <!-- Subject Info -->
+      <div class="sidebar-subject">
+        <div class="sidebar-subject-label">Current Subject</div>
+        <div class="sidebar-subject-name">
+          <span class="sidebar-subject-icon">🧪</span>
+          <span id="sidebar-subject-name">Chemistry</span>
+        </div>
+        <div class="sidebar-subject-meta" id="sidebar-subject-meta">FSc Part I &amp; II · 22 Chapters</div>
+      </div>
+
+      <!-- Progress -->
+      <div class="sidebar-progress">
+        <div class="sidebar-progress-label">
+          <span>Part I Progress</span>
+          <strong id="sidebar-progress-text">4 / 11 chapters</strong>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="sidebarProgressFill" style="width: 36%;"></div>
+        </div>
+      </div>
+
+      <!-- Part Toggle -->
+      <div class="sidebar-part-toggle">
+        <button class="part-tab active" data-part="1">Part I</button>
+        <button class="part-tab" data-part="2">Part II</button>
+      </div>
+
+      <!-- Search -->
+      <div class="sidebar-search">
+        <div class="sidebar-search-wrap">
+          <span class="sidebar-search-icon">🔍</span>
+          <input type="text" class="sidebar-search-input" placeholder="Search chapters…" id="chapterSearch" autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- Chapter List -->
+      <div class="sidebar-chapters" id="chapterList"></div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="main-content">
+
+    <!-- Chapter Header -->
+    <div class="chapter-header">
+      <div class="chapter-header-left">
+        <div class="chapter-eyebrow" id="ch-eyebrow">🧪 Chemistry · Part I</div>
+        <div class="chapter-title-row">
+          <h1 class="chapter-main-title" id="ch-main-title">Chapter 3: Gases &amp; Gas Laws</h1>
+          <span class="chapter-badge badge-part">Part I</span>
+        </div>
+        <div class="chapter-meta-row">
+          <div class="chapter-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
+            <span><strong id="ch-notes-count">8</strong> Topics</span>
+          </div>
+          <div class="chapter-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9 9a3 3 0 1 1 4.74 2.45L12 13.5"/></svg>
+            <span><strong id="ch-mcq-count">42</strong> MCQs</span>
+          </div>
+          <div class="chapter-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+            <span><strong id="ch-short-count">18</strong> Short Qs</span>
+          </div>
+          <div class="chapter-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4v16h16V4H4zm4 4h8m-8 4h8m-8 4h5"/></svg>
+            <span><strong id="ch-long-count">6</strong> Long Qs</span>
+          </div>
+          <div class="chapter-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>~<strong>45 min</strong> read</span>
+          </div>
+        </div>
+      </div>
+      <div class="chapter-header-right">
+        <div class="chapter-actions">
+          <button class="ch-action-btn" id="bookmarkChapterBtn" onclick="toggleChapterBookmark(this)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            Bookmark
+          </button>
+          <button class="ch-action-btn" onclick="shareChapter()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Share
+          </button>
+          <a href="mcq-practice.html?subject=chemistry&chapter=3" class="ch-action-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Practice
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs Bar -->
+    <div class="tabs-bar" role="tablist">
+      <button class="tab-btn active" role="tab" data-tab="notes" onclick="switchTab('notes', this)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        Notes
+      </button>
+      <button class="tab-btn" role="tab" data-tab="mcqs" onclick="switchTab('mcqs', this)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>
+        MCQs
+        <span class="tab-count">42</span>
+      </button>
+      <button class="tab-btn" role="tab" data-tab="short" onclick="switchTab('short', this)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h9M8 18h5"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>
+        Short Questions
+        <span class="tab-count">18</span>
+      </button>
+      <button class="tab-btn" role="tab" data-tab="long" onclick="switchTab('long', this)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4v16h16V4H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+        Long Questions
+        <span class="tab-count">6</span>
+      </button>
+    </div>
+
+    <!-- Reader Wrap -->
+    <div class="reader-wrap">
+
+      <!-- Main Reader Column -->
+      <div class="reader-main" id="readerMain">
+
+        <!-- ===== NOTES TAB ===== -->
+        <div class="tab-panel active" id="panel-notes">
+          <div class="notes-content">
+
+            <!-- Reader Controls -->
+            <div class="reader-controls">
+              <span class="reader-controls-label">Display</span>
+              <div class="font-size-btns">
+                <button class="font-size-btn" onclick="setFontSize('sm', this)" title="Small">A</button>
+                <button class="font-size-btn active" onclick="setFontSize('md', this)" title="Medium" style="font-size:0.85rem;">A</button>
+                <button class="font-size-btn" onclick="setFontSize('lg', this)" title="Large" style="font-size:1rem;">A</button>
+                <button class="font-size-btn" onclick="setFontSize('xl', this)" title="Extra Large" style="font-size:1.1rem;">A</button>
+              </div>
+              <div class="rc-divider"></div>
+              <label class="rc-toggle">
+                <input type="checkbox" id="serifToggle" onchange="toggleSerif(this)"> Serif Font
+              </label>
+            </div>
+
+            <!-- Notes Body -->
+            <div class="notes-body" id="notesBody">
+
+              <h2 id="sec-intro">Introduction to Gases</h2>
+              <p>Gases represent one of the three fundamental states of matter. Unlike solids and liquids, gases have no definite shape or volume — they expand to fill any container they occupy. This makes them uniquely predictable through a set of laws that relate <em>pressure</em>, <em>volume</em>, <em>temperature</em>, and <em>amount</em>.</p>
+              <p>The study of gas behaviour is central to both board exams and MDCAT. This chapter covers the four key gas laws and their mathematical relationships, plus the Kinetic Molecular Theory that explains <em>why</em> gases behave the way they do.</p>
+
+              <div class="callout callout-important">
+                <div class="callout-label">⭐ Important for Board Exam</div>
+                This chapter carries approximately <strong>10–15%</strong> of Chemistry MCQs in board exams. Focus especially on Boyle's Law, Charles' Law, and the Ideal Gas Equation. All four laws appear consistently in past papers.
+              </div>
+
+              <h2 id="sec-boyle">Boyle's Law</h2>
+              <p><span class="key-term">Boyle's Law</span> states that at <em>constant temperature</em>, the pressure of a fixed amount of gas is inversely proportional to its volume.</p>
+              <p>Discovered by Robert Boyle in 1662, this is the first of the three classical gas laws. It describes how a gas compresses when pressure is applied — like squeezing a balloon.</p>
+
+              <div class="formula-block">
+                <div class="formula-label">📐 Mathematical Statement</div>
+                P ∝ 1/V (at constant T and n)<br>
+                ∴ PV = constant<br>
+                ∴ P₁V₁ = P₂V₂
+              </div>
+
+              <h3>Key Points — Boyle's Law</h3>
+              <ul>
+                <li>Applies only at <strong>constant temperature</strong> (isothermal process)</li>
+                <li>When volume decreases, pressure increases proportionally</li>
+                <li>Graph of P vs V gives a hyperbola (rectangular hyperbola)</li>
+                <li>Graph of P vs 1/V gives a straight line through origin</li>
+                <li>Holds true for ideal gases; real gases deviate at high pressure</li>
+              </ul>
+
+              <div class="callout callout-tip">
+                <div class="callout-label">💡 Board Tip</div>
+                In numerical questions, always convert pressure units to the same unit before applying P₁V₁ = P₂V₂. Common units: atm, mmHg (torr), Pa, kPa. Standard pressure = 1 atm = 760 mmHg = 101.325 kPa.
+              </div>
+
+              <h2 id="sec-charles">Charles' Law</h2>
+              <p><span class="key-term">Charles' Law</span> states that at <em>constant pressure</em>, the volume of a fixed amount of gas is directly proportional to its <em>absolute temperature</em> (in Kelvin).</p>
+              <p>Proposed by Jacques Charles in 1787, this law explains why a balloon expands when heated and contracts when cooled.</p>
+
+              <div class="formula-block">
+                <div class="formula-label">📐 Mathematical Statement</div>
+                V ∝ T (at constant P and n)<br>
+                ∴ V/T = constant<br>
+                ∴ V₁/T₁ = V₂/T₂
+              </div>
+
+              <div class="callout callout-warning">
+                <div class="callout-label">⚠️ Common Mistake</div>
+                Always convert °C to Kelvin before using Charles' Law!<br>
+                <strong>T(K) = T(°C) + 273.15</strong><br>
+                Using °C directly is a very common error in board exams.
+              </div>
+
+              <h3>Absolute Zero</h3>
+              <p>Charles' Law predicts that gas volume becomes zero at <strong>−273.15°C</strong>, which corresponds to <span class="key-term">0 Kelvin</span> — called absolute zero. In reality, no gas behaves ideally at such low temperatures, but this concept defines the absolute temperature scale.</p>
+
+              <h2 id="sec-gay-lussac">Gay-Lussac's Law</h2>
+              <p><span class="key-term">Gay-Lussac's Law</span> states that at <em>constant volume</em>, the pressure of a fixed amount of gas is directly proportional to its absolute temperature.</p>
+
+              <div class="formula-block">
+                <div class="formula-label">📐 Mathematical Statement</div>
+                P ∝ T (at constant V and n)<br>
+                ∴ P/T = constant<br>
+                ∴ P₁/T₁ = P₂/T₂
+              </div>
+
+              <h3>Real-World Application</h3>
+              <ul>
+                <li>A sealed pressure cooker: as temperature rises, pressure inside increases</li>
+                <li>Car tyres in summer: higher temperature → higher tyre pressure</li>
+                <li>Aerosol cans: never expose to heat — Gay-Lussac's Law explains why</li>
+              </ul>
+
+              <h2 id="sec-combined">Combined Gas Law</h2>
+              <p>The three laws above can be combined into a single equation when all three variables (P, V, T) change simultaneously, while the amount of gas remains fixed:</p>
+
+              <div class="formula-block">
+                <div class="formula-label">📐 Combined Gas Law</div>
+                PV/T = constant<br>
+                ∴ P₁V₁/T₁ = P₂V₂/T₂
+              </div>
+
+              <p>Note that each individual gas law is a <em>special case</em> of the Combined Gas Law:</p>
+              <ul>
+                <li>Boyle's Law: T is constant → cancels out on both sides</li>
+                <li>Charles' Law: P is constant → cancels out on both sides</li>
+                <li>Gay-Lussac's Law: V is constant → cancels out on both sides</li>
+              </ul>
+
+              <h2 id="sec-ideal">Ideal Gas Equation</h2>
+              <p>The <span class="key-term">Ideal Gas Law</span> combines all four variables — pressure, volume, temperature, and amount (in moles) — into one unified equation. This is the most important equation in this chapter.</p>
+
+              <div class="formula-block">
+                <div class="formula-label">📐 Ideal Gas Equation</div>
+                PV = nRT<br><br>
+                P = pressure (in atm or Pa)<br>
+                V = volume (in L or m³)<br>
+                n = moles of gas<br>
+                R = universal gas constant<br>
+                T = absolute temperature (Kelvin)
+              </div>
+
+              <h3>Value of R (Universal Gas Constant)</h3>
+              <div class="notes-table-wrap">
+                <table class="notes-table">
+                  <thead>
+                    <tr>
+                      <th>Unit System</th>
+                      <th>Value of R</th>
+                      <th>Use When</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>SI (standard)</strong></td>
+                      <td>8.314 J mol⁻¹ K⁻¹</td>
+                      <td>P in Pa, V in m³</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Practical</strong></td>
+                      <td>0.0821 L·atm mol⁻¹ K⁻¹</td>
+                      <td>P in atm, V in litres (most common)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Calorie</strong></td>
+                      <td>1.987 cal mol⁻¹ K⁻¹</td>
+                      <td>Thermochemistry calculations</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="callout callout-important">
+                <div class="callout-label">⭐ MDCAT Focus</div>
+                PV = nRT is the single most tested equation in MDCAT Chemistry. You must be able to rearrange it to find any one variable: n = PV/RT, T = PV/nR, V = nRT/P, P = nRT/V. Practice all four forms.
+              </div>
+
+              <h2 id="sec-kinetic">Kinetic Molecular Theory</h2>
+              <p>The <span class="key-term">Kinetic Molecular Theory (KMT)</span> provides a microscopic model to explain why gases follow the laws described above. It is based on five fundamental postulates:</p>
+
+              <ol>
+                <li><strong>Gases consist of tiny particles</strong> (atoms or molecules) that are in constant, random motion.</li>
+                <li><strong>Gas particles have negligible volume</strong> compared to the total volume of the gas. The gas is mostly empty space.</li>
+                <li><strong>No intermolecular forces</strong> exist between gas particles — they neither attract nor repel each other.</li>
+                <li><strong>Collisions are perfectly elastic</strong> — no net kinetic energy is lost during particle collisions.</li>
+                <li><strong>Temperature is proportional to average kinetic energy</strong> — higher temperature means faster-moving particles.</li>
+              </ol>
+
+              <div class="formula-block">
+                <div class="formula-label">📐 Average Kinetic Energy</div>
+                KE_avg = (3/2)kT<br>
+                k = Boltzmann constant = 1.38 × 10⁻²³ J K⁻¹<br>
+                T = absolute temperature (Kelvin)
+              </div>
+
+              <h3>KMT — How It Explains Gas Laws</h3>
+              <dl class="def-term">
+                <dt>Boyle's Law:</dt>
+                <dd>Decreasing volume → more frequent collisions with walls → higher pressure.</dd>
+                <dt>Charles' Law:</dt>
+                <dd>Higher temperature → faster particles → more forceful collisions → larger volume needed to maintain constant pressure.</dd>
+                <dt>Gay-Lussac's:</dt>
+                <dd>Higher temperature → faster particles → more frequent collisions with fixed walls → higher pressure.</dd>
+              </dl>
+
+              <h2 id="sec-deviations">Deviations from Ideal Behaviour</h2>
+              <p>Real gases deviate from ideal gas behaviour under conditions of:</p>
+              <ul>
+                <li><strong>High pressure</strong> — gas particles are forced close together; volume of particles can no longer be neglected</li>
+                <li><strong>Low temperature</strong> — particles slow down; intermolecular forces become significant</li>
+              </ul>
+
+              <div class="callout callout-tip">
+                <div class="callout-label">💡 Memory Trick</div>
+                Ideal gas behaviour is closest at <strong>low pressure</strong> and <strong>high temperature</strong> — conditions where gas particles are far apart and moving fast enough to overcome any intermolecular attractions.
+              </div>
+
+              <h3>van der Waals Equation (for Real Gases)</h3>
+              <p>The <span class="key-term">van der Waals equation</span> corrects the ideal gas equation for real gas behaviour by adding two correction factors:</p>
+              <div class="formula-block">
+                <div class="formula-label">📐 van der Waals Equation</div>
+                (P + an²/V²)(V − nb) = nRT<br><br>
+                a = intermolecular force correction<br>
+                b = volume correction (excluded volume per mole)
+              </div>
+
+              <h2 id="sec-summary">Chapter Summary</h2>
+              <div class="notes-table-wrap">
+                <table class="notes-table">
+                  <thead>
+                    <tr>
+                      <th>Law</th>
+                      <th>Constant</th>
+                      <th>Relationship</th>
+                      <th>Formula</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Boyle's Law</strong></td>
+                      <td>T, n</td>
+                      <td>P ∝ 1/V</td>
+                      <td>P₁V₁ = P₂V₂</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Charles' Law</strong></td>
+                      <td>P, n</td>
+                      <td>V ∝ T</td>
+                      <td>V₁/T₁ = V₂/T₂</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Gay-Lussac's</strong></td>
+                      <td>V, n</td>
+                      <td>P ∝ T</td>
+                      <td>P₁/T₁ = P₂/T₂</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Avogadro's Law</strong></td>
+                      <td>P, T</td>
+                      <td>V ∝ n</td>
+                      <td>V₁/n₁ = V₂/n₂</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Ideal Gas Law</strong></td>
+                      <td>—</td>
+                      <td>PV = nRT</td>
+                      <td>PV = nRT</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <hr />
+              <p style="font-size:0.78rem; color: var(--text-soft); text-align:center;">
+                ✅ Notes completed — Ch. 3, Chemistry Part I &nbsp;·&nbsp; Last updated June 2025 &nbsp;·&nbsp;
+                <a href="#" style="color:var(--gold-main);" onclick="reportIssue()">Report an error</a>
+              </p>
+
+            </div><!-- end .notes-body -->
+          </div><!-- end .notes-content -->
+        </div><!-- end #panel-notes -->
+
+        <!-- ===== MCQ TAB ===== -->
+        <div class="tab-panel" id="panel-mcqs">
+          <div class="mcq-section active">
+            <div class="mcq-top-bar">
+              <div class="mcq-info">
+                Showing <strong>42 MCQs</strong> for Chapter 3 — Gases &amp; Gas Laws
+              </div>
+              <a href="mcq-practice.html?subject=chemistry&chapter=3" class="start-practice-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Start Timed Practice
+              </a>
+            </div>
+
+            <!-- Sample MCQs -->
+            <div id="mcqList"></div>
+
+            <!-- Premium Lock Gate -->
+            <div class="premium-lock" id="mcqPremiumLock" style="display:none;">
+              <div class="premium-gate">
+                <div class="premium-gate-icon">🔒</div>
+                <h3>Unlock All 42 MCQs</h3>
+                <p>Free plan includes 10 MCQs per chapter. Upgrade to Premium for the full bank with explanations, timed practice &amp; analytics.</p>
+                <a href="login.html?signup=1&plan=premium" class="upgrade-btn">
+                  Upgrade to Premium →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div><!-- end #panel-mcqs -->
+
+        <!-- ===== SHORT QUESTIONS TAB ===== -->
+        <div class="tab-panel" id="panel-short">
+          <div class="qa-section active">
+            <div class="mcq-top-bar">
+              <div class="mcq-info">
+                <strong>18 Short Questions</strong> — Chapter 3 Gases
+              </div>
+            </div>
+            <div id="shortQList"></div>
+          </div>
+        </div>
+
+        <!-- ===== LONG QUESTIONS TAB ===== -->
+        <div class="tab-panel" id="panel-long">
+          <div class="qa-section active">
+            <div class="mcq-top-bar">
+              <div class="mcq-info">
+                <strong>6 Long Questions</strong> — Chapter 3 Gases (Board Exam Format)
+              </div>
+            </div>
+            <div id="longQList"></div>
+          </div>
+        </div>
+
+      </div><!-- end .reader-main -->
+
+      <!-- Table of Contents Panel -->
+      <aside class="toc-panel" id="tocPanel">
+        <div class="toc-title">In This Chapter</div>
+        <div id="tocList"></div>
+      </aside>
+
+    </div><!-- end .reader-wrap -->
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav-bar">
+      <div class="bnb-left">
+        <button class="bnb-nav-btn prev" onclick="navigateChapter(-1)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Previous
+        </button>
+      </div>
+      <div style="text-align:center;">
+        <div class="bnb-chapter-num">Chapter 3 of 11</div>
+        <div class="bnb-chapter-name">Gases &amp; Gas Laws</div>
+      </div>
+      <div class="bnb-right">
+        <button class="mark-complete-btn" id="markCompleteBtn" onclick="toggleComplete(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Mark Complete
+        </button>
+        <button class="bnb-nav-btn" onclick="navigateChapter(1)">
+          Next
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div><!-- end .main-content -->
+</div><!-- end .app-shell -->
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923001234567?text=Hi%20Imoria%20Learning!%20I%20need%20help%20with..." class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" title="WhatsApp Support">
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+  // ===== DATA =====
+  const chapterData = {
+    chemistry: {
+      part1: [
+        { id: 1, name: 'Stoichiometry', completed: true },
+        { id: 2, name: 'Atomic Structure', completed: true },
+        { id: 3, name: 'Gases & Gas Laws', completed: false, active: true },
+        { id: 4, name: 'Liquids & Solids', completed: true },
+        { id: 5, name: 'Thermochemistry', completed: false },
+        { id: 6, name: 'Electrochemistry', completed: false, premium: true },
+        { id: 7, name: 'Chemical Equilibrium', completed: false, premium: true },
+        { id: 8, name: 'Reaction Kinetics', completed: false, premium: true },
+        { id: 9, name: 'Solutions', completed: false, premium: true },
+        { id: 10, name: 'Organic Chemistry (Intro)', completed: false, premium: true },
+        { id: 11, name: 'Hydrocarbons', completed: false, premium: true },
+      ]
+    }
+  };
+
+  const sampleMCQs = [
+    {
+      q: 'Which of the following gas laws states that at constant temperature, the pressure of a given amount of gas is inversely proportional to its volume?',
+      opts: ["Charles' Law", "Gay-Lussac's Law", "Boyle's Law", "Avogadro's Law"],
+      correct: 2,
+      exp: "Boyle's Law: P ∝ 1/V at constant T and n. Formulated by Robert Boyle in 1662."
+    },
+    {
+      q: 'What is the value of the universal gas constant R in L·atm·mol⁻¹·K⁻¹?',
+      opts: ['8.314', '0.0821', '1.987', '22.4'],
+      correct: 1,
+      exp: 'R = 0.0821 L·atm·mol⁻¹·K⁻¹ is used when pressure is in atm and volume is in litres — the most common unit combination in board numericals.'
+    },
+    {
+      q: 'According to Charles\' Law, what happens to the volume of a gas when its temperature is doubled (at constant pressure)?',
+      opts: ['Volume halves', 'Volume stays the same', 'Volume doubles', 'Volume quadruples'],
+      correct: 2,
+      exp: "Charles' Law: V ∝ T (at constant P and n). If T doubles, V doubles. Always use Kelvin!"
+    },
+    {
+      q: 'An ideal gas has a volume of 2 L at 1 atm. What is its volume at 4 atm (temperature constant)?',
+      opts: ['8 L', '0.5 L', '4 L', '1 L'],
+      correct: 1,
+      exp: 'Using Boyle\'s Law: P₁V₁ = P₂V₂ → 1×2 = 4×V₂ → V₂ = 2/4 = 0.5 L.'
+    },
+    {
+      q: 'Which postulate of Kinetic Molecular Theory explains that gases are mostly empty space?',
+      opts: [
+        'Gas particles move in straight lines',
+        'Gas particle collisions are elastic',
+        'Gas particle volume is negligible compared to total gas volume',
+        'Temperature equals average kinetic energy'
+      ],
+      correct: 2,
+      exp: 'KMT postulate 2: the volume of gas particles themselves is negligible compared to the total container volume — hence gases are mostly empty space.'
+    },
+    {
+      q: 'At what temperature does Gay-Lussac\'s Law predict that gas pressure would become zero?',
+      opts: ['0°C', '−100°C', '−273.15°C', '273.15°C'],
+      correct: 2,
+      exp: 'At absolute zero (−273.15°C or 0 K), gas pressure (and volume) would theoretically become zero. This defines the Kelvin scale.'
+    },
+    {
+      q: 'Which equation corrects the Ideal Gas Law for real gas behaviour?',
+      opts: [
+        'Combined Gas Law',
+        'van der Waals equation',
+        'Avogadro\'s equation',
+        'Graham\'s Law'
+      ],
+      correct: 1,
+      exp: 'Van der Waals equation: (P + an²/V²)(V − nb) = nRT. The \'a\' term corrects for intermolecular forces; \'b\' corrects for particle volume.'
+    },
+    {
+      q: 'A gas occupies 5 L at 27°C. What volume will it occupy at 127°C at the same pressure?',
+      opts: ['6.67 L', '10 L', '2.5 L', '5 L'],
+      correct: 0,
+      exp: 'Charles\' Law: V₁/T₁ = V₂/T₂. T₁ = 300K, T₂ = 400K. V₂ = 5 × 400/300 = 6.67 L'
+    },
+    {
+      q: 'Real gases deviate from ideal behaviour most significantly under which conditions?',
+      opts: [
+        'Low pressure and high temperature',
+        'High pressure and low temperature',
+        'High pressure and high temperature',
+        'Low pressure and low temperature'
+      ],
+      correct: 1,
+      exp: 'At high pressure, particle volume becomes significant; at low temperature, intermolecular forces dominate. Both assumptions of ideal gas law break down.'
+    },
+    {
+      q: 'In the ideal gas equation PV = nRT, what does \'n\' represent?',
+      opts: ['Number of particles', 'Number of moles', 'Avogadro\'s number', 'Molecular mass'],
+      correct: 1,
+      exp: 'n = number of moles of the gas. To find number of particles, multiply n by Avogadro\'s number (6.022 × 10²³).'
+    },
+  ];
+
+  const shortQs = [
+    { q: 'Define Boyle\'s Law and state its mathematical expression.', marks: '(2 marks)', ans: '<strong>Boyle\'s Law:</strong> At constant temperature, the pressure of a fixed amount of gas is inversely proportional to its volume.<br><br><strong>Mathematical form:</strong> P ∝ 1/V at constant T and n<br>∴ PV = constant<br>∴ P₁V₁ = P₂V₂<br><br>It was formulated by Robert Boyle in 1662.' },
+    { q: 'What is the absolute zero of temperature? Why is it significant?', marks: '(2 marks)', ans: '<strong>Absolute zero</strong> is −273.15°C or 0 K — the lowest theoretically possible temperature.<br><br>It is significant because:<ol><li>It defines the Kelvin (absolute) temperature scale</li><li>At absolute zero, the average kinetic energy of gas particles is zero (all motion stops)</li><li>Charles\' Law predicts that gas volume becomes zero at this temperature</li></ol>' },
+    { q: 'State the postulates of Kinetic Molecular Theory of gases.', marks: '(5 marks)', ans: '<strong>Five postulates of KMT:</strong><ol><li>Gas particles are tiny and in constant, random motion</li><li>The volume of gas particles is negligible compared to total gas volume</li><li>There are no intermolecular forces between gas particles</li><li>Collisions between gas particles are perfectly elastic (no energy loss)</li><li>Average kinetic energy of particles is directly proportional to absolute temperature: KE ∝ T</li></ol>' },
+    { q: 'What is the Universal Gas Constant R? State its value in different unit systems.', marks: '(3 marks)', ans: '<strong>Universal Gas Constant (R)</strong> is the proportionality constant in the Ideal Gas Equation PV = nRT.<br><br><strong>Values:</strong><ul><li>R = 8.314 J mol⁻¹ K⁻¹ (SI units)</li><li>R = 0.0821 L·atm mol⁻¹ K⁻¹</li><li>R = 1.987 cal mol⁻¹ K⁻¹</li></ul>' },
+    { q: 'Define Gay-Lussac\'s Law with equation and give one practical example.', marks: '(3 marks)', ans: '<strong>Gay-Lussac\'s Law:</strong> At constant volume, the pressure of a fixed amount of gas is directly proportional to its absolute temperature.<br><br><strong>Formula:</strong> P/T = constant → P₁/T₁ = P₂/T₂<br><br><strong>Example:</strong> A sealed pressure cooker — as heating increases temperature, the steam pressure inside increases, which is why pressure cookers cook food faster than open pots.' },
+    { q: 'Distinguish between ideal gas and real gas.', marks: '(4 marks)', ans: '<table style="width:100%;font-size:0.82rem;border-collapse:collapse;"><tr><th style="text-align:left;padding:6px;border-bottom:1px solid var(--border);">Ideal Gas</th><th style="text-align:left;padding:6px;border-bottom:1px solid var(--border);">Real Gas</th></tr><tr><td style="padding:6px;border-bottom:1px solid var(--border);">No intermolecular forces</td><td style="padding:6px;border-bottom:1px solid var(--border);">Intermolecular forces present</td></tr><tr><td style="padding:6px;border-bottom:1px solid var(--border);">Particle volume is zero</td><td style="padding:6px;border-bottom:1px solid var(--border);">Particles have finite volume</td></tr><tr><td style="padding:6px;border-bottom:1px solid var(--border);">Obeys PV = nRT perfectly</td><td style="padding:6px;border-bottom:1px solid var(--border);">Deviates from PV = nRT</td></tr><tr><td style="padding:6px;">Does not actually exist</td><td style="padding:6px;">All actual gases are real gases</td></tr></table>' },
+  ];
+
+  const longQs = [
+    { q: 'Derive the Ideal Gas Equation (PV = nRT) by combining Boyle\'s Law, Charles\' Law, and Avogadro\'s Law. Explain the physical significance of each term.', marks: '(Long Q — 10 marks)', ans: '<strong>Derivation of Ideal Gas Equation:</strong><br><br><strong>Step 1 — Boyle\'s Law:</strong> V ∝ 1/P (at constant T, n)<br><strong>Step 2 — Charles\' Law:</strong> V ∝ T (at constant P, n)<br><strong>Step 3 — Avogadro\'s Law:</strong> V ∝ n (at constant P, T)<br><br><strong>Combining all three:</strong><br>V ∝ nT/P<br>V = R·nT/P<br>∴ <strong>PV = nRT</strong><br><br><strong>Physical significance of each term:</strong><ol><li><strong>P</strong> = pressure (force per unit area exerted by gas on walls) — in atm or Pa</li><li><strong>V</strong> = volume of the gas container — in litres or m³</li><li><strong>n</strong> = number of moles of gas — determines amount</li><li><strong>R</strong> = Universal Gas Constant = 0.0821 L·atm·mol⁻¹·K⁻¹</li><li><strong>T</strong> = absolute temperature in Kelvin (must NOT use Celsius)</li></ol><strong>Limitations:</strong> PV = nRT is only valid for ideal gases. Real gases deviate at high pressure and low temperature, described by the van der Waals equation.' },
+    { q: 'State and explain the Kinetic Molecular Theory of Gases. How does it explain Boyle\'s Law and Charles\' Law?', marks: '(Long Q — 10 marks)', ans: '<strong>Kinetic Molecular Theory (KMT) — Full Answer:</strong><br><br><strong>Five Postulates:</strong><ol><li>Gases consist of tiny particles in constant, random, rapid motion</li><li>Volume of particles is negligible compared to total gas volume</li><li>No intermolecular forces between gas particles</li><li>All collisions are perfectly elastic</li><li>Average KE ∝ absolute temperature: KE_avg = (3/2)kT</li></ol><br><strong>Explanation of Boyle\'s Law via KMT:</strong><br>When volume is decreased at constant temperature:<ul><li>Particles have same speed (T unchanged)</li><li>They travel shorter distances between collisions</li><li>More frequent collisions with container walls</li><li>Result: higher pressure (P ∝ 1/V ✓)</li></ul><br><strong>Explanation of Charles\' Law via KMT:</strong><br>When temperature increases at constant pressure:<ul><li>Particles gain kinetic energy → move faster</li><li>More forceful collisions with walls</li><li>To maintain constant pressure, container must expand</li><li>Result: V increases with T (V ∝ T ✓)</li></ul>' },
+  ];
+
+  const tocSections = [
+    { id: 'sec-intro', label: 'Introduction to Gases', level: 0 },
+    { id: 'sec-boyle', label: "Boyle's Law", level: 0 },
+    { id: 'sec-charles', label: "Charles' Law", level: 0 },
+    { id: 'sec-gay-lussac', label: "Gay-Lussac's Law", level: 0 },
+    { id: 'sec-combined', label: 'Combined Gas Law', level: 0 },
+    { id: 'sec-ideal', label: 'Ideal Gas Equation', level: 0 },
+    { id: 'sec-kinetic', label: 'Kinetic Molecular Theory', level: 0 },
+    { id: 'sec-deviations', label: 'Real Gas Deviations', level: 0 },
+    { id: 'sec-summary', label: 'Chapter Summary', level: 0 },
+  ];
+
+  // ===== INIT =====
+  document.addEventListener('DOMContentLoaded', () => {
+    // Theme
+    const savedTheme = localStorage.getItem('imoria-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+    renderSidebar();
+    renderTOC();
+    renderMCQs();
+    renderShortQs();
+    renderLongQs();
+    initReadingProgress();
+    initTOCHighlight();
+    initSidebarToggle();
+  });
+
+  // ===== THEME =====
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('imoria-theme', next);
+    document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
+  });
+
+  // ===== SIDEBAR RENDER =====
+  function renderSidebar() {
+    const list = document.getElementById('chapterList');
+    const chapters = chapterData.chemistry.part1;
+    list.innerHTML = chapters.map(ch => `
+      <div class="chapter-item ${ch.active ? 'active' : ''} ${ch.completed ? 'completed' : ''}"
+           onclick="selectChapter(${ch.id}, '${ch.name}', ${ch.premium || false})">
+        <div class="chapter-num">${ch.id}</div>
+        <div class="chapter-info">
+          <div class="chapter-name">${ch.name}</div>
+          <div class="chapter-tags">
+            ${ch.premium ? '<span class="chapter-tag premium">Premium</span>' : '<span class="chapter-tag">Free</span>'}
+          </div>
+        </div>
+        ${ch.completed ? '<span class="completed-check">✓</span>' :
+          ch.premium ? '<span class="lock-icon">🔒</span>' : ''}
+      </div>
+    `).join('');
+  }
+
+  // ===== PART TOGGLE =====
+  document.querySelectorAll('.part-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.part-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      // In real app: load part 2 chapters from Firebase
+    });
+  });
+
+  // ===== CHAPTER SEARCH =====
+  document.getElementById('chapterSearch').addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('.chapter-item').forEach(item => {
+      const name = item.querySelector('.chapter-name').textContent.toLowerCase();
+      item.style.display = name.includes(q) ? '' : 'none';
+    });
+  });
+
+  // ===== TOC RENDER =====
+  function renderTOC() {
+    const toc = document.getElementById('tocList');
+    toc.innerHTML = tocSections.map((s, i) => `
+      <div class="toc-item ${i === 0 ? 'active' : ''} ${s.level ? 'toc-item-sub' : ''}"
+           id="toc-${s.id}" onclick="scrollToSection('${s.id}', this)">
+        <span class="toc-dot"></span>
+        ${s.label}
+      </div>
+    `).join('');
+  }
+
+  function scrollToSection(id, el) {
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.toc-item').forEach(i => i.classList.remove('active'));
+      el.classList.add('active');
+    }
+  }
+
+  // ===== MCQ RENDER =====
+  function renderMCQs() {
+    const list = document.getElementById('mcqList');
+    list.innerHTML = sampleMCQs.map((mcq, i) => `
+      <div class="mcq-card" id="mcq-${i}">
+        <div class="mcq-num-row">
+          <div class="mcq-num">Q${i + 1} of 42</div>
+          <div class="mcq-actions">
+            <button class="mcq-action" onclick="toggleMcqBookmark(this, ${i})" title="Bookmark">🔖</button>
+            <button class="mcq-action" onclick="shareMCQ(${i})" title="Share">↗</button>
+          </div>
+        </div>
+        <div class="mcq-question">${mcq.q}</div>
+        <div class="mcq-options">
+          ${mcq.opts.map((opt, j) => `
+            <div class="mcq-opt" id="mcq-${i}-opt-${j}" onclick="selectMCQOpt(${i}, ${j}, ${mcq.correct})">
+              <span class="mcq-opt-letter">${['A','B','C','D'][j]}</span>
+              ${opt}
+            </div>
+          `).join('')}
+        </div>
+        <button class="mcq-reveal-btn" onclick="revealExplanation(${i})">Show Explanation</button>
+        <div class="mcq-explanation" id="mcq-exp-${i}">
+          <strong>✓ Correct Answer: ${['A','B','C','D'][mcq.correct]}</strong><br>${mcq.exp}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function selectMCQOpt(mcqIdx, optIdx, correct) {
+    const card = document.getElementById(`mcq-${mcqIdx}`);
+    if (card.dataset.answered) return;
+    card.dataset.answered = '1';
+    for (let j = 0; j < 4; j++) {
+      const opt = document.getElementById(`mcq-${mcqIdx}-opt-${j}`);
+      opt.style.pointerEvents = 'none';
+      if (j === correct) opt.classList.add('correct');
+      else if (j === optIdx && optIdx !== correct) opt.classList.add('wrong');
+    }
+    // Auto-show explanation
+    document.getElementById(`mcq-exp-${mcqIdx}`).classList.add('show');
+  }
+
+  function revealExplanation(i) {
+    document.getElementById(`mcq-exp-${i}`).classList.toggle('show');
+  }
+
+  function toggleMcqBookmark(btn, i) {
+    btn.classList.toggle('saved');
+    btn.title = btn.classList.contains('saved') ? 'Bookmarked' : 'Bookmark';
+  }
+
+  // ===== SHORT Q RENDER =====
+  function renderShortQs() {
+    const list = document.getElementById('shortQList');
+    list.innerHTML = shortQs.map((q, i) => `
+      <div class="qa-card" id="sqa-${i}">
+        <div class="qa-question-row" onclick="toggleQA('sqa-${i}')">
+          <div class="qa-q-num">${i + 1}</div>
+          <div class="qa-q-text">
+            ${q.q}
+            <div class="qa-q-marks">${q.marks}</div>
+          </div>
+          <span class="qa-toggle">▼</span>
+        </div>
+        <div class="qa-answer">${q.ans}</div>
+        <div class="qa-action-row" id="sqa-${i}-actions" style="display:none;">
+          <button class="qa-action-btn" onclick="toggleQABookmark(this)">🔖 Bookmark</button>
+          <button class="qa-action-btn" onclick="shareQA(${i})">↗ Share</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ===== LONG Q RENDER =====
+  function renderLongQs() {
+    const list = document.getElementById('longQList');
+    list.innerHTML = longQs.map((q, i) => `
+      <div class="qa-card" id="lqa-${i}">
+        <div class="qa-question-row" onclick="toggleQA('lqa-${i}')">
+          <div class="qa-q-num">${i + 1}</div>
+          <div class="qa-q-text">
+            ${q.q}
+            <div class="qa-q-marks">${q.marks}</div>
+          </div>
+          <span class="qa-toggle">▼</span>
+        </div>
+        <div class="qa-answer">${q.ans}</div>
+        <div class="qa-action-row" id="lqa-${i}-actions" style="display:none;">
+          <button class="qa-action-btn" onclick="toggleQABookmark(this)">🔖 Bookmark</button>
+          <button class="qa-action-btn" onclick="shareQA(${i})">↗ Share</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function toggleQA(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+    const actions = document.getElementById(id + '-actions');
+    if (actions) actions.style.display = card.classList.contains('open') ? 'flex' : 'none';
+  }
+
+  function toggleQABookmark(btn) {
+    btn.style.color = btn.style.color === 'var(--gold-main)' ? '' : 'var(--gold-main)';
+  }
+
+  // ===== TAB SWITCHING =====
+  function switchTab(tabName, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(`panel-${tabName}`).classList.add('active');
+    // Reset scroll
+    document.getElementById('readerMain').scrollTop = 0;
+  }
+
+  // ===== FONT SIZE =====
+  function setFontSize(size, btn) {
+    const body = document.getElementById('notesBody');
+    body.className = `notes-body font-${size === 'md' ? '' : size}`.trim();
+    if (document.getElementById('serifToggle').checked) body.classList.add('serif-mode');
+    document.querySelectorAll('.font-size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function toggleSerif(chk) {
+    const body = document.getElementById('notesBody');
+    if (chk.checked) body.classList.add('serif-mode');
+    else body.classList.remove('serif-mode');
+  }
+
+  // ===== READING PROGRESS =====
+  function initReadingProgress() {
+    const main = document.getElementById('readerMain');
+    const fill = document.getElementById('readingProgressFill');
+    main.addEventListener('scroll', () => {
+      const scrollTop = main.scrollTop;
+      const scrollHeight = main.scrollHeight - main.clientHeight;
+      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      fill.style.width = pct + '%';
+    }, { passive: true });
+  }
+
+  // ===== TOC HIGHLIGHT ON SCROLL =====
+  function initTOCHighlight() {
+    const main = document.getElementById('readerMain');
+    main.addEventListener('scroll', () => {
+      const scrollTop = main.scrollTop + 120;
+      let active = null;
+      tocSections.forEach(s => {
+        const el = document.getElementById(s.id);
+        if (el && el.offsetTop <= scrollTop) active = s.id;
+      });
+      if (active) {
+        document.querySelectorAll('.toc-item').forEach(t => t.classList.remove('active'));
+        const tocItem = document.getElementById('toc-' + active);
+        if (tocItem) tocItem.classList.add('active');
+      }
+    }, { passive: true });
+  }
+
+  // ===== SIDEBAR TOGGLE =====
+  function initSidebarToggle() {
+    const toggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    toggle.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        sidebar.classList.toggle('mobile-open');
+        overlay.classList.toggle('show');
+      } else {
+        sidebar.classList.toggle('collapsed');
+      }
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('mobile-open');
+      overlay.classList.remove('show');
+    });
+  }
+
+  // ===== BOOKMARK CHAPTER =====
+  function toggleChapterBookmark(btn) {
+    btn.classList.toggle('bookmarked');
+    btn.innerHTML = btn.classList.contains('bookmarked')
+      ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Bookmarked'
+      : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Bookmark';
+  }
+
+  // ===== MARK COMPLETE =====
+  function toggleComplete(btn) {
+    btn.classList.toggle('done');
+    if (btn.classList.contains('done')) {
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Completed ✓';
+    } else {
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Mark Complete';
+    }
+    // In real app: update Firebase progress
+  }
+
+  // ===== CHAPTER NAVIGATION =====
+  function navigateChapter(dir) {
+    // In real app: load next/previous chapter content from Firebase
+    const msg = dir > 0 ? 'Loading Chapter 4: Liquids & Solids…' : 'Loading Chapter 2: Atomic Structure…';
+    const toast = document.createElement('div');
+    toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--navy-700);color:white;padding:10px 20px;border-radius:8px;font-size:0.82rem;z-index:999;border:1px solid var(--gold-main);';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2000);
+  }
+
+  // ===== SELECT CHAPTER =====
+  function selectChapter(id, name, isPremium) {
+    if (isPremium) {
+      showPremiumModal(name);
+      return;
+    }
+    document.querySelectorAll('.chapter-item').forEach(i => i.classList.remove('active'));
+    const item = document.querySelector(`.chapter-item:nth-child(${id})`);
+    if (item) item.classList.add('active');
+    document.getElementById('ch-main-title').textContent = `Chapter ${id}: ${name}`;
+    document.getElementById('bc-chapter').textContent = `Chapter ${id} — ${name}`;
+    if (window.innerWidth <= 768) {
+      document.getElementById('sidebar').classList.remove('mobile-open');
+      document.getElementById('sidebarOverlay').classList.remove('show');
+    }
+  }
+
+  function showPremiumModal(name) {
+    const modal = document.createElement('div');
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    modal.innerHTML = `
+      <div style="background:var(--surface);border:1px solid rgba(201,168,76,0.3);border-radius:16px;padding:32px;max-width:380px;width:100%;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:12px;">🔒</div>
+        <h3 style="font-family:var(--font-display);font-size:1.2rem;font-weight:900;color:var(--text);margin-bottom:10px;">${name}</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:24px;">This chapter is available on the Premium plan. Unlock all 11 chapters for just <strong style="color:var(--gold-main);">Rs. 499/month</strong>.</p>
+        <a href="login.html?signup=1&plan=premium" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:linear-gradient(135deg,#F0D080,#C9A84C,#A07830);color:#0A1628;border-radius:8px;font-weight:700;font-size:0.9rem;">Upgrade to Premium →</a>
+        <br><button onclick="this.closest('[style]').remove()" style="margin-top:14px;font-size:0.8rem;color:var(--text-muted);cursor:pointer;background:none;border:none;font-family:inherit;">Maybe later</button>
+      </div>
+    `;
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+    document.body.appendChild(modal);
+  }
+
+  // ===== SHARE =====
+  function shareChapter() {
+    const url = window.location.href;
+    if (navigator.share) {
+      navigator.share({ title: 'Chemistry Ch 3 — Gases & Gas Laws | Imoria Learning', url });
+    } else {
+      navigator.clipboard.writeText(url);
+      alert('Link copied to clipboard!');
+    }
+  }
+
+  function shareMCQ(i) { navigator.clipboard.writeText(window.location.href + '#mcq-' + i); }
+  function shareQA(i) { navigator.clipboard.writeText(window.location.href + '#qa-' + i); }
+  function reportIssue() { window.location.href = 'contact.html?issue=notes&subject=chemistry&chapter=3'; }
+</script>
+</body>
+</html>
