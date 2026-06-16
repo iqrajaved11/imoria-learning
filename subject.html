@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biology — Imoria Learning</title>
+  <meta name="description" content="Chapter-wise Biology notes, MCQs, Short & Long Questions for FSc Pre-Medical Part I & II — Punjab Board & FBISE." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       DESIGN TOKENS — shared with index.html
+    ============================================================ */
+    :root {
+      --navy-900: #0A1628;
+      --navy-800: #0D1B2A;
+      --navy-700: #112240;
+      --navy-600: #1A3358;
+      --navy-500: #1E3D6B;
+      --gold-light: #F0D080;
+      --gold-main:  #C9A84C;
+      --gold-dark:  #A07830;
+      --gold-gradient: linear-gradient(135deg, #F0D080 0%, #C9A84C 50%, #A07830 100%);
+      --gold-glow: 0 0 24px rgba(201,168,76,0.35);
+      --white: #FFFFFF;
+      --success: #22C55E;
+      --error:   #EF4444;
+      --warning: #F59E0B;
+      --bg:       #F9FAFB;
+      --surface:  #FFFFFF;
+      --surface2: #F3F4F6;
+      --text:     #0A1628;
+      --text-muted: #6B7280;
+      --border:   #E5E7EB;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
+      --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+      --nav-height: 68px;
+      --sidebar-w: 300px;
+    }
+    [data-theme="dark"] {
+      --bg:       #080E1A;
+      --surface:  #0D1B2A;
+      --surface2: #112240;
+      --text:     #F0F4FF;
+      --text-muted: #94A3B8;
+      --border:   #1E3050;
+    }
+
+    /* ============================================================ RESET */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; transition: background var(--transition), color var(--transition); }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--font-body); border: none; background: none; }
+    ul { list-style: none; }
+
+    /* ============================================================ NAVBAR */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-height); display: flex; align-items: center;
+      background: rgba(13,27,42,0.96); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    [data-theme="light"] .navbar { background: rgba(249,250,251,0.96); border-bottom-color: var(--border); }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 100%; padding: 0 20px; gap: 16px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: white; flex-shrink: 0; }
+    [data-theme="light"] .nav-logo { color: var(--navy-800); }
+    .nav-logo-mark { width: 34px; height: 34px; border-radius: 8px; background: var(--gold-gradient); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 900; color: var(--navy-900); flex-shrink: 0; }
+    .nav-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: rgba(255,255,255,0.45); overflow: hidden; }
+    [data-theme="light"] .nav-breadcrumb { color: var(--text-muted); }
+    .nav-breadcrumb span { color: rgba(255,255,255,0.25); }
+    [data-theme="light"] .nav-breadcrumb span { color: var(--border); }
+    .nav-breadcrumb strong { color: var(--gold-light); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+    [data-theme="light"] .nav-breadcrumb strong { color: var(--navy-800); }
+    .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .theme-toggle { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); font-size: 1rem; transition: all var(--transition); }
+    [data-theme="light"] .theme-toggle { background: var(--surface2); border-color: var(--border); color: var(--text-muted); }
+    .theme-toggle:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .btn-nav-upgrade { padding: 8px 18px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 700; background: var(--gold-gradient); color: var(--navy-900); transition: all var(--transition); }
+    .btn-nav-upgrade:hover { filter: brightness(1.1); box-shadow: var(--gold-glow); }
+    .hamburger-sidebar { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+    .hamburger-sidebar span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.7); border-radius: 2px; }
+    [data-theme="light"] .hamburger-sidebar span { background: var(--navy-800); }
+
+    /* ============================================================ LAYOUT */
+    .page-layout {
+      display: flex;
+      padding-top: var(--nav-height);
+      min-height: 100vh;
+    }
+
+    /* ============================================================ SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      height: calc(100vh - var(--nav-height));
+      overflow-y: auto;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition);
+    }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+    /* Subject switcher */
+    .subject-switcher {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .subject-switcher-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .subject-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .subj-tab {
+      padding: 8px 6px; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600;
+      border: 1px solid var(--border); color: var(--text-muted); background: var(--bg);
+      text-align: center; transition: all var(--transition); cursor: pointer;
+    }
+    .subj-tab:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .subj-tab.active { background: rgba(201,168,76,0.1); border-color: var(--gold-main); color: var(--gold-main); font-weight: 700; }
+
+    /* Part toggle */
+    .part-toggle { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 6px; flex-shrink: 0; }
+    .part-btn {
+      flex: 1; padding: 7px; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600;
+      border: 1px solid var(--border); color: var(--text-muted); background: transparent;
+      transition: all var(--transition);
+    }
+    .part-btn.active { background: var(--navy-800); color: var(--gold-light); border-color: var(--navy-800); }
+    [data-theme="light"] .part-btn.active { background: var(--navy-700); }
+
+    /* Search */
+    .sidebar-search { padding: 12px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .search-input-wrap { position: relative; }
+    .search-input-wrap input {
+      width: 100%; padding: 8px 12px 8px 34px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border); background: var(--bg); color: var(--text);
+      font-size: 0.83rem; font-family: var(--font-body); outline: none;
+      transition: border-color var(--transition);
+    }
+    .search-input-wrap input:focus { border-color: var(--gold-main); }
+    .search-input-wrap input::placeholder { color: var(--text-muted); }
+    .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.85rem; pointer-events: none; }
+
+    /* Chapter list */
+    .chapter-list { flex: 1; overflow-y: auto; padding: 8px 0; }
+    .chapter-group-label {
+      padding: 8px 16px 4px;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .chapter-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 16px; cursor: pointer; transition: background var(--transition);
+      border-left: 3px solid transparent; position: relative;
+    }
+    .chapter-item:hover { background: var(--surface2); }
+    .chapter-item.active {
+      background: rgba(201,168,76,0.07);
+      border-left-color: var(--gold-main);
+    }
+    .ch-num {
+      width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0;
+      background: var(--surface2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; font-weight: 700; color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .chapter-item.active .ch-num { background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.4); color: var(--gold-main); }
+    .chapter-item.completed .ch-num { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.3); color: #16a34a; }
+    .ch-info { flex: 1; min-width: 0; }
+    .ch-name { font-size: 0.82rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
+    .chapter-item.active .ch-name { color: var(--gold-main); }
+    .ch-meta { font-size: 0.68rem; color: var(--text-muted); margin-top: 1px; }
+    .ch-progress { height: 2px; background: var(--border); border-radius: 99px; margin-top: 4px; }
+    .ch-progress-fill { height: 100%; border-radius: 99px; background: var(--gold-gradient); transition: width 0.4s ease; }
+    .lock-icon { font-size: 0.75rem; color: var(--text-muted); flex-shrink: 0; }
+
+    /* ============================================================ CONTENT AREA */
+    .content-area {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Chapter header */
+    .chapter-header {
+      background: var(--navy-800);
+      padding: 36px 40px 32px;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+    .chapter-header::before {
+      content: ''; position: absolute;
+      width: 500px; height: 500px; right: -100px; top: 50%; transform: translateY(-50%);
+      background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ch-header-eyebrow {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold-main); margin-bottom: 10px;
+    }
+    .ch-header-title {
+      font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 900; color: white; line-height: 1.2; margin-bottom: 16px;
+      position: relative; z-index: 1;
+    }
+    .ch-header-stats {
+      display: flex; gap: 20px; flex-wrap: wrap; position: relative; z-index: 1;
+    }
+    .ch-hstat {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; color: rgba(255,255,255,0.55); font-weight: 500;
+    }
+    .ch-hstat strong { color: var(--gold-light); font-weight: 700; }
+    .ch-progress-bar-header {
+      margin-top: 18px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px;
+      max-width: 300px; position: relative; z-index: 1;
+    }
+    .ch-progress-bar-fill { height: 100%; border-radius: 99px; background: var(--gold-gradient); width: 35%; }
+
+    /* Tab bar */
+    .tab-bar {
+      display: flex; align-items: center; gap: 0;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      overflow-x: auto; flex-shrink: 0;
+    }
+    .tab-bar::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 14px 20px; font-size: 0.875rem; font-weight: 600;
+      color: var(--text-muted); border-bottom: 2px solid transparent;
+      transition: all var(--transition); white-space: nowrap; flex-shrink: 0;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--gold-main); border-bottom-color: var(--gold-main); }
+    .tab-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 99px;
+      background: var(--surface2); font-size: 0.65rem; font-weight: 700;
+      color: var(--text-muted); margin-left: 6px; transition: all var(--transition);
+    }
+    .tab-btn.active .tab-badge { background: rgba(201,168,76,0.15); color: var(--gold-main); }
+
+    /* Content panels */
+    .tab-content { flex: 1; overflow-y: auto; padding: 32px 40px 60px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ---- NOTES TAB ---- */
+    .notes-layout { display: grid; grid-template-columns: 1fr 280px; gap: 28px; align-items: start; }
+    .notes-body { min-width: 0; }
+    .notes-toc {
+      position: sticky; top: 20px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 20px;
+    }
+    .toc-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+    .toc-list { display: flex; flex-direction: column; gap: 4px; }
+    .toc-item {
+      font-size: 0.8rem; color: var(--text-muted); padding: 5px 10px; border-radius: var(--radius-sm);
+      border-left: 2px solid transparent; transition: all var(--transition); cursor: pointer;
+    }
+    .toc-item:hover { color: var(--text); background: var(--surface2); }
+    .toc-item.active { border-left-color: var(--gold-main); color: var(--gold-main); background: rgba(201,168,76,0.06); }
+
+    .note-section { margin-bottom: 36px; }
+    .note-section-title {
+      font-family: var(--font-display); font-size: 1.25rem; font-weight: 700;
+      color: var(--text); margin-bottom: 14px; padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .note-section-title span { font-family: var(--font-body); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-main); }
+    .note-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; }
+    .note-body p { margin-bottom: 12px; }
+    .note-body strong { color: var(--text); font-weight: 600; }
+    .note-body .highlight { background: rgba(201,168,76,0.12); border-left: 3px solid var(--gold-main); padding: 12px 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 14px 0; font-size: 0.88rem; }
+    .note-body .highlight strong { color: var(--gold-dark); }
+    [data-theme="dark"] .note-body .highlight strong { color: var(--gold-light); }
+
+    /* Definition box */
+    .definition-box {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 16px 20px; margin: 14px 0;
+    }
+    .definition-term { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-main); margin-bottom: 4px; }
+    .definition-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* Classification table */
+    .class-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin: 16px 0; }
+    .class-table th { background: var(--navy-800); color: var(--gold-light); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 14px; text-align: left; }
+    [data-theme="light"] .class-table th { background: var(--navy-700); }
+    .class-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+    .class-table tr:hover td { background: var(--surface2); }
+    .class-table td strong { color: var(--text); }
+
+    /* Memory tip */
+    .memory-tip {
+      background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2);
+      border-radius: var(--radius-md); padding: 14px 18px; margin: 14px 0;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .memory-tip-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .memory-tip-content { font-size: 0.85rem; color: var(--text-muted); }
+    .memory-tip-content strong { color: #16a34a; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 4px; }
+    [data-theme="dark"] .memory-tip-content strong { color: #86efac; }
+
+    /* Board exam tip */
+    .board-tip {
+      background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.25);
+      border-radius: var(--radius-md); padding: 14px 18px; margin: 14px 0;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .board-tip-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .board-tip-content { font-size: 0.85rem; color: var(--text-muted); }
+    .board-tip-content strong { color: var(--gold-dark); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 4px; }
+    [data-theme="dark"] .board-tip-content strong { color: var(--gold-light); }
+
+    /* Download bar */
+    .download-bar {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; gap: 16px;
+    }
+    .download-bar-left { display: flex; align-items: center; gap: 10px; }
+    .download-bar-icon { font-size: 1.3rem; }
+    .download-bar-text { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .download-bar-text small { display: block; font-size: 0.75rem; font-weight: 400; color: var(--text-muted); }
+    .btn-download { padding: 8px 18px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 700; background: var(--gold-gradient); color: var(--navy-900); transition: all var(--transition); }
+    .btn-download:hover { filter: brightness(1.08); box-shadow: var(--gold-glow); }
+    .btn-download.locked { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); box-shadow: none; filter: none; }
+    .btn-download.locked:hover { background: var(--border); }
+
+    /* ---- MCQ TAB ---- */
+    .mcq-controls {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px;
+    }
+    .filter-btn {
+      padding: 7px 14px; border-radius: 99px; font-size: 0.78rem; font-weight: 600;
+      border: 1px solid var(--border); color: var(--text-muted); background: var(--surface);
+      transition: all var(--transition);
+    }
+    .filter-btn:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .filter-btn.active { background: rgba(201,168,76,0.1); border-color: var(--gold-main); color: var(--gold-main); }
+    .mcq-timer-wrap { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-muted); }
+    .timer-toggle { width: 36px; height: 20px; border-radius: 99px; background: var(--border); position: relative; transition: background 0.2s; }
+    .timer-toggle.on { background: var(--gold-main); }
+    .timer-toggle::after { content: ''; position: absolute; width: 14px; height: 14px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: transform 0.2s; }
+    .timer-toggle.on::after { transform: translateX(16px); }
+    .start-btn {
+      padding: 10px 24px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 700;
+      background: var(--gold-gradient); color: var(--navy-900); transition: all var(--transition);
+    }
+    .start-btn:hover { filter: brightness(1.08); box-shadow: var(--gold-glow); }
+
+    /* MCQ question card */
+    .mcq-session { display: none; }
+    .mcq-session.active { display: block; }
+    .mcq-session-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .mcq-progress-text { font-size: 0.85rem; color: var(--text-muted); }
+    .mcq-progress-text strong { color: var(--text); }
+    .mcq-timer-display { font-size: 1rem; font-weight: 700; color: var(--gold-main); font-variant-numeric: tabular-nums; }
+    .mcq-timer-display.warning { color: var(--error); }
+    .mcq-bar { height: 4px; background: var(--border); border-radius: 99px; margin-bottom: 24px; }
+    .mcq-bar-fill { height: 100%; border-radius: 99px; background: var(--gold-gradient); transition: width 0.3s ease; }
+
+    .mcq-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 28px; margin-bottom: 16px; transition: box-shadow var(--transition);
+    }
+    .mcq-card:hover { box-shadow: var(--shadow-md); }
+    .mcq-q-num { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-main); margin-bottom: 10px; }
+    .mcq-q-text { font-size: 0.95rem; font-weight: 600; color: var(--text); line-height: 1.5; margin-bottom: 20px; }
+    .mcq-options { display: flex; flex-direction: column; gap: 8px; }
+    .mcq-opt {
+      padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.88rem;
+      border: 1px solid var(--border); color: var(--text-muted); background: var(--bg);
+      text-align: left; transition: all var(--transition); cursor: pointer; display: flex; align-items: center; gap: 12px;
+    }
+    .mcq-opt:hover:not([disabled]) { border-color: var(--gold-main); color: var(--text); background: rgba(201,168,76,0.04); }
+    .mcq-opt.selected { border-color: var(--gold-main); background: rgba(201,168,76,0.08); color: var(--text); }
+    .mcq-opt.correct { border-color: #22c55e; background: rgba(34,197,94,0.08); color: #15803d; }
+    [data-theme="dark"] .mcq-opt.correct { color: #86efac; }
+    .mcq-opt.wrong { border-color: var(--error); background: rgba(239,68,68,0.07); color: #b91c1c; }
+    [data-theme="dark"] .mcq-opt.wrong { color: #fca5a5; }
+    .mcq-opt-letter { width: 24px; height: 24px; border-radius: 6px; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; transition: all var(--transition); }
+    .mcq-opt.correct .mcq-opt-letter { background: rgba(34,197,94,0.2); border-color: #22c55e; }
+    .mcq-opt.wrong .mcq-opt-letter { background: rgba(239,68,68,0.15); border-color: var(--error); }
+    .mcq-opt.selected .mcq-opt-letter { background: rgba(201,168,76,0.2); border-color: var(--gold-main); }
+
+    .mcq-explanation {
+      display: none; margin-top: 16px; padding: 14px 18px;
+      background: var(--surface2); border-radius: var(--radius-sm);
+      font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;
+      border-left: 3px solid var(--gold-main);
+    }
+    .mcq-explanation.show { display: block; }
+    .mcq-explanation strong { color: var(--text); }
+
+    .mcq-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; gap: 12px; }
+    .btn-mcq-nav {
+      padding: 10px 22px; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 700;
+      border: 1px solid var(--border); color: var(--text-muted); background: var(--surface);
+      transition: all var(--transition);
+    }
+    .btn-mcq-nav:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .btn-mcq-next {
+      padding: 10px 28px; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 700;
+      background: var(--gold-gradient); color: var(--navy-900); transition: all var(--transition);
+    }
+    .btn-mcq-next:hover { filter: brightness(1.08); }
+    .mcq-bookmark { padding: 8px; color: var(--text-muted); transition: color var(--transition); font-size: 1.1rem; }
+    .mcq-bookmark.saved { color: var(--gold-main); }
+    .mcq-bookmark:hover { color: var(--gold-main); }
+
+    /* MCQ results */
+    .mcq-results { display: none; text-align: center; padding: 40px 0; }
+    .mcq-results.show { display: block; }
+    .result-circle { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; border: 4px solid var(--gold-main); display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(201,168,76,0.06); }
+    .result-score { font-family: var(--font-display); font-size: 2rem; font-weight: 900; color: var(--gold-main); line-height: 1; }
+    .result-score-label { font-size: 0.7rem; color: var(--text-muted); }
+    .result-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .result-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 28px; }
+    .result-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-retry { padding: 11px 24px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 700; background: var(--gold-gradient); color: var(--navy-900); }
+    .btn-review { padding: 11px 24px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 700; border: 1px solid var(--border); color: var(--text-muted); background: var(--surface); }
+
+    /* MCQ setup screen */
+    .mcq-setup { }
+    .setup-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; margin-bottom: 16px;
+    }
+    .setup-card-title { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+
+    /* ---- SHORT Q TAB ---- */
+    .questions-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+    .q-category-btn { padding: 6px 14px; border-radius: 99px; font-size: 0.78rem; font-weight: 600; border: 1px solid var(--border); color: var(--text-muted); background: var(--surface); transition: all var(--transition); }
+    .q-category-btn:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .q-category-btn.active { background: rgba(201,168,76,0.1); border-color: var(--gold-main); color: var(--gold-main); }
+    .q-count { margin-left: auto; font-size: 0.8rem; color: var(--text-muted); }
+
+    .q-item {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+      margin-bottom: 12px; overflow: hidden; transition: box-shadow var(--transition);
+    }
+    .q-item:hover { box-shadow: var(--shadow-sm); }
+    .q-header {
+      display: flex; align-items: flex-start; gap: 12px; padding: 16px 20px;
+      cursor: pointer; transition: background var(--transition);
+    }
+    .q-header:hover { background: var(--surface2); }
+    .q-badge {
+      padding: 3px 8px; border-radius: 99px; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; margin-top: 2px;
+    }
+    .q-badge.short { background: rgba(34,197,94,0.1); color: #16a34a; border: 1px solid rgba(34,197,94,0.2); }
+    [data-theme="dark"] .q-badge.short { color: #86efac; }
+    .q-badge.long { background: rgba(201,168,76,0.1); color: var(--gold-dark); border: 1px solid rgba(201,168,76,0.2); }
+    [data-theme="dark"] .q-badge.long { color: var(--gold-light); }
+    .q-badge.past { background: rgba(239,68,68,0.08); color: #b91c1c; border: 1px solid rgba(239,68,68,0.2); }
+    [data-theme="dark"] .q-badge.past { color: #fca5a5; }
+    .q-text { flex: 1; font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.4; }
+    .q-chevron { color: var(--text-muted); font-size: 0.72rem; transition: transform 0.25s; flex-shrink: 0; margin-top: 4px; }
+    .q-item.open .q-chevron { transform: rotate(180deg); }
+    .q-answer {
+      max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+      padding: 0 20px; background: var(--surface);
+    }
+    .q-item.open .q-answer { max-height: 600px; padding: 0 20px 20px; }
+    .q-answer-body { font-size: 0.875rem; color: var(--text-muted); line-height: 1.8; padding-top: 12px; border-top: 1px solid var(--border); }
+    .q-answer-body p { margin-bottom: 10px; }
+    .q-answer-body strong { color: var(--text); font-weight: 600; }
+    .q-answer-body ol { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+    .q-answer-footer { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .q-marks { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); }
+    .q-marks strong { color: var(--gold-main); }
+    .q-bookmark-btn { margin-left: auto; font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border); transition: all var(--transition); }
+    .q-bookmark-btn:hover { border-color: var(--gold-main); color: var(--gold-main); }
+    .q-bookmark-btn.saved { color: var(--gold-main); border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.06); }
+
+    /* Premium lock overlay */
+    .premium-lock {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 40px 24px; text-align: center; margin: 20px 0;
+    }
+    .lock-icon-lg { font-size: 2.5rem; margin-bottom: 14px; }
+    .lock-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .lock-desc { font-size: 0.87rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6; }
+    .btn-unlock { padding: 12px 28px; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 700; background: var(--gold-gradient); color: var(--navy-900); transition: all var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-unlock:hover { filter: brightness(1.08); box-shadow: var(--gold-glow); }
+
+    /* ============================================================ RESPONSIVE */
+    @media (max-width: 1024px) {
+      .notes-layout { grid-template-columns: 1fr; }
+      .notes-toc { display: none; }
+    }
+    @media (max-width: 768px) {
+      :root { --sidebar-w: 0px; --nav-height: 60px; }
+      .sidebar { transform: translateX(-100%); width: 280px; }
+      .sidebar.open { transform: translateX(0); box-shadow: var(--shadow-lg); }
+      .content-area { margin-left: 0; }
+      .hamburger-sidebar { display: flex; }
+      .chapter-header { padding: 24px 20px 20px; }
+      .tab-bar { padding: 0 16px; }
+      .tab-content { padding: 20px 16px 60px; }
+      .mcq-controls { gap: 8px; }
+      .tab-btn { padding: 12px 14px; font-size: 0.8rem; }
+    }
+    @media (max-width: 480px) {
+      .ch-header-stats { gap: 12px; }
+    }
+
+    /* ============================================================ SIDEBAR OVERLAY */
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 99; }
+    .sidebar-overlay.show { display: block; }
+
+    /* Toast */
+    .toast-container { position: fixed; bottom: 80px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+    .toast {
+      background: var(--navy-800); color: white; padding: 12px 18px; border-radius: var(--radius-md);
+      font-size: 0.85rem; font-weight: 500; border-left: 3px solid var(--gold-main);
+      box-shadow: var(--shadow-lg); transform: translateX(120%);
+      transition: transform 0.3s ease; pointer-events: auto;
+    }
+    .toast.show { transform: translateX(0); }
+    [data-theme="light"] .toast { background: var(--navy-700); }
+
+    /* WhatsApp float */
+    .whatsapp-float { position: fixed; bottom: 24px; right: 24px; z-index: 900; width: 50px; height: 50px; border-radius: 50%; background: #25D366; box-shadow: 0 4px 20px rgba(37,211,102,0.4); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: transform var(--transition); }
+    .whatsapp-float:hover { transform: scale(1.1); }
+  </style>
+</head>
+<body>
+
+<!-- =================== NAVBAR =================== -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <button class="hamburger-sidebar" id="sidebarToggle" aria-label="Toggle sidebar">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">IL</div>
+      <span class="desktop-only" style="display:none;">Imoria Learning</span>
+    </a>
+    <div class="nav-breadcrumb" id="navBreadcrumb">
+      <span>🧬 Biology</span>
+      <span>›</span>
+      <strong id="breadcrumbChapter">Chapter 1: Biodiversity</strong>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <a href="login.html?plan=premium" class="btn-nav-upgrade">⚡ Upgrade</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Overlay for mobile sidebar -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- =================== LAYOUT =================== -->
+<div class="page-layout">
+
+  <!-- =================== SIDEBAR =================== -->
+  <aside class="sidebar" id="sidebar">
+
+    <!-- Subject Switcher -->
+    <div class="subject-switcher">
+      <div class="subject-switcher-label">Subject</div>
+      <div class="subject-tabs">
+        <button class="subj-tab" onclick="switchSubject('chemistry', this)">🧪 Chem</button>
+        <button class="subj-tab active" onclick="switchSubject('biology', this)">🧬 Bio</button>
+        <button class="subj-tab" onclick="switchSubject('physics', this)">⚡ Phy</button>
+        <button class="subj-tab" onclick="switchSubject('english', this)">📖 Eng</button>
+      </div>
+    </div>
+
+    <!-- Part Toggle -->
+    <div class="part-toggle">
+      <button class="part-btn active" id="part1Btn" onclick="setPart(1)">Part I</button>
+      <button class="part-btn" id="part2Btn" onclick="setPart(2)">Part II</button>
+    </div>
+
+    <!-- Search -->
+    <div class="sidebar-search">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search chapters…" id="chapterSearch" oninput="filterChapters(this.value)" />
+      </div>
+    </div>
+
+    <!-- Chapter list -->
+    <div class="chapter-list" id="chapterList">
+      <!-- Part I — rendered by JS -->
+    </div>
+  </aside>
+
+  <!-- =================== CONTENT AREA =================== -->
+  <main class="content-area">
+
+    <!-- Chapter Header -->
+    <div class="chapter-header" id="chapterHeader">
+      <div class="ch-header-eyebrow">🧬 Biology · Part I</div>
+      <h1 class="ch-header-title" id="chapterTitle">Chapter 1: Introduction — Biodiversity, Classification &amp; Taxonomy</h1>
+      <div class="ch-header-stats">
+        <div class="ch-hstat">📖 <strong>Notes</strong> Complete</div>
+        <div class="ch-hstat">🎯 <strong>42</strong> MCQs</div>
+        <div class="ch-hstat">📝 <strong>18</strong> Short Qs</div>
+        <div class="ch-hstat">📄 <strong>6</strong> Long Qs</div>
+        <div class="ch-hstat">🕐 <strong>~40 min</strong> read</div>
+      </div>
+      <div class="ch-progress-bar-header"><div class="ch-progress-bar-fill" id="chProgressFill" style="width:35%"></div></div>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('notes', this)">📖 Notes</button>
+      <button class="tab-btn" onclick="switchTab('mcq', this)">🎯 MCQs <span class="tab-badge">42</span></button>
+      <button class="tab-btn" onclick="switchTab('short', this)">📝 Short Qs <span class="tab-badge">18</span></button>
+      <button class="tab-btn" onclick="switchTab('long', this)">📄 Long Qs <span class="tab-badge">6</span></button>
+    </div>
+
+    <!-- =================== TAB CONTENT =================== -->
+    <div class="tab-content">
+
+      <!-- ===== NOTES TAB ===== -->
+      <div class="tab-panel active" id="tab-notes">
+        <div class="download-bar">
+          <div class="download-bar-left">
+            <span class="download-bar-icon">📥</span>
+            <div class="download-bar-text">
+              Chapter 1 — Full PDF Notes
+              <small>8 pages · Exam-ready format · Last updated Jan 2025</small>
+            </div>
+          </div>
+          <button class="btn-download locked" onclick="showToast('🔒 Upgrade to Premium to download PDFs')">🔒 Download PDF</button>
+        </div>
+
+        <div class="notes-layout">
+          <div class="notes-body">
+
+            <div class="note-section" id="ns-intro">
+              <h2 class="note-section-title"><span>1.1</span> What is Biology?</h2>
+              <div class="note-body">
+                <p><strong>Biology</strong> is the branch of science that deals with the study of living organisms and their vital processes. The term "Biology" comes from two Greek words: <strong>bios</strong> (life) and <strong>logos</strong> (study).</p>
+                <div class="definition-box">
+                  <div class="definition-term">Definition</div>
+                  <div class="definition-text">"Biology is the branch of natural science concerned with the study of life and living organisms, including their structure, function, growth, origin, evolution, and distribution."</div>
+                </div>
+                <p>Biology covers a vast range of topics — from the molecular mechanisms within a single cell to the global patterns of ecosystems. It is broadly divided into two main branches:</p>
+                <p><strong>Botany</strong> — the study of plants &nbsp;|&nbsp; <strong>Zoology</strong> — the study of animals</p>
+                <div class="board-tip">
+                  <span class="board-tip-icon">📌</span>
+                  <div class="board-tip-content">
+                    <strong>Board Exam Tip</strong>
+                    "Define Biology and name its two main branches" is a 2-mark question that appears almost every year. Write the Greek origin of the word for full marks.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-section" id="ns-biodiversity">
+              <h2 class="note-section-title"><span>1.2</span> Biodiversity</h2>
+              <div class="note-body">
+                <div class="definition-box">
+                  <div class="definition-term">Definition</div>
+                  <div class="definition-text">Biodiversity refers to the <strong>variety of life on Earth</strong>, including the variety of genes, species, and ecosystems. The term was coined by <strong>W.G. Rosen</strong> in 1985.</div>
+                </div>
+                <p>Biodiversity is studied at three main levels:</p>
+                <table class="class-table">
+                  <thead><tr><th>Level</th><th>Description</th><th>Example</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Genetic Diversity</strong></td><td>Variation in genes within a species</td><td>Different eye colours in humans</td></tr>
+                    <tr><td><strong>Species Diversity</strong></td><td>Number of different species in an area</td><td>500 bird species in a rainforest</td></tr>
+                    <tr><td><strong>Ecosystem Diversity</strong></td><td>Variety of habitats and ecological processes</td><td>Forests, wetlands, deserts</td></tr>
+                  </tbody>
+                </table>
+                <div class="highlight">
+                  <strong>Key Fact:</strong> Pakistan has significant biodiversity — over <strong>5,000 plant species</strong>, <strong>668 bird species</strong>, <strong>195 mammal species</strong>, and <strong>177 reptile species</strong>.
+                </div>
+                <div class="memory-tip">
+                  <span class="memory-tip-icon">🧠</span>
+                  <div class="memory-tip-content">
+                    <strong>Memory Trick</strong>
+                    Remember "GSE" for the three levels: <strong>G</strong>enetic → <strong>S</strong>pecies → <strong>E</strong>cosystem. Think: "Good Students Explore biodiversity."
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-section" id="ns-classification">
+              <h2 class="note-section-title"><span>1.3</span> Classification &amp; Taxonomy</h2>
+              <div class="note-body">
+                <div class="definition-box">
+                  <div class="definition-term">Taxonomy</div>
+                  <div class="definition-text">Taxonomy is the branch of biology that deals with the <strong>nomenclature, identification, and classification</strong> of organisms. The father of taxonomy is <strong>Carolus Linnaeus</strong> (1707–1778), a Swedish botanist.</div>
+                </div>
+                <p>Carolus Linnaeus introduced the <strong>binomial nomenclature</strong> system — giving every organism a two-part Latin name consisting of the <strong>Genus</strong> and <strong>species</strong>.</p>
+                <div class="highlight">
+                  <strong>Binomial Nomenclature Rules:</strong><br />
+                  • The genus name starts with a <strong>capital letter</strong><br />
+                  • The species name is in <strong>small letters</strong><br />
+                  • The entire name is written in <strong>italics</strong> (or underlined when handwritten)<br />
+                  • Example: <em>Homo sapiens</em> (humans), <em>Felis catus</em> (cat)
+                </div>
+                <p>Classification follows a <strong>hierarchical system</strong> with 7 main taxonomic ranks:</p>
+                <table class="class-table">
+                  <thead><tr><th>Rank</th><th>Example (Human)</th><th>Example (Tiger)</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Kingdom</strong></td><td>Animalia</td><td>Animalia</td></tr>
+                    <tr><td><strong>Phylum</strong></td><td>Chordata</td><td>Chordata</td></tr>
+                    <tr><td><strong>Class</strong></td><td>Mammalia</td><td>Mammalia</td></tr>
+                    <tr><td><strong>Order</strong></td><td>Primates</td><td>Carnivora</td></tr>
+                    <tr><td><strong>Family</strong></td><td>Hominidae</td><td>Felidae</td></tr>
+                    <tr><td><strong>Genus</strong></td><td><em>Homo</em></td><td><em>Panthera</em></td></tr>
+                    <tr><td><strong>Species</strong></td><td><em>sapiens</em></td><td><em>tigris</em></td></tr>
+                  </tbody>
+                </table>
+                <div class="memory-tip">
+                  <span class="memory-tip-icon">🧠</span>
+                  <div class="memory-tip-content">
+                    <strong>Memory Trick — 7 Ranks</strong>
+                    <strong>K</strong>ing <strong>P</strong>hillip <strong>C</strong>ame <strong>O</strong>ver <strong>F</strong>or <strong>G</strong>ood <strong>S</strong>oup
+                    → Kingdom, Phylum, Class, Order, Family, Genus, Species
+                  </div>
+                </div>
+                <div class="board-tip">
+                  <span class="board-tip-icon">📌</span>
+                  <div class="board-tip-content">
+                    <strong>Common Long Question (5 marks)</strong>
+                    "Describe the binomial nomenclature system introduced by Linnaeus and write the classification of humans." Memorise the full human classification table above.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-section" id="ns-kingdoms">
+              <h2 class="note-section-title"><span>1.4</span> Five Kingdom Classification</h2>
+              <div class="note-body">
+                <p><strong>Robert Whittaker</strong> (1969) proposed the <strong>Five Kingdom Classification</strong> system based on cell type, body organisation, nutrition, and reproduction.</p>
+                <table class="class-table">
+                  <thead><tr><th>Kingdom</th><th>Cell Type</th><th>Nutrition</th><th>Examples</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Monera</strong></td><td>Prokaryotic</td><td>Absorption / Photosynthesis</td><td>Bacteria, Cyanobacteria</td></tr>
+                    <tr><td><strong>Protista</strong></td><td>Eukaryotic</td><td>Autotrophic / Heterotrophic</td><td>Amoeba, Euglena, Paramecium</td></tr>
+                    <tr><td><strong>Fungi</strong></td><td>Eukaryotic</td><td>Absorption (Saprophytic)</td><td>Mushrooms, Yeast, Moulds</td></tr>
+                    <tr><td><strong>Plantae</strong></td><td>Eukaryotic</td><td>Photosynthesis (Autotrophic)</td><td>Mosses, Ferns, Flowering plants</td></tr>
+                    <tr><td><strong>Animalia</strong></td><td>Eukaryotic</td><td>Ingestion (Heterotrophic)</td><td>Sponges, Insects, Fish, Humans</td></tr>
+                  </tbody>
+                </table>
+                <div class="highlight">
+                  <strong>Six Kingdom Classification:</strong> Carl Woese (1977) later divided Monera into <strong>Archaebacteria</strong> and <strong>Eubacteria</strong>, creating a Six Kingdom system. This is also mentioned in the Punjab Board syllabus.
+                </div>
+                <div class="memory-tip">
+                  <span class="memory-tip-icon">🧠</span>
+                  <div class="memory-tip-content">
+                    <strong>Memory Trick — 5 Kingdoms</strong>
+                    <strong>M</strong>any <strong>P</strong>eople <strong>F</strong>ind <strong>P</strong>lants <strong>A</strong>mazing
+                    → Monera, Protista, Fungi, Plantae, Animalia
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note-section" id="ns-virus">
+              <h2 class="note-section-title"><span>1.5</span> Viruses — Are They Living?</h2>
+              <div class="note-body">
+                <div class="definition-box">
+                  <div class="definition-term">Virus</div>
+                  <div class="definition-text">Viruses are <strong>acellular</strong> (non-cellular), ultramicroscopic infectious agents that can only replicate inside a living host cell. They are not placed in any of the five kingdoms.</div>
+                </div>
+                <p>The term <strong>"virus"</strong> was coined by <strong>Dmitri Ivanowski</strong> (1892). <strong>W.M. Stanley</strong> first crystallised the tobacco mosaic virus (TMV) in 1935, showing it was non-living outside a host.</p>
+                <p>A virus consists of:</p>
+                <p>• <strong>Nucleic acid core</strong> — either DNA or RNA (never both)<br />• <strong>Protein coat (Capsid)</strong> — protects the nucleic acid<br />• Some have an outer <strong>lipid envelope</strong> (enveloped viruses)</p>
+                <div class="board-tip">
+                  <span class="board-tip-icon">📌</span>
+                  <div class="board-tip-content">
+                    <strong>Board Exam Tip</strong>
+                    "Why are viruses not placed in any kingdom?" — Answer: Because they are acellular, non-metabolising outside a host, and can be crystallised like non-living matter. This is a popular 2-mark question.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /notes-body -->
+
+          <!-- TOC -->
+          <div class="notes-toc">
+            <div class="toc-title">In this chapter</div>
+            <div class="toc-list">
+              <div class="toc-item active" onclick="scrollToSection('ns-intro', this)">1.1 What is Biology?</div>
+              <div class="toc-item" onclick="scrollToSection('ns-biodiversity', this)">1.2 Biodiversity</div>
+              <div class="toc-item" onclick="scrollToSection('ns-classification', this)">1.3 Classification & Taxonomy</div>
+              <div class="toc-item" onclick="scrollToSection('ns-kingdoms', this)">1.4 Five Kingdom System</div>
+              <div class="toc-item" onclick="scrollToSection('ns-virus', this)">1.5 Viruses</div>
+            </div>
+          </div>
+        </div><!-- /notes-layout -->
+      </div><!-- /tab-notes -->
+
+      <!-- ===== MCQ TAB ===== -->
+      <div class="tab-panel" id="tab-mcq">
+
+        <!-- Setup screen -->
+        <div class="mcq-setup" id="mcqSetup">
+          <div class="setup-card">
+            <div class="setup-card-title">Filter Questions</div>
+            <div class="mcq-controls">
+              <button class="filter-btn active" onclick="setFilter('all', this)">All (42)</button>
+              <button class="filter-btn" onclick="setFilter('easy', this)">Easy (14)</button>
+              <button class="filter-btn" onclick="setFilter('medium', this)">Medium (18)</button>
+              <button class="filter-btn" onclick="setFilter('hard', this)">Hard (10)</button>
+              <button class="filter-btn" onclick="setFilter('past', this)">📋 Past Paper (22)</button>
+              <button class="filter-btn" onclick="setFilter('bookmarked', this)">🔖 Saved (0)</button>
+            </div>
+          </div>
+          <div class="setup-card">
+            <div class="setup-card-title">Options</div>
+            <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+              <div class="mcq-timer-wrap">
+                <span>Enable Timer</span>
+                <button class="timer-toggle" id="timerToggle" onclick="this.classList.toggle('on')"></button>
+              </div>
+              <span style="font-size:0.82rem;color:var(--text-muted);">1 min per question</span>
+            </div>
+          </div>
+          <button class="start-btn" onclick="startMCQ()">Start MCQ Session →</button>
+        </div>
+
+        <!-- Session screen -->
+        <div class="mcq-session" id="mcqSession">
+          <div class="mcq-session-header">
+            <div class="mcq-progress-text">Question <strong id="qCurrent">1</strong> of <strong id="qTotal">10</strong></div>
+            <div class="mcq-timer-display" id="timerDisplay" style="display:none">1:00</div>
+          </div>
+          <div class="mcq-bar"><div class="mcq-bar-fill" id="mcqBarFill" style="width:10%"></div></div>
+
+          <div class="mcq-card" id="mcqCard">
+            <div class="mcq-q-num" id="mcqQNum">Question 1</div>
+            <div class="mcq-q-text" id="mcqQText">Loading…</div>
+            <div class="mcq-options" id="mcqOptions"></div>
+            <div class="mcq-explanation" id="mcqExplanation"></div>
+          </div>
+
+          <div class="mcq-nav">
+            <button class="btn-mcq-nav" onclick="prevQuestion()">← Prev</button>
+            <button class="mcq-bookmark" id="mcqBookmarkBtn" onclick="toggleMcqBookmark()" title="Bookmark">🔖</button>
+            <button class="btn-mcq-next" id="mcqNextBtn" onclick="nextQuestion()">Next →</button>
+          </div>
+        </div>
+
+        <!-- Results screen -->
+        <div class="mcq-results" id="mcqResults">
+          <div class="result-circle">
+            <div class="result-score" id="resultScore">8/10</div>
+            <div class="result-score-label">Score</div>
+          </div>
+          <h2 class="result-title" id="resultTitle">Excellent Work!</h2>
+          <p class="result-sub" id="resultSub">You scored 80% — above the class average of 67%</p>
+          <div class="result-actions">
+            <button class="btn-retry" onclick="retryMCQ()">🔁 Retry</button>
+            <button class="btn-review" onclick="reviewMCQ()">Review Answers</button>
+          </div>
+        </div>
+
+      </div><!-- /tab-mcq -->
+
+      <!-- ===== SHORT Q TAB ===== -->
+      <div class="tab-panel" id="tab-short">
+        <div class="questions-header">
+          <button class="q-category-btn active" onclick="setQFilter('all', this)">All</button>
+          <button class="q-category-btn" onclick="setQFilter('short', this)">Short (2-mark)</button>
+          <button class="q-category-btn" onclick="setQFilter('long', this)">Long (5-mark)</button>
+          <button class="q-category-btn" onclick="setQFilter('past', this)">📋 Past Paper</button>
+          <span class="q-count">18 questions</span>
+        </div>
+
+        <!-- Questions -->
+        <div id="questionsList">
+
+          <div class="q-item" onclick="toggleQ(this)">
+            <div class="q-header">
+              <span class="q-badge short">2 Mark</span>
+              <span class="q-badge past">Past Paper</span>
+              <span class="q-text">Define biodiversity and name its three levels.</span>
+              <span class="q-chevron">▼</span>
+            </div>
+            <div class="q-answer">
+              <div class="q-answer-body">
+                <p><strong>Biodiversity:</strong> Biodiversity refers to the variety of life on Earth at all its levels, from genes to ecosystems. The term was coined by W.G. Rosen in 1985.</p>
+                <p><strong>Three Levels of Biodiversity:</strong></p>
+                <ol>
+                  <li><strong>Genetic Diversity:</strong> Variation in genes and genotypes within a species (e.g., different blood groups in humans).</li>
+                  <li><strong>Species Diversity:</strong> The variety of different species in a given area or habitat.</li>
+                  <li><strong>Ecosystem Diversity:</strong> The range of different habitats, ecological communities, and ecological processes.</li>
+                </ol>
+                <div class="q-answer-footer">
+                  <span class="q-marks">Marks: <strong>2</strong></span>
+                  <button class="q-bookmark-btn" onclick="event.stopPropagation(); toggleQBookmark(this)">🔖 Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="q-item" onclick="toggleQ(this)">
+            <div class="q-header">
+              <span class="q-badge short">2 Mark</span>
+              <span class="q-text">What is binomial nomenclature? Give two examples.</span>
+              <span class="q-chevron">▼</span>
+            </div>
+            <div class="q-answer">
+              <div class="q-answer-body">
+                <p><strong>Binomial Nomenclature:</strong> It is the system of giving each organism a scientific name consisting of two parts — the <strong>genus</strong> (first word, capital letter) and the <strong>species</strong> (second word, small letter). It was introduced by <strong>Carolus Linnaeus</strong>.</p>
+                <p><strong>Rules:</strong> The name is written in Latin and printed in italics (underlined in handwriting).</p>
+                <p><strong>Examples:</strong><br/>• <em>Homo sapiens</em> — Human<br/>• <em>Felis catus</em> — Domestic cat</p>
+                <div class="q-answer-footer">
+                  <span class="q-marks">Marks: <strong>2</strong></span>
+                  <button class="q-bookmark-btn" onclick="event.stopPropagation(); toggleQBookmark(this)">🔖 Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="q-item" onclick="toggleQ(this)">
+            <div class="q-header">
+              <span class="q-badge short">2 Mark</span>
+              <span class="q-badge past">Past Paper</span>
+              <span class="q-text">Why are viruses not included in any of the five kingdoms?</span>
+              <span class="q-chevron">▼</span>
+            </div>
+            <div class="q-answer">
+              <div class="q-answer-body">
+                <p>Viruses are not included in any kingdom because:</p>
+                <ol>
+                  <li>They are <strong>acellular</strong> (non-cellular) — they have no cell structure.</li>
+                  <li>They are <strong>non-metabolising</strong> outside a host — they show no life processes independently.</li>
+                  <li>They can be <strong>crystallised</strong> like non-living substances (as shown by W.M. Stanley in 1935).</li>
+                  <li>They only replicate inside a living host cell — they are <strong>obligate intracellular parasites</strong>.</li>
+                </ol>
+                <div class="q-answer-footer">
+                  <span class="q-marks">Marks: <strong>2</strong></span>
+                  <button class="q-bookmark-btn" onclick="event.stopPropagation(); toggleQBookmark(this)">🔖 Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="q-item" onclick="toggleQ(this)">
+            <div class="q-header">
+              <span class="q-badge long">5 Mark</span>
+              <span class="q-badge past">Past Paper</span>
+              <span class="q-text">Describe the Five Kingdom Classification system proposed by Robert Whittaker.</span>
+              <span class="q-chevron">▼</span>
+            </div>
+            <div class="q-answer">
+              <div class="q-answer-body">
+                <p><strong>Five Kingdom Classification</strong> was proposed by <strong>Robert Whittaker</strong> in <strong>1969</strong>. He classified all living organisms into five kingdoms based on: cell type, body organisation, mode of nutrition, and mode of reproduction.</p>
+                <ol>
+                  <li><strong>Kingdom Monera:</strong> Prokaryotic, unicellular organisms. Nutrition by absorption or photosynthesis. Examples: Bacteria, Cyanobacteria.</li>
+                  <li><strong>Kingdom Protista:</strong> Eukaryotic, mostly unicellular. Nutrition autotrophic or heterotrophic. Examples: Amoeba, Paramecium, Euglena.</li>
+                  <li><strong>Kingdom Fungi:</strong> Eukaryotic, mostly multicellular. Saprophytic nutrition by absorption. Examples: Mushrooms, Yeast, Rhizopus.</li>
+                  <li><strong>Kingdom Plantae:</strong> Eukaryotic, multicellular. Autotrophic nutrition by photosynthesis. Examples: Mosses, Ferns, Angiosperms.</li>
+                  <li><strong>Kingdom Animalia:</strong> Eukaryotic, multicellular. Heterotrophic nutrition by ingestion. Examples: Sponges, Insects, Mammals.</li>
+                </ol>
+                <div class="q-answer-footer">
+                  <span class="q-marks">Marks: <strong>5</strong></span>
+                  <button class="q-bookmark-btn" onclick="event.stopPropagation(); toggleQBookmark(this)">🔖 Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="q-item" onclick="toggleQ(this)">
+            <div class="q-header">
+              <span class="q-badge short">2 Mark</span>
+              <span class="q-text">What is taxonomy and who is called the father of taxonomy?</span>
+              <span class="q-chevron">▼</span>
+            </div>
+            <div class="q-answer">
+              <div class="q-answer-body">
+                <p><strong>Taxonomy</strong> is the branch of biology that deals with the <strong>identification, nomenclature, and classification</strong> of organisms. The word is derived from Greek: <em>taxis</em> (arrangement) + <em>nomos</em> (law).</p>
+                <p><strong>Father of Taxonomy:</strong> <strong>Carolus Linnaeus</strong> (1707–1778), a Swedish botanist, is called the Father of Taxonomy. He introduced the binomial nomenclature system and laid the foundation of modern biological classification in his book <em>Systema Naturae</em> (1735).</p>
+                <div class="q-answer-footer">
+                  <span class="q-marks">Marks: <strong>2</strong></span>
+                  <button class="q-bookmark-btn" onclick="event.stopPropagation(); toggleQBookmark(this)">🔖 Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Premium lock -->
+          <div class="premium-lock">
+            <div class="lock-icon-lg">🔒</div>
+            <h3 class="lock-title">13 More Questions Locked</h3>
+            <p class="lock-desc">Upgrade to Premium to access all 18 short questions + 6 long questions for this chapter — with board-exam model answers.</p>
+            <a href="login.html?plan=premium" class="btn-unlock">⚡ Unlock Premium — Rs. 499/mo</a>
+          </div>
+
+        </div>
+      </div><!-- /tab-short -->
+
+      <!-- ===== LONG Q TAB ===== -->
+      <div class="tab-panel" id="tab-long">
+        <div class="questions-header">
+          <button class="q-category-btn active">All Long Questions</button>
+          <button class="q-category-btn" onclick="setQFilter('past', this)">📋 Past Paper</button>
+          <span class="q-count">6 questions</span>
+        </div>
+        <div class="q-item" onclick="toggleQ(this)">
+          <div class="q-header">
+            <span class="q-badge long">5 Mark</span>
+            <span class="q-badge past">Past Paper</span>
+            <span class="q-text">Write a comprehensive note on the classification system of Carolus Linnaeus and discuss the significance of binomial nomenclature.</span>
+            <span class="q-chevron">▼</span>
+          </div>
+          <div class="q-answer">
+            <div class="q-answer-body">
+              <p><strong>Carolus Linnaeus (1707–1778)</strong> was a Swedish botanist who is considered the <strong>Father of Taxonomy</strong>. He developed a hierarchical system of classification that forms the basis of modern biological classification.</p>
+              <p><strong>Hierarchical Classification:</strong> Linnaeus arranged organisms in a hierarchy from most general to most specific: Kingdom → Phylum → Class → Order → Family → Genus → Species.</p>
+              <p><strong>Binomial Nomenclature</strong> — introduced by Linnaeus — gives each organism a unique two-part Latin name:</p>
+              <ol>
+                <li>The first part is the <strong>Genus</strong> name (capital letter).</li>
+                <li>The second part is the <strong>species</strong> name (lowercase).</li>
+              </ol>
+              <p><strong>Significance of Binomial Nomenclature:</strong></p>
+              <ol>
+                <li>Provides a <strong>universal name</strong> understood by scientists worldwide, regardless of language.</li>
+                <li>Eliminates confusion caused by common names (e.g., "robin" refers to different birds in UK and USA).</li>
+                <li>Indicates evolutionary relationships between organisms.</li>
+                <li>The two-part name conveys both the species' <strong>identity and its genus</strong>, showing relationship to similar organisms.</li>
+              </ol>
+              <div class="q-answer-footer">
+                <span class="q-marks">Marks: <strong>5</strong></span>
+                <button class="q-bookmark-btn" onclick="event.stopPropagation(); toggleQBookmark(this)">🔖 Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="premium-lock">
+          <div class="lock-icon-lg">🔒</div>
+          <h3 class="lock-title">5 More Long Questions Locked</h3>
+          <p class="lock-desc">Upgrade to Premium to access all 6 long questions — complete 5-mark model answers in board-exam format.</p>
+          <a href="login.html?plan=premium" class="btn-unlock">⚡ Unlock Premium — Rs. 499/mo</a>
+        </div>
+      </div><!-- /tab-long -->
+
+    </div><!-- /tab-content -->
+  </main><!-- /content-area -->
+</div><!-- /page-layout -->
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923001234567?text=Hi%20Imoria!" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+/* ====================================================
+   DATA — Biology Part I Chapters
+==================================================== */
+const CHAPTERS = {
+  biology: {
+    1: [
+      { id:1,  name:'Introduction — Biodiversity & Classification', mcqs:42, short:18, long:6,  progress:35, locked:false },
+      { id:2,  name:'Biological Molecules',                         mcqs:55, short:22, long:7,  progress:0,  locked:false },
+      { id:3,  name:'Enzymes',                                      mcqs:38, short:16, long:5,  progress:0,  locked:true  },
+      { id:4,  name:'The Cell',                                     mcqs:60, short:24, long:8,  progress:0,  locked:true  },
+      { id:5,  name:'Variety of Life',                              mcqs:45, short:18, long:6,  progress:0,  locked:true  },
+      { id:6,  name:'Kingdom Prokaryotae (Monera)',                 mcqs:30, short:12, long:4,  progress:0,  locked:true  },
+      { id:7,  name:'Kingdom Protista (Protoctista)',               mcqs:28, short:12, long:4,  progress:0,  locked:true  },
+      { id:8,  name:'Kingdom Fungi',                                mcqs:32, short:14, long:5,  progress:0,  locked:true  },
+      { id:9,  name:'Kingdom Plantae',                              mcqs:50, short:20, long:7,  progress:0,  locked:true  },
+      { id:10, name:'Kingdom Animalia',                             mcqs:48, short:20, long:7,  progress:0,  locked:true  },
+      { id:11, name:'Bioenergetics',                                mcqs:42, short:18, long:6,  progress:0,  locked:true  },
+      { id:12, name:'Nutrition',                                    mcqs:40, short:16, long:5,  progress:0,  locked:true  },
+      { id:13, name:'Gaseous Exchange',                             mcqs:35, short:14, long:5,  progress:0,  locked:true  },
+    ],
+    2: [
+      { id:14, name:'Homeostasis',                                  mcqs:44, short:18, long:6,  progress:0,  locked:true  },
+      { id:15, name:'Reproduction',                                 mcqs:50, short:20, long:7,  progress:0,  locked:true  },
+      { id:16, name:'Support & Movement',                           mcqs:38, short:16, long:5,  progress:0,  locked:true  },
+      { id:17, name:'Nervous Coordination',                         mcqs:45, short:18, long:6,  progress:0,  locked:true  },
+      { id:18, name:'Chemical Coordination',                        mcqs:42, short:16, long:5,  progress:0,  locked:true  },
+      { id:19, name:'Behaviour',                                    mcqs:30, short:12, long:4,  progress:0,  locked:true  },
+      { id:20, name:'Population Genetics',                          mcqs:35, short:14, long:5,  progress:0,  locked:true  },
+      { id:21, name:'Cell Cycle & Cell Division',                   mcqs:48, short:20, long:7,  progress:0,  locked:true  },
+      { id:22, name:'Chromosomes & DNA',                            mcqs:50, short:20, long:6,  progress:0,  locked:true  },
+      { id:23, name:'Gene Expression',                              mcqs:40, short:16, long:5,  progress:0,  locked:true  },
+      { id:24, name:'Biotechnology',                                mcqs:38, short:14, long:5,  progress:0,  locked:true  },
+      { id:25, name:'Genomics',                                     mcqs:30, short:12, long:4,  progress:0,  locked:true  },
+      { id:26, name:'Evolution',                                    mcqs:45, short:18, long:6,  progress:0,  locked:true  },
+      { id:27, name:'Ecosystem',                                    mcqs:40, short:16, long:5,  progress:0,  locked:true  },
+    ]
+  }
+};
+
+let currentPart = 1;
+let currentChapterId = 1;
+let currentSubject = 'biology';
+
+function renderChapterList(subject, part, filter = '') {
+  const list = document.getElementById('chapterList');
+  const chapters = CHAPTERS[subject]?.[part] || [];
+  list.innerHTML = '';
+
+  const label = document.createElement('div');
+  label.className = 'chapter-group-label';
+  label.textContent = `Part ${part} — ${chapters.length} Chapters`;
+  list.appendChild(label);
+
+  chapters.forEach(ch => {
+    if (filter && !ch.name.toLowerCase().includes(filter.toLowerCase())) return;
+    const item = document.createElement('div');
+    item.className = 'chapter-item' + (ch.id === currentChapterId ? ' active' : '') + (ch.progress === 100 ? ' completed' : '');
+    item.onclick = () => loadChapter(ch, subject, part);
+    item.innerHTML = `
+      <div class="ch-num">${ch.id}</div>
+      <div class="ch-info">
+        <div class="ch-name">${ch.name}</div>
+        <div class="ch-meta">${ch.mcqs} MCQs · ${ch.short} Short · ${ch.long} Long</div>
+        ${ch.progress > 0 ? `<div class="ch-progress"><div class="ch-progress-fill" style="width:${ch.progress}%"></div></div>` : ''}
+      </div>
+      ${ch.locked ? '<span class="lock-icon">🔒</span>' : ''}
+    `;
+    list.appendChild(item);
+  });
+}
+
+function loadChapter(ch, subject, part) {
+  currentChapterId = ch.id;
+  // Update sidebar active state
+  document.querySelectorAll('.chapter-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+
+  if (ch.locked) {
+    showToast('🔒 Upgrade to Premium to unlock this chapter');
+    return;
+  }
+
+  // Update header
+  document.getElementById('chapterTitle').textContent = `Chapter ${ch.id}: ${ch.name}`;
+  document.getElementById('breadcrumbChapter').textContent = `Chapter ${ch.id}: ${ch.name.split('—')[0].trim()}`;
+  document.getElementById('chProgressFill').style.width = ch.progress + '%';
+  document.querySelector('.ch-header-eyebrow').textContent = `🧬 ${subject.charAt(0).toUpperCase()+subject.slice(1)} · Part ${part}`;
+  document.querySelector('.ch-header-stats').querySelector('strong').textContent = ch.mcqs;
+
+  // Reset tabs to notes
+  switchTab('notes', document.querySelector('.tab-btn'));
+  closeSidebar();
+}
+
+function setPart(p) {
+  currentPart = p;
+  document.getElementById('part1Btn').classList.toggle('active', p === 1);
+  document.getElementById('part2Btn').classList.toggle('active', p === 2);
+  renderChapterList(currentSubject, p);
+}
+
+function switchSubject(subject, el) {
+  currentSubject = subject;
+  document.querySelectorAll('.subj-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderChapterList(subject, currentPart);
+}
+
+function filterChapters(val) {
+  renderChapterList(currentSubject, currentPart, val);
+}
+
+/* ====================================================
+   TABS
+==================================================== */
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  // Reset MCQ if switching away
+  if (name !== 'mcq') {
+    document.getElementById('mcqSetup').style.display = '';
+    document.getElementById('mcqSession').classList.remove('active');
+    document.getElementById('mcqResults').classList.remove('show');
+  }
+}
+
+/* ====================================================
+   MCQ ENGINE
+==================================================== */
+const MCQ_QUESTIONS = [
+  { q: 'The term "Biology" was coined by:', opts: ['Darwin & Wallace','Lamarck & Treviranus','Linnaeus & Cuvier','Aristotle & Plato'], ans: 1, exp: 'The term "Biology" was coined independently by <strong>Jean-Baptiste Lamarck</strong> and <strong>Gottfried Treviranus</strong> in 1802.', past: true },
+  { q: 'Biodiversity refers to the variety of life at:', opts: ['Genetic level only','Species level only','Ecosystem level only','All three levels: genetic, species, ecosystem'], ans: 3, exp: 'Biodiversity encompasses <strong>three levels</strong>: genetic diversity, species diversity, and ecosystem diversity.', past: true },
+  { q: 'The father of taxonomy is:', opts: ['Charles Darwin','Robert Whittaker','Carolus Linnaeus','Carl Woese'], ans: 2, exp: '<strong>Carolus Linnaeus</strong> (1707–1778) is called the Father of Taxonomy. He introduced the binomial nomenclature system.', past: true },
+  { q: 'In binomial nomenclature, which part of the name is written in capital?', opts: ['Species name','Genus name','Both','Neither'], ans: 1, exp: 'In binomial nomenclature, the <strong>Genus</strong> name is always written with a capital letter, while the species name is in lowercase.', past: false },
+  { q: 'The Five Kingdom Classification was proposed by:', opts: ['Carl Woese','Ernst Haeckel','Robert Whittaker','Lynn Margulis'], ans: 2, exp: '<strong>Robert Whittaker</strong> proposed the Five Kingdom Classification in <strong>1969</strong>, based on cell type, nutrition, and reproduction.', past: true },
+  { q: 'Which kingdom consists of prokaryotic organisms?', opts: ['Protista','Fungi','Monera','Plantae'], ans: 2, exp: '<strong>Kingdom Monera</strong> consists entirely of prokaryotic organisms (no membrane-bound nucleus), including bacteria and cyanobacteria.', past: false },
+  { q: 'Viruses are not included in any kingdom because they are:', opts: ['Too small to classify','Acellular and non-metabolising outside host','Neither plant nor animal','Found only in disease'], ans: 1, exp: 'Viruses are <strong>acellular</strong> (no cell structure) and only show life processes inside a living host cell, making them impossible to classify in any kingdom.', past: true },
+  { q: 'The scientific name of humans is:', opts: ['Homo erectus','Homo habilis','Homo sapiens','Homo neanderthalensis'], ans: 2, exp: 'The scientific name of modern humans is <strong><em>Homo sapiens</em></strong>. <em>Homo</em> is the genus and <em>sapiens</em> means "wise" in Latin.', past: true },
+  { q: 'The term "Biodiversity" was coined by:', opts: ['E.O. Wilson','W.G. Rosen','Robert May','David Tilman'], ans: 1, exp: 'The term "biodiversity" was coined by <strong>W.G. Rosen</strong> in 1985 at the National Forum on Biological Diversity.', past: false },
+  { q: 'Which of the following correctly lists the taxonomic ranks from broad to specific?', opts: ['Kingdom, Class, Phylum, Order, Family, Genus, Species','Kingdom, Phylum, Class, Order, Family, Genus, Species','Phylum, Kingdom, Class, Family, Order, Genus, Species','Kingdom, Phylum, Order, Class, Family, Genus, Species'], ans: 1, exp: 'The correct order is: <strong>Kingdom → Phylum → Class → Order → Family → Genus → Species</strong>. Remember: "King Philip Came Over For Good Soup."', past: true },
+];
+
+let mcqIndex = 0;
+let mcqAnswered = [];
+let mcqCorrect = 0;
+let mcqTimer = null;
+let timeLeft = 60;
+let timerEnabled = false;
+let bookmarkedMCQs = new Set();
+
+function startMCQ() {
+  mcqIndex = 0;
+  mcqAnswered = new Array(MCQ_QUESTIONS.length).fill(null);
+  mcqCorrect = 0;
+  timerEnabled = document.getElementById('timerToggle').classList.contains('on');
+
+  document.getElementById('mcqSetup').style.display = 'none';
+  document.getElementById('mcqSession').classList.add('active');
+  document.getElementById('qTotal').textContent = MCQ_QUESTIONS.length;
+  renderMCQ();
+}
+
+function renderMCQ() {
+  const q = MCQ_QUESTIONS[mcqIndex];
+  document.getElementById('qCurrent').textContent = mcqIndex + 1;
+  document.getElementById('mcqQNum').textContent = `Question ${mcqIndex + 1}${q.past ? ' · 📋 Past Paper' : ''}`;
+  document.getElementById('mcqQText').textContent = q.q;
+  document.getElementById('mcqBarFill').style.width = ((mcqIndex + 1) / MCQ_QUESTIONS.length * 100) + '%';
+
+  // Bookmark state
+  const bBtn = document.getElementById('mcqBookmarkBtn');
+  bBtn.classList.toggle('saved', bookmarkedMCQs.has(mcqIndex));
+
+  const optsEl = document.getElementById('mcqOptions');
+  optsEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'mcq-opt';
+    btn.innerHTML = `<span class="mcq-opt-letter">${letters[i]}</span>${opt}`;
+    const answered = mcqAnswered[mcqIndex];
+    if (answered !== null) {
+      btn.disabled = true;
+      if (i === q.ans) btn.classList.add('correct');
+      if (i === answered && answered !== q.ans) btn.classList.add('wrong');
+    } else {
+      btn.onclick = () => selectAnswer(i);
+    }
+    optsEl.appendChild(btn);
+  });
+
+  const expEl = document.getElementById('mcqExplanation');
+  if (mcqAnswered[mcqIndex] !== null) {
+    expEl.innerHTML = '<strong>Explanation:</strong> ' + q.exp;
+    expEl.classList.add('show');
+    document.getElementById('mcqNextBtn').textContent = mcqIndex < MCQ_QUESTIONS.length - 1 ? 'Next →' : 'See Results';
+  } else {
+    expEl.classList.remove('show');
+    document.getElementById('mcqNextBtn').textContent = mcqIndex < MCQ_QUESTIONS.length - 1 ? 'Next →' : 'Submit';
+  }
+
+  // Timer
+  if (timerEnabled) {
+    clearInterval(mcqTimer);
+    if (mcqAnswered[mcqIndex] === null) {
+      timeLeft = 60;
+      startTimer();
+    }
+    document.getElementById('timerDisplay').style.display = '';
+  }
+}
+
+function startTimer() {
+  const display = document.getElementById('timerDisplay');
+  display.classList.remove('warning');
+  mcqTimer = setInterval(() => {
+    timeLeft--;
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    display.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+    if (timeLeft <= 10) display.classList.add('warning');
+    if (timeLeft <= 0) { clearInterval(mcqTimer); selectAnswer(-1); }
+  }, 1000);
+}
+
+function selectAnswer(i) {
+  clearInterval(mcqTimer);
+  mcqAnswered[mcqIndex] = i;
+  const q = MCQ_QUESTIONS[mcqIndex];
+  if (i === q.ans) mcqCorrect++;
+  renderMCQ();
+}
+
+function nextQuestion() {
+  if (mcqAnswered[mcqIndex] === null) {
+    showToast('👆 Please select an answer first');
+    return;
+  }
+  if (mcqIndex < MCQ_QUESTIONS.length - 1) {
+    mcqIndex++;
+    renderMCQ();
+  } else {
+    showResults();
+  }
+}
+
+function prevQuestion() {
+  if (mcqIndex > 0) { mcqIndex--; renderMCQ(); }
+}
+
+function toggleMcqBookmark() {
+  const btn = document.getElementById('mcqBookmarkBtn');
+  if (bookmarkedMCQs.has(mcqIndex)) { bookmarkedMCQs.delete(mcqIndex); btn.classList.remove('saved'); showToast('Removed from saved'); }
+  else { bookmarkedMCQs.add(mcqIndex); btn.classList.add('saved'); showToast('🔖 Question saved!'); }
+}
+
+function showResults() {
+  clearInterval(mcqTimer);
+  document.getElementById('mcqSession').classList.remove('active');
+  const results = document.getElementById('mcqResults');
+  results.classList.add('show');
+  const pct = Math.round(mcqCorrect / MCQ_QUESTIONS.length * 100);
+  document.getElementById('resultScore').textContent = `${mcqCorrect}/${MCQ_QUESTIONS.length}`;
+  const title = pct >= 80 ? 'Excellent Work! 🏆' : pct >= 60 ? 'Good Effort! 👍' : 'Keep Practising! 💪';
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultSub').textContent = `You scored ${pct}% — ${pct >= 67 ? 'above' : 'below'} the class average of 67%`;
+}
+
+function retryMCQ() {
+  document.getElementById('mcqResults').classList.remove('show');
+  document.getElementById('mcqSetup').style.display = '';
+}
+
+function reviewMCQ() {
+  document.getElementById('mcqResults').classList.remove('show');
+  mcqIndex = 0;
+  document.getElementById('mcqSession').classList.add('active');
+  renderMCQ();
+}
+
+function setFilter(type, el) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ====================================================
+   QUESTIONS ACCORDION
+==================================================== */
+function toggleQ(item) {
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.q-item').forEach(q => q.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+function setQFilter(type, el) {
+  document.querySelectorAll('.q-category-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function toggleQBookmark(btn) {
+  const saved = btn.classList.toggle('saved');
+  btn.textContent = saved ? '🔖 Saved' : '🔖 Save';
+  showToast(saved ? '🔖 Question saved!' : 'Removed from saved');
+}
+
+/* ====================================================
+   NOTES TOC
+==================================================== */
+function scrollToSection(id, el) {
+  document.querySelectorAll('.toc-item').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const target = document.getElementById(id);
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ====================================================
+   SIDEBAR
+==================================================== */
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('sidebarOverlay');
+document.getElementById('sidebarToggle').addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+});
+overlay.addEventListener('click', closeSidebar);
+function closeSidebar() {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('show');
+}
+
+/* ====================================================
+   THEME
+==================================================== */
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('imoria-theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+themeToggle.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('imoria-theme', next);
+  themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+});
+
+/* ====================================================
+   TOAST
+==================================================== */
+function showToast(msg) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  container.appendChild(toast);
+  requestAnimationFrame(() => { requestAnimationFrame(() => toast.classList.add('show')); });
+  setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 2800);
+}
+
+/* ====================================================
+   INIT
+==================================================== */
+renderChapterList('biology', 1);
+</script>
+</body>
+</html>
